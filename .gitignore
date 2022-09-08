@@ -75,7 +75,7 @@ StyleCopReport.xml
 *.ilk
 *.meta
 *.obj
-!/Resources/
+!/MyDX12/Resources/
 *.iobj
 *.pch
 *.pdb
