@@ -190,6 +190,7 @@
     <ClCompile Include="GameScene\SceneState.cpp" />
     <ClCompile Include="GameScene\Select.cpp" />
     <ClCompile Include="GameScene\Title.cpp" />
+    <ClCompile Include="Game\ObjectManager.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="ImGui\Docking\imgui.cpp" />
     <ClCompile Include="ImGui\Docking\imgui_demo.cpp" />
@@ -255,6 +256,7 @@
     <ClInclude Include="GameScene\SceneState.h" />
     <ClInclude Include="GameScene\Select.h" />
     <ClInclude Include="GameScene\Title.h" />
+    <ClInclude Include="Game\GameObj.h" />
     <ClInclude Include="Game\ObjectManager.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="ImGui\Docking\imconfig.h" />
