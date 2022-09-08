@@ -21,5 +21,8 @@ private: // メンバ変数
 	Math::Vector3 position; // 座標
 	Math::Vector3 velocity; // 速度
 	Math::Vector3 acc; // 加速度
+
+	// 当たり判定確認用
+	Object3D* collboxObj = nullptr;
 };
 
