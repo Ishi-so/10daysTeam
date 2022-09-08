@@ -6,36 +6,37 @@ class DebugCamera;
 class LightGroup;
 class Circle;
 class Tessellation;
+class SceneState;
 
-namespace XIIlib {
+class GameScene {
+private:// 静的メンバ
+	static const int debugTextTexNumber = 0;
+	static const int debugJISTextTexNumber = 1;
 
-	class GameScene {
-	private:// 静的メンバ
-		static const int debugTextTexNumber = 0;
-		static const int debugJISTextTexNumber = 1;
+private:// メンバ
+	LightGroup* lightGroup = nullptr;
+	DebugCamera* d_camera = nullptr;
+	SceneState* state = nullptr;// Scene
 
-	private:// メンバ
-		LightGroup* lightGroup = nullptr;
-		DebugCamera* d_camera = nullptr;
+	void* objectA = nullptr;
+	void* objectB = nullptr;
 
-		void* objectA = nullptr;
-		void* objectB = nullptr;
+	Math::Vector3 cameraPos;
+	float cameRad = 0.0f;
 
-		Math::Vector3 cameraPos;
-		float cameRad = 0.0f;
+	Circle* circle = nullptr;
 
-		Circle* circle = nullptr;
+public:
+	static GameScene* Create();
 
-	public:
-		static GameScene* Create();
+	GameScene();
+	~GameScene();
 
-		GameScene();
-		~GameScene();
+	bool Initialize();// 初期化
 
-		bool Initialize();
+	void Update();// 更新
 
-		void Update();
+	void Draw();// 描画
 
-		void Draw();
-	};
-}
+	void ChangeState(SceneState* different_state);// シーンの切り替え
+};

@@ -241,6 +241,7 @@
     <ClInclude Include="Base\WindowsApp.h" />
     <ClInclude Include="Camera\DebugCamera.h" />
     <ClInclude Include="GameScene\GameScene.h" />
+    <ClInclude Include="GameScene\SceneState.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="ImGui\Docking\imconfig.h" />
     <ClInclude Include="ImGui\Docking\imgui.h" />
