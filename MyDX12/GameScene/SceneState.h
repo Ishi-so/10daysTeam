@@ -2,6 +2,7 @@
 #include "../Tool/Messenger.h"
 
 class GameScene;
+class Player;
 
 class SceneState {
 protected:
@@ -20,7 +21,9 @@ public: // Œp³
 
 public: // SetterŠÖ”
 	void SetGameScene(GameScene* p_game_scene) { this->p_game_scene = p_game_scene; }
+	void SetPlayer(Player* p_player) { this->p_player = p_player; }
+public: // GetterŠÖ”
 protected: // Ã“Iƒƒ“ƒo•Ï”
 	static GameScene* p_game_scene;
-
+	static Player* p_player;
 };
