@@ -1,4 +1,5 @@
 #include "TypeCollision.h"
+#include "Math/Vector3.h"
 
 using namespace Math;
 
@@ -530,6 +531,20 @@ int Math::BoundingCheck_BoundingSphere_BoundingSphere(const BoundingSphere& bs0,
 	{
 		return 1;
 	}
+}
+
+AABB Math::SetAABB(const Math::Vector3& _o, const Math::Vector3& _scale)
+{
+	AABB result;
+	result.max = {
+		_o.x + _scale.x,
+		_o.y + _scale.y,
+		_o.z + _scale.z };
+	result.min = {
+		_o.x - _scale.x,
+		_o.y - _scale.y,
+		_o.z - _scale.z };
+	return result;
 }
 
 int Math::BoundingCheck_AABB_Segment(const AABB& aabb, const Segment& seg)
