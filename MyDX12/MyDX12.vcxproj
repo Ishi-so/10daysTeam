@@ -182,8 +182,13 @@
     <ClCompile Include="Base\Library.cpp" />
     <ClCompile Include="Base\WindowsApp.cpp" />
     <ClCompile Include="Camera\DebugCamera.cpp" />
+    <ClCompile Include="GameScene\End.cpp" />
     <ClCompile Include="GameScene\GameScene.cpp" />
+    <ClCompile Include="GameScene\Load.cpp" />
+    <ClCompile Include="GameScene\Menu.cpp" />
+    <ClCompile Include="GameScene\Play.cpp" />
     <ClCompile Include="GameScene\SceneState.cpp" />
+    <ClCompile Include="GameScene\Select.cpp" />
     <ClCompile Include="GameScene\Title.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="ImGui\Docking\imgui.cpp" />
@@ -242,8 +247,13 @@
     <ClInclude Include="Base\Library.h" />
     <ClInclude Include="Base\WindowsApp.h" />
     <ClInclude Include="Camera\DebugCamera.h" />
+    <ClInclude Include="GameScene\End.h" />
     <ClInclude Include="GameScene\GameScene.h" />
+    <ClInclude Include="GameScene\Load.h" />
+    <ClInclude Include="GameScene\Menu.h" />
+    <ClInclude Include="GameScene\Play.h" />
     <ClInclude Include="GameScene\SceneState.h" />
+    <ClInclude Include="GameScene\Select.h" />
     <ClInclude Include="GameScene\Title.h" />
     <ClInclude Include="Game\ObjectManager.h" />
     <ClInclude Include="Game\Player.h" />

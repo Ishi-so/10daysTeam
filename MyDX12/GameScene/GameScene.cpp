@@ -5,10 +5,11 @@
 #include "../3D/ObjectContainer.h"
 #include "../2D/Sprite.h"
 #include "../Input/KeyInput.h"
+#include "../Tool/DebugJISText.h"
 
 #include "../2D/Circle.h"
 
-#include "SceneState.h"
+#include "Title.h"
 #include "../Game/Player.h"
 
 GameScene* GameScene::Create()
@@ -32,6 +33,7 @@ GameScene* GameScene::Create()
 
 GameScene::GameScene()
 {
+	state = new Title();
 }
 
 GameScene::~GameScene()
@@ -78,6 +80,8 @@ bool GameScene::Initialize()
 	Sprite::LoadTexture(debugJISTextTexNumber, L"Resources/JIS_Code_ver.1.02.png");
 	Sprite::LoadTexture(texind, L"Resources/digitalNum.png");					texind++;//2
 	Sprite::LoadTexture(texind, L"Resources/effect1.png");						texind++;//3
+
+	DebugJISText::GetInstance()->Initialize(debugJISTextTexNumber);
 
 	objectA = Object3D::Create(Model::CreateFromOBJ("sphere"));
 	objectB = Object3D::Create(Model::CreateFromOBJ("sphere"));

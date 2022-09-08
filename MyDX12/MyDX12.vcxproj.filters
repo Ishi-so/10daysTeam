@@ -303,6 +303,21 @@
     <ClCompile Include="GameScene\Title.cpp">
       <Filter>GameScene\Scene\Template</Filter>
     </ClCompile>
+    <ClCompile Include="GameScene\Select.cpp">
+      <Filter>GameScene\Scene\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene\Load.cpp">
+      <Filter>GameScene\Scene\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene\Play.cpp">
+      <Filter>GameScene\Scene\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene\End.cpp">
+      <Filter>GameScene\Scene\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene\Menu.cpp">
+      <Filter>GameScene\Scene\Template</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\DirectX12.h">
@@ -505,6 +520,21 @@
     </ClInclude>
     <ClInclude Include="Game\ObjectManager.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene\Select.h">
+      <Filter>GameScene\Scene\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene\Load.h">
+      <Filter>GameScene\Scene\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene\Play.h">
+      <Filter>GameScene\Scene\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene\End.h">
+      <Filter>GameScene\Scene\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene\Menu.h">
+      <Filter>GameScene\Scene\Template</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
