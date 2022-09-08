@@ -10,6 +10,7 @@
 #include "../2D/Circle.h"
 
 #include "Title.h"
+#include "../Game/Player.h"
 
 GameScene* GameScene::Create()
 {
@@ -37,6 +38,7 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
+	delete player;
 	delete circle;
 	delete objectB;
 	delete objectA;
@@ -93,7 +95,8 @@ bool GameScene::Initialize()
 	state->SetGameScene(this);
 	state->Initialize();
 
-	XIIlib::Messenger::GetInstance()->AddPrintOut("‰Šú‰»II");
+	player = Player::Create();
+
 	return true;
 }
 
@@ -168,6 +171,7 @@ void GameScene::Update()
 
 	state->Update();
 
+	player->Update();
 }
 
 void GameScene::Draw()
@@ -181,6 +185,7 @@ void GameScene::Draw()
 	Object3D::PreDraw();
 	static_cast<Object3D*>(objectB)->Draw();
 	static_cast<Object3D*>(objectA)->Draw();
+	player->Draw();
 	Object3D::PostDraw();
 
 	state->Draw();
