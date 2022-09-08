@@ -183,6 +183,8 @@
     <ClCompile Include="Base\WindowsApp.cpp" />
     <ClCompile Include="Camera\DebugCamera.cpp" />
     <ClCompile Include="GameScene\GameScene.cpp" />
+    <ClCompile Include="GameScene\SceneState.cpp" />
+    <ClCompile Include="GameScene\Title.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="ImGui\Docking\imgui.cpp" />
     <ClCompile Include="ImGui\Docking\imgui_demo.cpp" />
@@ -242,6 +244,8 @@
     <ClInclude Include="Camera\DebugCamera.h" />
     <ClInclude Include="GameScene\GameScene.h" />
     <ClInclude Include="GameScene\SceneState.h" />
+    <ClInclude Include="GameScene\Title.h" />
+    <ClInclude Include="Game\ObjectManager.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="ImGui\Docking\imconfig.h" />
     <ClInclude Include="ImGui\Docking\imgui.h" />
