@@ -1,10 +1,10 @@
 #pragma once
 #include "SceneState.h"
 
-class Title : public SceneState {
+class Select : public SceneState {
 public:
-	Title();	// コンストラクタ
-	~Title();	// デストラクタ
+	Select();	// コンストラクタ
+	~Select();	// デストラクタ
 
 	void Initialize()override;// 初期化
 	void Update()override;// 更新
