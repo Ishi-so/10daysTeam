@@ -39,6 +39,8 @@ void Player::Initialize()
 
 void Player::Update()
 {
+	// 状態をリセット
+	state = State::none;
 	// ---- 移動 ----
 	// キーボード操作
 	if (KeyInput::GetInstance()->Push(DIK_D)) // 右移動
@@ -92,17 +94,19 @@ void Player::Update()
 	SetCollsion();
 
 	// ---- 当たり判定 ----
-	if (Math::HitCheck_AABB_Sphere(collBox, collSphere) && !invincible) // box と sphereが当たったら
+	if (Math::HitCheck_AABB_Sphere(collBox, collSphere)) // box と sphereが当たったら
 	{
-		// 当たっていない状態だったら
-		if (!hitFlag)
+		// フラグをtrue
+		//hitFlag = true;
+		// boxを赤色に設定
+		boxObj->color = { 1,0,0 };
+		// 無敵状態じゃなかったら
+		if (!invincible)
 		{
-			// フラグをtrue
-			hitFlag = true;
-			// boxを赤色に設定
-			boxObj->color = { 1,0,0 };
+			// プレイヤーにダメージ
+			hitPoint--;
 			// playerを青色に設定
-			object->color = {0,0,1};
+			object->color = { 0,0,1 };
 			// 無敵付与
 			state = State::invincible;
 		}
@@ -110,13 +114,29 @@ void Player::Update()
 	else 
 	{
 		//フラグをfalse
-		hitFlag = false;
+		//hitFlag = false;
 		// boxの色を戻す
 		boxObj->color = { 1,1,1 };
 	}
 
+	// 当たっているときの特別処理
+	if (hitFlag)
+	{
+
+	}
+	else
+	{
+
+	}
+
 	// 状態によって効果を付与
 	SetSkill();
+
+	// 体力が0未満になったら
+	if (hitPoint <= 0)
+	{
+		object->color = { 1,0,1 };
+	}
 
 	// ---- 最終的な座標を設定　----
 	object->position = position; // 改めて設定(当たった時に押し出す処理を考慮)
@@ -141,6 +161,7 @@ void Player::Update()
 
 	// 無敵状態なら
 	if(invincible){ invincibleCnt++; } // 無敵時間をカウント
+
 }
 
 void Player::Draw()
@@ -185,7 +206,6 @@ void Player::SetSkill()
 	else if (state == State::invincible)
 	{
 		invincible = true;
-		hitFlag = false;
 	}
 	else
 	{
