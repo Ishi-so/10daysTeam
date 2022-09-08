@@ -11,8 +11,8 @@ private:
 
 	void DeadUnit();// 存在していないオブジェクトを消す
 	
-	std::vector<std::unique_ptr<GameObj>> mObjs;	// 管理オブジェクトコンテナ
-	std::vector<std::unique_ptr<GameObj>> mAddObjs;// 追加物格納コンテナ
+	std::vector<std::shared_ptr<GameObj>> mObjs;	// 管理オブジェクトコンテナ
+	std::vector<std::shared_ptr<GameObj>> mAddObjs;// 追加物格納コンテナ
 public:
 	ObjectManager(const ObjectManager& obj) = delete;
 	ObjectManager& operator = (const ObjectManager& obj) = delete;
@@ -25,7 +25,7 @@ public:
 
 	void Draw(); // 描画
 
-	void AddObject(const std::unique_ptr<GameObj>& upObject); // ユニットの追加
+	void AddObject(const std::shared_ptr<GameObj>& upObject); // ユニットの追加
 
 	void AllDestroy();// 全てを削除
 };

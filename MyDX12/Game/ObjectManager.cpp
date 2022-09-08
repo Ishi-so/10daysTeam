@@ -6,7 +6,7 @@ ObjectManager::~ObjectManager(){}
 
 void ObjectManager::DeadUnit()
 {
-	auto removeIt = std::remove_if(mObjs.begin(), mObjs.end(), [&](std::unique_ptr<GameObj> itr)
+	auto removeIt = std::remove_if(mObjs.begin(), mObjs.end(), [&](std::shared_ptr<GameObj> itr)
 		{
 			return itr->GetIsActive() == false;
 		}
@@ -52,7 +52,7 @@ void ObjectManager::Draw()
 	}
 }
 
-void ObjectManager::AddObject(const std::unique_ptr<GameObj>& upObject)
+void ObjectManager::AddObject(const std::shared_ptr<GameObj>& upObject)
 {
 	upObject.get()->Init();
 	mAddObjs.push_back(std::move(upObject));
