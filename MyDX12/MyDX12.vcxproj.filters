@@ -130,6 +130,9 @@
     <Filter Include="Game\ObjTemplate">
       <UniqueIdentifier>{d5020321-ec7e-4ac9-b281-ffd0a75145b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Loder">
+      <UniqueIdentifier>{f56a9c89-c24e-4f2d-80f8-af2efb197f2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\DirectX12.cpp">
@@ -326,6 +329,12 @@
     </ClCompile>
     <ClCompile Include="Game\Block.cpp">
       <Filter>Game\ObjTemplate</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CSVLoader.cpp">
+      <Filter>Game\Loder</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ModelLoader.cpp">
+      <Filter>Game\Loder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -550,6 +559,12 @@
     </ClInclude>
     <ClInclude Include="Game\Block.h">
       <Filter>Game\ObjTemplate</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CSVLoader.h">
+      <Filter>Game\Loder</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ModelLoader.h">
+      <Filter>Game\Loder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
