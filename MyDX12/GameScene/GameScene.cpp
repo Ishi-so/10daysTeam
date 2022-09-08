@@ -6,6 +6,7 @@
 #include "../2D/Sprite.h"
 #include "../Input/KeyInput.h"
 #include "../Tool/DebugJISText.h"
+#include "../Game/ObjectManager.h"
 
 #include "../2D/Circle.h"
 
@@ -99,6 +100,8 @@ bool GameScene::Initialize()
 	state->SetPlayer(m_player);
 	state->Initialize();
 
+	ObjectManager::GetInstance()->Initialize();
+
 	return true;
 }
 
@@ -174,6 +177,7 @@ void GameScene::Update()
 	state->Update();
 
 	m_player->Update(); // SceneState派生のクラスでやる(今は仮置き)
+	ObjectManager::GetInstance()->Update();
 }
 
 void GameScene::Draw()
@@ -188,6 +192,8 @@ void GameScene::Draw()
 	//static_cast<Object3D*>(objectB)->Draw();
 	m_player->Draw(); // SceneState派生のクラスでやる(今は仮置き)
 	//static_cast<Object3D*>(objectA)->Draw();
+
+	ObjectManager::GetInstance()->Draw();
 	Object3D::PostDraw();
 
 	state->Draw();
