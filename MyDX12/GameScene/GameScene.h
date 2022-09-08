@@ -7,6 +7,7 @@ class LightGroup;
 class Circle;
 class Tessellation;
 class SceneState;
+class Player; // ‰¼
 
 class GameScene {
 private:// Ã“Iƒƒ“ƒo
@@ -20,6 +21,7 @@ private:// ƒƒ“ƒo
 
 	void* objectA = nullptr;
 	void* objectB = nullptr;
+	Player* player = nullptr;
 
 	Math::Vector3 cameraPos;
 	float cameRad = 0.0f;
