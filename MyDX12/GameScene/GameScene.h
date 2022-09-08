@@ -27,7 +27,7 @@ private:// ƒƒ“ƒo
 
 	Circle* circle = nullptr;
 
-	Player* player = nullptr;
+	Player* m_player = nullptr;
 
 public:
 	static GameScene* Create();

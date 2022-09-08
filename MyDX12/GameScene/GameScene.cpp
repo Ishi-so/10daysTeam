@@ -38,7 +38,7 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
-	delete player;
+	delete m_player;
 	delete circle;
 	delete objectB;
 	delete objectA;
@@ -92,10 +92,12 @@ bool GameScene::Initialize()
 	circle = new Circle();
 	circle->Initialize();
 
-	state->SetGameScene(this);
-	state->Initialize();
+	// playerの生成
+	m_player = Player::Create();
 
-	player = Player::Create();
+	state->SetGameScene(this);
+	state->SetPlayer(m_player);
+	state->Initialize();
 
 	return true;
 }
@@ -171,7 +173,7 @@ void GameScene::Update()
 
 	state->Update();
 
-	player->Update();
+	m_player->Update();
 }
 
 void GameScene::Draw()
@@ -184,8 +186,8 @@ void GameScene::Draw()
 	//3Dまたはポストエフェクトの描画
 	Object3D::PreDraw();
 	static_cast<Object3D*>(objectB)->Draw();
+	m_player->Draw();
 	static_cast<Object3D*>(objectA)->Draw();
-	player->Draw();
 	Object3D::PostDraw();
 
 	state->Draw();
@@ -212,6 +214,5 @@ void GameScene::ChangeState(SceneState* different_state)
 	delete state;
 	state = nullptr;
 	state = different_state;
-	state->SetGameScene(this);
 	state->Initialize();
 }
