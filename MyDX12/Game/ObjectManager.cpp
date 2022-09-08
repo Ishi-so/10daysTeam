@@ -1,10 +1,11 @@
 #include "ObjectManager.h"
+#include "Block.h"
 
 ObjectManager::ObjectManager(){}
 
 ObjectManager::~ObjectManager(){}
 
-void ObjectManager::DeadUnit()
+void ObjectManager::DeadObject()
 {
 	auto removeIt = std::remove_if(mObjs.begin(), mObjs.end(), [&](std::shared_ptr<GameObj> itr)
 		{
@@ -23,6 +24,11 @@ ObjectManager* ObjectManager::GetInstance()
 
 void ObjectManager::Initialize()
 {
+	std::shared_ptr<Block> b1 = Block::Create({2,2,2}, {1,1,1});
+	std::shared_ptr<Block> b2 = Block::Create({-3,-3,-5}, {2,2,2});
+
+	AddObject(std::move(b1));
+	AddObject(std::move(b2));
 }
 
 void ObjectManager::Update()
@@ -42,6 +48,8 @@ void ObjectManager::Update()
 
 		mAddObjs.clear();
 	}
+
+	DeadObject();
 }
 
 void ObjectManager::Draw()

@@ -4,6 +4,8 @@
 
 namespace Math
 {
+	struct Vector3;
+
 	// 線分
 	struct Segment
 	{
@@ -108,6 +110,8 @@ namespace Math
 		Vector4 min;	// 座標最小値
 		Vector4 max;	// 座標最大値
 	};
+
+	AABB SetAABB(const Vector3& _o, const Vector3& _scale);
 
 	// AABBと線分のバウンディングボックス判定
 	int BoundingCheck_AABB_Segment(const AABB& aabb, const Segment& seg);
