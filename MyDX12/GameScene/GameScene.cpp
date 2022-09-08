@@ -188,6 +188,8 @@ void GameScene::Draw()
 	// 文字スプライト
 	Sprite::PreDraw();
 
+	XIIlib::Messenger::GetInstance()->DrawMessage();
+
 	Sprite::PostDraw();
 
 	Circle::PreDraw();
