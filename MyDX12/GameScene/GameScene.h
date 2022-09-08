@@ -21,12 +21,13 @@ private:// ƒƒ“ƒo
 
 	void* objectA = nullptr;
 	void* objectB = nullptr;
-	Player* player = nullptr;
-
+	
 	Math::Vector3 cameraPos;
 	float cameRad = 0.0f;
 
 	Circle* circle = nullptr;
+
+	Player* player = nullptr;
 
 public:
 	static GameScene* Create();
