@@ -32,12 +32,6 @@ void Block::Init()
 
 void Block::Update()
 {
-	time++;
-
-
-	if (time >= 180) {
-		isActive = false;
-	}
 	// 当たり判定の設定
 	collisionData = Math::SetAABB(pos, scale);
 	// 座標とスケールの設定
