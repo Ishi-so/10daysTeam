@@ -185,9 +185,9 @@ void GameScene::Draw()
 	DirectX12::ClearDepthBuffer();
 	//3Dまたはポストエフェクトの描画
 	Object3D::PreDraw();
-	static_cast<Object3D*>(objectB)->Draw();
+	//static_cast<Object3D*>(objectB)->Draw();
 	m_player->Draw(); // SceneState派生のクラスでやる(今は仮置き)
-	static_cast<Object3D*>(objectA)->Draw();
+	//static_cast<Object3D*>(objectA)->Draw();
 	Object3D::PostDraw();
 
 	state->Draw();
