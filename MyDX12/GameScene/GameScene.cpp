@@ -173,7 +173,7 @@ void GameScene::Update()
 
 	state->Update();
 
-	m_player->Update();
+	m_player->Update(); // SceneState派生のクラスでやる(今は仮置き)
 }
 
 void GameScene::Draw()
@@ -186,7 +186,7 @@ void GameScene::Draw()
 	//3Dまたはポストエフェクトの描画
 	Object3D::PreDraw();
 	static_cast<Object3D*>(objectB)->Draw();
-	m_player->Draw();
+	m_player->Draw(); // SceneState派生のクラスでやる(今は仮置き)
 	static_cast<Object3D*>(objectA)->Draw();
 	Object3D::PostDraw();
 
