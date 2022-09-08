@@ -1,10 +1,10 @@
 #pragma once
 #include "SceneState.h"
 
-class Title : public SceneState {
+class Menu : public SceneState {
 public:
-	Title();	// コンストラクタ
-	~Title();	// デストラクタ
+	Menu();	// コンストラクタ
+	~Menu();	// デストラクタ
 
 	void Initialize()override;// 初期化
 	void Update()override;// 更新
