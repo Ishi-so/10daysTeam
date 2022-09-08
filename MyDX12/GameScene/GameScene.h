@@ -27,7 +27,7 @@ private:// メンバ
 
 	Circle* circle = nullptr;
 
-	Player* m_player = nullptr;
+	Player* m_player = nullptr;// プレイヤークラス
 
 public:
 	static GameScene* Create();
