@@ -28,7 +28,7 @@ public: // メンバ関数
 	void Draw(); // 描画
 
 	void SetCollsion(); // 当たり判定を設定
-	void SetSkill(); // 状態によってバフデバフを付与
+	void SetSkillAbility(); // 状態によってバフデバフを付与
 private: // メンバ変数
 	Object3D* object = nullptr; // ゲームオブジェクト
 	State state = State::none; // プレイヤーの状態

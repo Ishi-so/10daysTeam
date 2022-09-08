@@ -130,7 +130,7 @@ void Player::Update()
 	}
 
 	// ó‘Ô‚É‚æ‚Á‚ÄŒø‰Ê‚ğ•t—^
-	SetSkill();
+	SetSkillAbility();
 
 	// ‘Ì—Í‚ª0–¢–‚É‚È‚Á‚½‚ç
 	if (hitPoint <= 0)
@@ -188,7 +188,7 @@ void Player::SetCollsion()
 		1.0f);
 }
 
-void Player::SetSkill()
+void Player::SetSkillAbility()
 {
 	// ó‘Ô‚É‚æ‚Á‚Ä‚»‚ê‚¼‚ê‚ÌŒø‰Ê‚ğ•t—^
 	if (state == State::none)
