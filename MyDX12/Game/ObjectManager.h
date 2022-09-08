@@ -9,7 +9,7 @@ private:
 	ObjectManager();
 	~ObjectManager();
 
-	void DeadUnit();// 存在していないオブジェクトを消す
+	void DeadObject();// 存在していないオブジェクトを消す
 	
 	std::vector<std::shared_ptr<GameObj>> mObjs;	// 管理オブジェクトコンテナ
 	std::vector<std::shared_ptr<GameObj>> mAddObjs;// 追加物格納コンテナ
