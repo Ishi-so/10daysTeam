@@ -127,6 +127,9 @@
     <Filter Include="GameScene\Scene\Template">
       <UniqueIdentifier>{31879581-f4a0-4397-86c8-da20a0246b98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\ObjTemplate">
+      <UniqueIdentifier>{d5020321-ec7e-4ac9-b281-ffd0a75145b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\DirectX12.cpp">
@@ -317,6 +320,9 @@
     </ClCompile>
     <ClCompile Include="GameScene\Menu.cpp">
       <Filter>GameScene\Scene\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ObjectManager.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -535,6 +541,9 @@
     </ClInclude>
     <ClInclude Include="GameScene\Menu.h">
       <Filter>GameScene\Scene\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObj.h">
+      <Filter>Game\ObjTemplate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
