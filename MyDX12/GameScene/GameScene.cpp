@@ -200,6 +200,7 @@ void GameScene::Draw()
 	Sprite::PreDraw();
 
 	XIIlib::Messenger::GetInstance()->DrawMessage();
+	DebugJISText::GetInstance()->DrawAll();
 
 	Sprite::PostDraw();
 
