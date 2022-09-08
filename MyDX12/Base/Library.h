@@ -3,11 +3,11 @@
 class WindowsApp;
 class DirectX12;
 class Sound;
+class GameScene;
 
 namespace XIIlib
 {
 	class KeyInput;
-	class GameScene;
 
 	class Library
 	{

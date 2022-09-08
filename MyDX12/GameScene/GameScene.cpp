@@ -8,7 +8,9 @@
 
 #include "../2D/Circle.h"
 
-XIIlib::GameScene* XIIlib::GameScene::Create()
+#include "SceneState.h"
+
+GameScene* GameScene::Create()
 {
 	// 3Dオブジェクトのインスタンスを生成
 	GameScene* pGameScene = new GameScene();
@@ -27,20 +29,24 @@ XIIlib::GameScene* XIIlib::GameScene::Create()
 	return pGameScene;
 }
 
-XIIlib::GameScene::GameScene()
+GameScene::GameScene()
 {
 }
 
-XIIlib::GameScene::~GameScene()
+GameScene::~GameScene()
 {
 	delete circle;
 	delete objectB;
 	delete objectA;
+	delete state;
+	state = nullptr;
 	delete lightGroup;
+	lightGroup = nullptr;
 	delete d_camera;
+	d_camera = nullptr;
 }
 
-bool XIIlib::GameScene::Initialize()
+bool GameScene::Initialize()
 {
 	// ここは始まりの書!!
 	// アフロディ林属性なのにゴッドノウズとヘブンズタイムは風属性
@@ -80,35 +86,39 @@ bool XIIlib::GameScene::Initialize()
 	circle = new Circle();
 	circle->Initialize();
 
+	state->SetGameScene(this);
+	state->Initialize();
+
+
 	return true;
 }
 
-void XIIlib::GameScene::Update()
+void GameScene::Update()
 {
 	// カメラの動きの処理
 	const float m_rad = 0.01f;
 	const float m_range = 0.1f;
 	const float lookatRange = 5.0f;
-	if (KeyInput::GetInstance()->Push(DIK_A)) {
+	if (XIIlib::KeyInput::GetInstance()->Push(DIK_A)) {
 		cameRad -= m_rad;
 	}
-	else if (KeyInput::GetInstance()->Push(DIK_D)) {
+	else if (XIIlib::KeyInput::GetInstance()->Push(DIK_D)) {
 		cameRad += m_rad;
 	}
 
-	if (KeyInput::GetInstance()->Push(DIK_UP)) {
+	if (XIIlib::KeyInput::GetInstance()->Push(DIK_UP)) {
 		cameraPos.x += sinf(cameRad) * m_range;
 		cameraPos.z += cosf(cameRad) * m_range;
 	}
-	if (KeyInput::GetInstance()->Push(DIK_DOWN)) {
+	if (XIIlib::KeyInput::GetInstance()->Push(DIK_DOWN)) {
 		cameraPos.x -= sinf(cameRad) * m_range;
 		cameraPos.z -= cosf(cameRad) * m_range;
 	}
-	if (KeyInput::GetInstance()->Push(DIK_LEFT)) {
+	if (XIIlib::KeyInput::GetInstance()->Push(DIK_LEFT)) {
 		cameraPos.x -= cosf(cameRad) * m_range;
 		cameraPos.z += sinf(cameRad) * m_range;
 	}
-	if (KeyInput::GetInstance()->Push(DIK_RIGHT)) {
+	if (XIIlib::KeyInput::GetInstance()->Push(DIK_RIGHT)) {
 		cameraPos.x += cosf(cameRad) * m_range;
 		cameraPos.z -= sinf(cameRad) * m_range;
 	}
@@ -152,9 +162,11 @@ void XIIlib::GameScene::Update()
 	// 第二のフィルタ(IF：デプス値(Z値))
 	circle->DrawCircle(300,300,100,255, 255, 255, 255);
 
+	state->Update();
+
 }
 
-void XIIlib::GameScene::Draw()
+void GameScene::Draw()
 {
 	// 背景スプライト
 	Sprite::PreDraw();
@@ -166,6 +178,8 @@ void XIIlib::GameScene::Draw()
 	static_cast<Object3D*>(objectB)->Draw();
 	static_cast<Object3D*>(objectA)->Draw();
 	Object3D::PostDraw();
+
+	state->Draw();
 
 	// ImGuiの描画
 
@@ -179,4 +193,13 @@ void XIIlib::GameScene::Draw()
 	Circle::PreDraw();
 	circle->Draw();
 	Circle::PostDraw();
+}
+
+void GameScene::ChangeState(SceneState* different_state)
+{
+	delete state;
+	state = nullptr;
+	state = different_state;
+	state->SetGameScene(this);
+	state->Initialize();
 }

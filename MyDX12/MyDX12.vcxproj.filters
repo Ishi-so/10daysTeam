@@ -121,6 +121,9 @@
     <Filter Include="Game">
       <UniqueIdentifier>{99213c0f-5c36-471a-be49-9b4be2c9618f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameScene\Scene">
+      <UniqueIdentifier>{6cb8237f-832b-49d8-9d7d-b4ad30a9162f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\DirectX12.cpp">
@@ -484,6 +487,9 @@
     </ClInclude>
     <ClInclude Include="Game\Player.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene\SceneState.h">
+      <Filter>GameScene\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
