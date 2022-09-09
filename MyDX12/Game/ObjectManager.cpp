@@ -1,6 +1,4 @@
 #include "ObjectManager.h"
-#include "Block.h"
-#include "Common.h"
 
 ObjectManager::ObjectManager(){}
 
@@ -25,12 +23,7 @@ ObjectManager* ObjectManager::GetInstance()
 
 void ObjectManager::Initialize()
 {
-	for (int i = 0; i < 15; i++) {
-		std::shared_ptr<Block> box = Block::Create({
-			Common::ConvertPositionX(i),
-			Common::ConvertPositionY(i + 1), 0}, { 1,1,1 });
-		AddObject(std::move(box));
-	}
+	
 }
 
 void ObjectManager::Update()
