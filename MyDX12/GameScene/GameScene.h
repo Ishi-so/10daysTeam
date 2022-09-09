@@ -18,9 +18,6 @@ private:// ƒƒ“ƒo
 	LightGroup* lightGroup = nullptr;
 	DebugCamera* d_camera = nullptr;
 	SceneState* state = nullptr;// Scene
-
-	void* objectA = nullptr;
-	void* objectB = nullptr;
 	
 	Math::Vector3 cameraPos;
 	float cameRad = 0.0f;

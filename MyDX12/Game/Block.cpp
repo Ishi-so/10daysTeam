@@ -1,6 +1,7 @@
 #include "Block.h"
 #include "../3D/Object3D.h"
 #include "Common.h"
+#include "ModelLoader.h"
 
 std::shared_ptr<Block> Block::Create(const Math::Vector3& _pos, const Math::Vector3& _scale)
 {
@@ -31,7 +32,7 @@ void Block::Init()
 	id = Common::SeparateFilePath(path).second;
 
 	// OBJクラスの生成
-	obj = Object3D::Create(Model::CreateFromOBJ("box_v000"));
+	obj = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_BLOCK));
 
 	// ・・AABBの設定・・
 	collisionData = Math::SetAABB(obj->position, obj->scale);
