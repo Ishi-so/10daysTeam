@@ -2,7 +2,7 @@
 #include <string>
 
 namespace Common {
-	static float posStartX = 0.0f,posStartY = 0.0f;
+	static float posStartX = -14.0f,posStartY = 0.0f;
 	static float posDistance = 2.0f;
 
 	// クラスネームの取り出し関数
