@@ -62,8 +62,7 @@ bool GameScene::Initialize()
 	d_camera = new DebugCamera();
 	d_camera->_Initialize(100.0f, 0.05f, 10.0f);
 	d_camera->SetLookAtRange(0, 1, 0);
-
-	d_camera->SetPosition(0,0,-25);
+	const float Z_AXIS = -25; // 奥行を設定
 
 	// ライト生成
 	lightGroup = LightGroup::Create();
@@ -84,7 +83,6 @@ bool GameScene::Initialize()
 	ModelLoader::GetInstance()->Initialize();
 	ModelLoader::GetInstance()->Load();
 
-	d_camera->_Update();
 	int texind = 2;
 	Sprite::LoadTexture(debugTextTexNumber, L"Resources/ASCIItex_ver2.png");
 	Sprite::LoadTexture(debugJISTextTexNumber, L"Resources/JIS_Code_ver.1.02.png");
@@ -118,10 +116,11 @@ bool GameScene::Initialize()
 			}
 			else if (mapData[i][j] == 2) // block
 			{
+				
 				std::shared_ptr<Block> box = Block::Create({
 				Common::ConvertPositionX(j),
 				Common::ConvertPositionY(i),
-									0 },
+				0 },
 					{ 1,1,1 }
 				);
 				ObjectManager::GetInstance()->AddObject(std::move(box));
@@ -138,12 +137,15 @@ bool GameScene::Initialize()
 	state->SetPlayer(m_player);
 	state->Initialize();
 
-	
 	// マネージャーの初期化
 	ObjectManager::GetInstance()->Initialize();
 	// プレイヤーをマネージャーにコピー
 	ObjectManager::GetInstance()->SetPlayer(m_player);
 
+	// カメラの更新(1f目おかしくなるため)
+	Math::Vector3 playerPos = m_player->GetPosition();
+	d_camera->SetPosition(playerPos.x, playerPos.y,Z_AXIS);
+	d_camera->_Update();
 	return true;
 }
 
@@ -156,7 +158,7 @@ void GameScene::Update()
 
 	
 	// カメラ更新
-	//d_camera->SetPosition(cameraPos.x, cameraPos.y, cameraPos.z);
+	d_camera->SetPosition(0,m_player->GetPosition().y,-25);
 	d_camera->_Update();
 
 	state->Update();
