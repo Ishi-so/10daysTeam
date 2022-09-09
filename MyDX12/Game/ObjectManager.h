@@ -3,6 +3,8 @@
 #include <vector>
 #include "GameObj.h"
 
+class Player;// プレイヤー
+
 // オブジェクトの管理クラス
 class ObjectManager {
 private:
@@ -13,6 +15,8 @@ private:
 	
 	std::vector<std::shared_ptr<GameObj>> mObjs;	// 管理オブジェクトコンテナ
 	std::vector<std::shared_ptr<GameObj>> mAddObjs;// 追加物格納コンテナ
+
+	Player* pPlayer = nullptr;
 public:
 	ObjectManager(const ObjectManager& obj) = delete;
 	ObjectManager& operator = (const ObjectManager& obj) = delete;
@@ -28,4 +32,8 @@ public:
 	void AddObject(const std::shared_ptr<GameObj>& upObject); // ユニットの追加
 
 	void AllDestroy();// 全てを削除
+
+	void SetPlayer(Player* p_player) { pPlayer = p_player; }// プレイヤーのデータをコピーする
+
+	void HitCheck();// 判定処理
 };

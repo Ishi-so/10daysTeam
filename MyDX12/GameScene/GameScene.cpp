@@ -84,6 +84,7 @@ bool GameScene::Initialize()
 	Sprite::LoadTexture(debugJISTextTexNumber, L"Resources/JIS_Code_ver.1.02.png");
 	Sprite::LoadTexture(texind, L"Resources/digitalNum.png");					texind++;//2
 	Sprite::LoadTexture(texind, L"Resources/effect1.png");						texind++;//3
+	Sprite::LoadTexture(texind, L"Resources/white1x1.png");						texind++;//4
 
 	DebugJISText::GetInstance()->Initialize(debugJISTextTexNumber);
 
@@ -176,6 +177,7 @@ void GameScene::Draw()
 	// 文字スプライト
 	Sprite::PreDraw();
 
+	state->DrawTexture();
 	XIIlib::Messenger::GetInstance()->DrawMessage();
 	DebugJISText::GetInstance()->DrawAll();
 

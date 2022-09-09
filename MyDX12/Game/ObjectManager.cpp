@@ -1,6 +1,7 @@
 #include "ObjectManager.h"
 #include "Block.h"
 #include "Common.h"
+#include "Player.h"
 
 ObjectManager::ObjectManager(){}
 
@@ -71,5 +72,10 @@ void ObjectManager::AddObject(const std::shared_ptr<GameObj>& upObject)
 void ObjectManager::AllDestroy()
 {
 	mObjs.clear();
+}
+
+void ObjectManager::HitCheck()
+{
+
 }
 
