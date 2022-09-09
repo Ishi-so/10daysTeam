@@ -63,6 +63,8 @@ bool GameScene::Initialize()
 	d_camera->_Initialize(100.0f, 0.05f, 10.0f);
 	d_camera->SetLookAtRange(0, 1, 0);
 
+	d_camera->SetPosition(0,0,-25);
+
 	// ライト生成
 	lightGroup = LightGroup::Create();
 
@@ -91,9 +93,6 @@ bool GameScene::Initialize()
 	Sprite::LoadTexture(texind, L"Resources/white1x1.png");						texind++;//4
 
 	DebugJISText::GetInstance()->Initialize(debugJISTextTexNumber);
-
-	cameraPos = {0.0f,1.2f,-5.0f};
-	d_camera->SetPosition(cameraPos.x, cameraPos.y, cameraPos.z);
 
 	circle = new Circle();
 	circle->Initialize();
@@ -134,7 +133,6 @@ bool GameScene::Initialize()
 		}
 	}
 
-
 	// シーン設定
 	state->SetGameScene(this);
 	state->SetPlayer(m_player);
@@ -152,40 +150,10 @@ void GameScene::Update()
 	const float m_rad = 0.01f;
 	const float m_range = 0.1f;
 	const float lookatRange = 5.0f;
-	if (XIIlib::KeyInput::GetInstance()->Push(DIK_A)) {
-		cameRad -= m_rad;
-	}
-	else if (XIIlib::KeyInput::GetInstance()->Push(DIK_D)) {
-		cameRad += m_rad;
-	}
 
-	if (XIIlib::KeyInput::GetInstance()->Push(DIK_UP)) {
-		cameraPos.x += sinf(cameRad) * m_range;
-		cameraPos.z += cosf(cameRad) * m_range;
-	}
-	if (XIIlib::KeyInput::GetInstance()->Push(DIK_DOWN)) {
-		cameraPos.x -= sinf(cameRad) * m_range;
-		cameraPos.z -= cosf(cameRad) * m_range;
-	}
-	if (XIIlib::KeyInput::GetInstance()->Push(DIK_LEFT)) {
-		cameraPos.x -= cosf(cameRad) * m_range;
-		cameraPos.z += sinf(cameRad) * m_range;
-	}
-	if (XIIlib::KeyInput::GetInstance()->Push(DIK_RIGHT)) {
-		cameraPos.x += cosf(cameRad) * m_range;
-		cameraPos.z -= sinf(cameRad) * m_range;
-	}
-
-	d_camera->SetPosition(cameraPos.x, cameraPos.y, cameraPos.z);
-	Math::Vector3 cLookAtPt = { 0,0,0 };
-	cLookAtPt.x = d_camera->GetPos_X() + (sinf(m_rad) * lookatRange);
-	cLookAtPt.z = d_camera->GetPos_Z() + (cosf(m_rad) * lookatRange);
-
-	d_camera->SetLookAtRange(cLookAtPt.x, cLookAtPt.y, cLookAtPt.z);
-
-	d_camera->SetUpVector(0.0f, 1.0f, 0.0f);
-
+	
 	// カメラ更新
+	//d_camera->SetPosition(cameraPos.x, cameraPos.y, cameraPos.z);
 	d_camera->_Update();
 
 	state->Update();
