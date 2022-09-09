@@ -18,6 +18,7 @@ public: // Œp³
 	virtual void Initialize() = 0;// ‰Šú‰»
 	virtual void Update() = 0;//@XV
 	virtual void Draw() = 0;// •`‰æ
+	virtual void DrawTexture(){}
 
 public: // SetterŠÖ”
 	void SetGameScene(GameScene* p_game_scene) { this->p_game_scene = p_game_scene; }
