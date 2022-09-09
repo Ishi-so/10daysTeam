@@ -24,7 +24,9 @@ private:// メンバ
 
 	Circle* circle = nullptr;
 
+	// Game系
 	Player* m_player = nullptr;// プレイヤークラス
+	std::vector<std::vector<int>>mapData = {};
 
 public:
 	static GameScene* Create();

@@ -10,9 +10,13 @@
 
 #include "../2D/Circle.h"
 
+// Game系
 #include "Title.h"
 #include "../Game/Player.h"
 #include "../Game/ModelLoader.h"
+#include "../Game/CSVLoader.h"
+#include "../Game/Block.h"
+#include "../Game/Common.h"
 
 GameScene* GameScene::Create()
 {
@@ -94,13 +98,42 @@ bool GameScene::Initialize()
 	circle = new Circle();
 	circle->Initialize();
 
+	// ステージの生成
+	mapData = CSVLoader::GetCSVTwoVector("stage0", CSVLoader::BoardType::BOARD_2D,64);
+	int xSize = CSVLoader::GetSize("x"), ySize = CSVLoader::GetSize("y");
+	for (int i = 0; i < ySize; i++)
+	{
+		for (int j = 0; j < xSize; j++)
+		{
+			if (mapData[i][j] == 0)// なし
+			{}
+			else if (mapData[i][j] == 1) // プレイヤー
+			{}
+			else if (mapData[i][j] == 2) // block
+			{
+				std::shared_ptr<Block> box = Block::Create({
+				Common::ConvertPositionX(j),
+				Common::ConvertPositionY(i),
+									0 },
+					{ 1,1,1 }
+				);
+				ObjectManager::GetInstance()->AddObject(std::move(box));
+			}
+			else if (mapData[i][j] == 3) // item
+			{}
+			else {} // なし
+		}
+	}
+
 	// playerの生成
 	m_player = Player::Create();
 
+	// シーン設定
 	state->SetGameScene(this);
 	state->SetPlayer(m_player);
 	state->Initialize();
 
+	
 	ObjectManager::GetInstance()->Initialize();
 
 	return true;
