@@ -1,5 +1,6 @@
 #include "Block.h"
 #include "../3D/Object3D.h"
+#include "Common.h"
 
 std::shared_ptr<Block> Block::Create(const Math::Vector3& _pos, const Math::Vector3& _scale)
 {
@@ -23,6 +24,12 @@ Block::~Block()
 
 void Block::Init()
 {
+	// クラスネームのセット
+	// クラスネーム取得
+	const type_info& t_id = typeid(Block);
+	std::string path = t_id.name();
+	id = Common::SeparateFilePath(path).second;
+
 	// OBJクラスの生成
 	obj = Object3D::Create(Model::CreateFromOBJ("box_v000"));
 
