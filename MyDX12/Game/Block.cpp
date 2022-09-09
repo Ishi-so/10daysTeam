@@ -33,7 +33,7 @@ void Block::Init()
 
 	// OBJクラスの生成
 	obj = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_BLOCK));
-
+	color = {1,1,1};
 	// ・・AABBの設定・・
 	collisionData = Math::SetAABB(obj->position, obj->scale);
 }
@@ -45,6 +45,7 @@ void Block::Update()
 	// 座標とスケールの設定
 	obj->position = pos;
 	obj->scale = scale;
+	obj->color = color;
 	// 更新処理
 	obj->Update();
 }
