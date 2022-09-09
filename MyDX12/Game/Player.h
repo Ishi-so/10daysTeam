@@ -29,6 +29,8 @@ public: // メンバ関数
 
 	void SetCollsion(); // 当たり判定を設定
 	void SetSkillAbility(); // 状態によってバフデバフを付与
+
+	Math::Sphere GetCollision()const { return collSphere; }
 private: // メンバ変数
 	Object3D* object = nullptr; // ゲームオブジェクト
 	State state = State::none; // プレイヤーの状態
