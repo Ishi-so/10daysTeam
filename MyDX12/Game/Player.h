@@ -22,8 +22,8 @@ private: // メンバ定数
 public: // メンバ関数
 	Player() = default; // コンストラクタ
 	~Player(); // デストラクタ
-	static Player* Create(); // 生成関数
-	void Initialize(); // 初期化
+	static Player* Create(Math::Vector3 createPos); // 生成関数
+	void Initialize(Math::Vector3 createPos); // 初期化
 	void Update(); // 毎フレーム処理
 	void Draw(); // 描画
 
