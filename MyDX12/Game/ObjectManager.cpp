@@ -72,8 +72,14 @@ void ObjectManager::HitCheck()
 {
 	// “–‚½”»
 	for (auto& x : mObjs) {
-		if (Math::HitCheck_AABB_Sphere(x->GetCollisionData(),pPlayer->GetCollision())) {
-
+		if (Math::HitCheck_AABB_Sphere(x->GetCollisionData(), pPlayer->GetCollision())) {
+			// ƒtƒ‰ƒO‚ðtrue
+			//hitFlag = true;
+			// box‚ðÔF‚ÉÝ’è
+			x->SetColor({ 1, 0, 0});
+		}
+		else {
+			x->SetColor({ 1, 1, 1 });
 		}
 	}
 	
