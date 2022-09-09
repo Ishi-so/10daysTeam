@@ -13,19 +13,21 @@ Player::~Player()
 	delete object;
 }
 
-Player* Player::Create()
+Player* Player::Create(Math::Vector3 createPos)
 {
 	// 生成
 	Player* player = new Player();
 
 	// 初期化
-	player->Initialize();
+	player->Initialize(createPos);
 
 	return player;
 }
 
-void Player::Initialize()
+void Player::Initialize(Math::Vector3 createPos)
 {
+	// 座標の設定
+	position = createPos;
 	// オブジェクトの生成設定
 	object = Object3D::Create(Model::CreateFromOBJ("sphere"));
 	object->position = position;

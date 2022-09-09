@@ -107,7 +107,15 @@ bool GameScene::Initialize()
 			if (mapData[i][j] == 0)// なし
 			{}
 			else if (mapData[i][j] == 1) // プレイヤー
-			{}
+			{
+				// playerの生成
+				m_player = Player::Create({
+					Common::ConvertPositionX(j),
+					Common::ConvertPositionY(i),
+					0
+					}
+				);
+			}
 			else if (mapData[i][j] == 2) // block
 			{
 				std::shared_ptr<Block> box = Block::Create({
@@ -117,6 +125,7 @@ bool GameScene::Initialize()
 					{ 1,1,1 }
 				);
 				ObjectManager::GetInstance()->AddObject(std::move(box));
+
 			}
 			else if (mapData[i][j] == 3) // item
 			{}
@@ -124,8 +133,6 @@ bool GameScene::Initialize()
 		}
 	}
 
-	// playerの生成
-	m_player = Player::Create();
 
 	// シーン設定
 	state->SetGameScene(this);
