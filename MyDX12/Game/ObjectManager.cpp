@@ -35,6 +35,8 @@ void ObjectManager::Update()
 		obj->Update();
 	}
 
+	HitCheck();
+
 	if (mAddObjs.size() != 0)
 	{
 		for (auto& m : mAddObjs)
@@ -72,6 +74,7 @@ void ObjectManager::HitCheck()
 {
 	// “–‚½”»
 	for (auto& x : mObjs) {
+
 		if (Math::HitCheck_AABB_Sphere(x->GetCollisionData(), pPlayer->GetCollision())) {
 			// ƒtƒ‰ƒO‚ðtrue
 			//hitFlag = true;
