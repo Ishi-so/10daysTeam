@@ -139,7 +139,10 @@ bool GameScene::Initialize()
 	state->Initialize();
 
 	
+	// マネージャーの初期化
 	ObjectManager::GetInstance()->Initialize();
+	// プレイヤーをマネージャーにコピー
+	ObjectManager::GetInstance()->SetPlayer(m_player);
 
 	return true;
 }
