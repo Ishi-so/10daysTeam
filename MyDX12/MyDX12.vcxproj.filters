@@ -133,6 +133,9 @@
     <Filter Include="Game\Loder">
       <UniqueIdentifier>{f56a9c89-c24e-4f2d-80f8-af2efb197f2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Common">
+      <UniqueIdentifier>{c812a5ba-19d8-46ad-8ed0-3b19022ee3e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\DirectX12.cpp">
@@ -335,6 +338,9 @@
     </ClCompile>
     <ClCompile Include="Game\ModelLoader.cpp">
       <Filter>Game\Loder</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Common.cpp">
+      <Filter>Game\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -565,6 +571,9 @@
     </ClInclude>
     <ClInclude Include="Game\ModelLoader.h">
       <Filter>Game\Loder</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common.h">
+      <Filter>Game\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -59,7 +59,7 @@ bool XIIlib::Library::Initialize()
 	CollisionCircle::StaticInitialize();
 	Tessellation::StaticInitialize();
 
-	dx12->SetClearColor(0.0f, 0.0f, 0.0f);
+	dx12->SetClearColor(0.5f, 0.5f, 0.5f);
 
 	gameScene = GameScene::Create();
 

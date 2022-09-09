@@ -191,6 +191,7 @@
     <ClCompile Include="GameScene\Select.cpp" />
     <ClCompile Include="GameScene\Title.cpp" />
     <ClCompile Include="Game\Block.cpp" />
+    <ClCompile Include="Game\Common.cpp" />
     <ClCompile Include="Game\CSVLoader.cpp" />
     <ClCompile Include="Game\ModelLoader.cpp" />
     <ClCompile Include="Game\ObjectManager.cpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="GameScene\Select.h" />
     <ClInclude Include="GameScene\Title.h" />
     <ClInclude Include="Game\Block.h" />
+    <ClInclude Include="Game\Common.h" />
     <ClInclude Include="Game\CSVLoader.h" />
     <ClInclude Include="Game\GameObj.h" />
     <ClInclude Include="Game\ModelLoader.h" />
