@@ -10,6 +10,7 @@ protected:
 	std::string id;			// クラスネーム
 	Math::Vector3 pos;		// 座標
 	Math::Vector3 scale;	// スケール
+	Math::Vector3 color;	// カラー
 	bool isActive = true;	// 存在の有無用フラグ
 	Math::AABB collisionData;
 
@@ -33,4 +34,5 @@ public:
 	// ・・・Set・・・
 	void SetPos(const Math::Vector3& c_pos) { pos = c_pos; }	// 座標の設定
 	void SetScale(const Math::Vector3& c_scale) { scale = c_scale; }
+	void SetColor(const Math::Vector3& c_color) { color = c_color; }
 };
