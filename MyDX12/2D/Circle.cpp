@@ -205,7 +205,7 @@ void Circle::Draw()
 	// 定数バッファビューをセット
 	cmdList->SetGraphicsRootConstantBufferView(0, this->constBuff->GetGPUVirtualAddress());
 	// 描画コマンド
-	cmdList->DrawIndexedInstanced((UINT)vertNum * 3, datas.size(), 0, 0, 0);
+	cmdList->DrawIndexedInstanced((UINT)(vertNum * 3), (UINT)datas.size(), (UINT)0, (UINT)0, (UINT)0);
 	ClearCircle();
 }
 

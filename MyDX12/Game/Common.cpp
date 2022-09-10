@@ -7,15 +7,16 @@ std::pair<std::string, std::string> Common::SeparateFilePath(const std::string& 
 
 	size_t pos1;
 	// ‹æØ‚è•¶š'\\'‚ªo‚Ä‚­‚éˆê”ÔÅŒã‚Ì•”•ª‚ğŒŸõ
-	pos1 = path.rfind('::');
+	int cKey = '::';
+	pos1 = path.rfind(cKey);
 	if (pos1 != std::string::npos) {
 		result.first = path.substr(0, pos1 + 1);
 		result.second = path.substr(pos1 + 1, path.size() - pos1 - 1);
 		return result;
 	}
-
+	cKey = ': ';
 	// ‹æØ‚è•¶š'\'‚ªo‚Ä‚­‚éˆê”ÔÅŒã‚Ì•”•ª‚ğŒŸõ
-	pos1 = path.rfind(': ');
+	pos1 = path.rfind(cKey);
 	if (pos1 != std::string::npos) {
 		result.first = path.substr(0, pos1 + 1);
 		result.second = path.substr(pos1 + 1, path.size() - pos1 - 1);

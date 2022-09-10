@@ -9,12 +9,12 @@ const float ItemBox::endTime = 1.5f;
 
 std::shared_ptr<ItemBox> ItemBox::Create(const Math::Vector3& _pos, const Math::Vector3& _scale)
 {
-	std::shared_ptr<ItemBox> block = std::make_shared<ItemBox>();
-	block->Init();
-	block->SetPos(_pos);
-	block->SetScale(_scale);
+	std::shared_ptr<ItemBox> itemBox = std::make_shared<ItemBox>();
+	itemBox->Init();
+	itemBox->SetPos(_pos);
+	itemBox->SetScale(_scale);
 
-	return std::move(block);
+	return std::move(itemBox);
 }
 
 ItemBox::ItemBox()
