@@ -1,15 +1,15 @@
-#pragma once
+ï»¿#pragma once
 #include "SceneState.h"
 
 class End : public SceneState {
 public:
-	End();	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	~End();	// ƒfƒXƒgƒ‰ƒNƒ^
+	End();	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	~End();	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
-	void Initialize()override;// ‰Šú‰»
-	void Update()override;// XV
-	void Draw()override;// •`‰æ
+	void Initialize()override;// åˆæœŸåŒ–
+	void Update()override;// æ›´æ–°
+	void Draw()override;// æç”»
 
-private:// •Ï”
+private:// å¤‰æ•°
 
 };

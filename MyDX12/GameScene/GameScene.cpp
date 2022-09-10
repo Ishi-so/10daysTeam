@@ -16,6 +16,7 @@
 #include "../Game/ModelLoader.h"
 #include "../Game/CSVLoader.h"
 #include "../Game/Block.h"
+#include "../Game/ItemBox.h"
 #include "../Game/Common.h"
 
 GameScene* GameScene::Create()
@@ -131,6 +132,14 @@ bool GameScene::Initialize()
 			else {} // ‚È‚µ
 		}
 	}
+
+	std::shared_ptr<ItemBox> iBox = ItemBox::Create({
+				Common::ConvertPositionX(7),
+				Common::ConvertPositionY(0),
+				0 },
+		{ 1,1,1 }
+	);
+	ObjectManager::GetInstance()->AddObject(std::move(iBox));
 
 	// ƒV[ƒ“Ý’è
 	state->SetGameScene(this);
