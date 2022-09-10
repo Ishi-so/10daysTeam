@@ -67,7 +67,7 @@ void Player::Update()
 	}
 
 	// 落下
-	// acc.y -= 0.0001f;
+	acc.y = -0.1f;
 
 	// 左右加速度制御
 	if (abs(velocity.x) > 0.1f)
@@ -82,9 +82,9 @@ void Player::Update()
 	}
 	
 	// 落下加速度制御
-	if (velocity.y > 0.001f)
+	if (velocity.y < -0.3f)
 	{
-		velocity.y = 0.001f;
+		velocity.y = -0.3f;
 	}
 	
 	// ---- 座標の更新 ----
