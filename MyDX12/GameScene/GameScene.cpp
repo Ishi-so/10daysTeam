@@ -158,7 +158,8 @@ void GameScene::Update()
 
 	
 	// ƒJƒƒ‰XV
-	d_camera->SetPosition(0,m_player->GetPosition().y,-25);
+	d_camera->SetLookAtRange(0, m_player->GetPosition().y,0);
+	d_camera->SetPosition(0,m_player->GetPosition().y,-40);
 	d_camera->_Update();
 
 	state->Update();
