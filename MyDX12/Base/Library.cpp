@@ -17,6 +17,7 @@
 #include "../3D/CollCircle.h"
 #include "../GameScene/GameScene.h"
 #include "../3D/Tessellation.h"
+#include "../Game/InstBill.h"
 
 using namespace XIIlib;
 
@@ -34,7 +35,7 @@ XIIlib::Library::~Library()
 
 bool XIIlib::Library::Initialize()
 {
-	srand(time(NULL));
+	srand(static_cast<unsigned int> (time(NULL)));
 	// ウィンドウの生成
 	w_app = new WindowsApp();
 	w_app->GenerateWindow();
@@ -58,6 +59,7 @@ bool XIIlib::Library::Initialize()
 	CollisionBox::StaticInitialize();
 	CollisionCircle::StaticInitialize();
 	Tessellation::StaticInitialize();
+	InstBill::StaticInitialize();
 
 	dx12->SetClearColor(0.5f, 0.5f, 0.5f);
 
