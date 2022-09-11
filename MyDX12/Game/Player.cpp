@@ -73,7 +73,7 @@ void Player::Update()
 	}
 
 	// 落下
-	acc.y = -0.1f;
+	//acc.y = -0.1f;
 
 	// 左右加速度制御
 	if (abs(velocity.x) > 0.1f)
@@ -102,39 +102,11 @@ void Player::Update()
 	SetCollsion();
 
 	// ---- 当たり判定 ----
-	if (Math::HitCheck_AABB_Sphere(collBox, collSphere)) // box と sphereが当たったら
-	{
-		// フラグをtrue
-		hitFlag = true;
-		// boxを赤色に設定
-		boxObj->color = { 1,0,0 };
-		// 無敵状態じゃなかったら
-		if (!invincible)
-		{
-			// プレイヤーにダメージ
-			hitPoint--;
-			// playerを青色に設定
-			object->color = { 0,0,1 };
-			// 無敵付与
-			state = State::invincible;
-		}
-	}
-	else 
-	{
-		//フラグをfalse
-		hitFlag = false;
+	// ObjectManagerに記載
+
+	if (!invincible) {
 		// boxの色を戻す
 		boxObj->color = { 1,1,1 };
-	}
-
-	// 当たっているときの特別処理
-	if (hitFlag)
-	{
-
-	}
-	else
-	{
-
 	}
 
 	// 状態によって効果を付与
@@ -151,6 +123,7 @@ void Player::Update()
 
 	// 階層データの更新
 	stratumData = Stratum::GetStratumData(position.y, SIZE);
+	//stratumData = {2,3};
 
 	// ---- objectの更新 ----
 	object->Update();
@@ -179,6 +152,24 @@ void Player::Draw()
 	// objectの描画
 	object->Draw();
 	boxObj->Draw();
+}
+
+void Player::HitUpdate()
+{
+	// boxを赤色に設定
+	boxObj->color = { 1,0,0 };
+	// 無敵状態じゃなかったら
+	if (!invincible)
+	{
+		// プレイヤーにダメージ
+		hitPoint--;
+		// playerを青色に設定
+		object->color = { 0,0,1 };
+		// 無敵付与
+		state = State::invincible;
+		// 状態によって効果を付与
+		SetSkillAbility();
+	}
 }
 
 void Player::SetCollsion()

@@ -15,5 +15,4 @@ public:
 	void Draw()override;	// •`‰æ
 
 private:// ˆÈ‰ºAŒÅ—L•Ï”
-
 };

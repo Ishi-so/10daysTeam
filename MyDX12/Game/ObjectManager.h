@@ -36,4 +36,6 @@ public:
 	void SetPlayer(Player* p_player) { pPlayer = p_player; }// プレイヤーのデータをコピーする
 
 	void HitCheck();// 判定処理
+
+	void PropValueCheck(const std::shared_ptr<GameObj>& obj,const int stratum);
 };
