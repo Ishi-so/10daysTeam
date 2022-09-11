@@ -189,9 +189,9 @@ void GameScene::Draw()
 	m_player->Draw(); // SceneState”h¶‚ÌƒNƒ‰ƒX‚Å‚â‚é(¡‚Í‰¼’u‚«)
 
 	ObjectManager::GetInstance()->Draw();
+	state->Draw();
 	Object3D::PostDraw();
 
-	state->Draw();
 
 	// ImGui‚Ì•`‰æ
 

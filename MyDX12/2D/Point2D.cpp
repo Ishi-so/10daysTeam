@@ -178,7 +178,7 @@ void Point2D::Draw()
 	// 定数バッファビューをセット
 	cmdList->SetGraphicsRootConstantBufferView(0, this->constBuff->GetGPUVirtualAddress());
 	// 描画コマンド
-	cmdList->DrawInstanced(1, pDatas.size(), 0, 0);
+	cmdList->DrawInstanced((UINT)1, (UINT)pDatas.size(), (UINT)0, (UINT)0);
 }
 
 void Point2D::TransferVertices()
