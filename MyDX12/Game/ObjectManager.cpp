@@ -72,19 +72,34 @@ void ObjectManager::AllDestroy()
 
 void ObjectManager::HitCheck()
 {
-	// “–‚½”»
-	for (auto& x : mObjs) {
+	std::vector<unsigned int> playerStratum = pPlayer->GetStratumData();
+	
+	// blockƒf[ƒ^‘S‚Ä
+	for (auto& obj : mObjs) {
+		// ŠK‘w‚ª“¯‚¶‚Å‚ ‚ê‚Î
+		PropValueCheck(obj, playerStratum[0]);
 
-		if (Math::HitCheck_AABB_Sphere(x->GetCollisionData(), pPlayer->GetCollision())) {
-			// ƒtƒ‰ƒO‚ğtrue
-			//hitFlag = true;
-			// box‚ğÔF‚Éİ’è
-			x->SetColor({ 1, 0, 0});
-		}
-		else {
-			x->SetColor({ 1, 1, 1 });
-		}
+		// 2‚Â–Ú‚ÌŠK‘w‚Æ1‚Â–Ú‚ÌŠK‘w‚ª“¯‚¶‚È‚çŸ‚És‚­
+		if (playerStratum[0] == playerStratum[1])continue;
+
+		// 2‚Â–Ú‚ÌŠK‘w‚ª“¯‚¶‚Å‚ ‚ê‚Î
+		PropValueCheck(obj, playerStratum[1]);
 	}
 	
+}
+
+void ObjectManager::PropValueCheck(const std::shared_ptr<GameObj>& obj, const int stratum)
+{
+	if (obj->GetStratum() == stratum)
+	{
+		// “¯‚¶ŠK‘w‚Æ‚Å‚µ‚©“–‚½‚è”»’è
+		if (Math::HitCheck_AABB_Sphere(obj->GetCollisionData(), pPlayer->GetCollision())) {
+			obj->SetColor({ 1, 0, 0 });
+			pPlayer->HitUpdate();
+		}
+		else {
+			obj->SetColor({ 1, 1, 1 });
+		}
+	}
 }
 

@@ -14,6 +14,7 @@ protected:
 	bool isActive = true;		// 存在の有無用フラグ
 	Math::AABB collisionData;	// 判定データ
 	unsigned int stratum = 0;	// 階層
+	bool hitFlag = false;       // 当たっているかフラグ
 
 	Object3D* obj = nullptr;// オブジェクトデータ
 

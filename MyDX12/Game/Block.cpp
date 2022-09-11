@@ -2,13 +2,14 @@
 #include "../3D/Object3D.h"
 #include "Common.h"
 #include "ModelLoader.h"
+#include "Stratum.h"
 
 std::shared_ptr<Block> Block::Create(const Math::Vector3& _pos, const Math::Vector3& _scale)
 {
 	std::shared_ptr<Block> block = std::make_shared<Block>();
-	block->Init();
 	block->SetPos(_pos);
 	block->SetScale(_scale);
+	block->Init();
 
 	return std::move(block);
 }
@@ -36,6 +37,8 @@ void Block::Init()
 	color = {1,1,1};
 	// ・・AABBの設定・・
 	collisionData = Math::SetAABB(obj->position, obj->scale);
+	// ---- 階層設定 ----
+	stratum = Stratum::GetStratumData(pos.y)[0];
 }
 
 void Block::Update()
