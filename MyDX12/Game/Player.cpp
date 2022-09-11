@@ -2,6 +2,7 @@
 #include "../Struct/Math/Vector3.h"
 #include "../3D/Object3D.h"
 #include "../Input/KeyInput.h"
+#include "Stratum.h"
 
 using namespace XIIlib;
 /*Player::Player()
@@ -37,12 +38,17 @@ void Player::Initialize(Math::Vector3 createPos)
 
 	// 当たり判定を付随させる
 	SetCollsion();
+
+	// 階層データの初期化
+	stratumData.resize(2);
+	stratumData = Stratum::GetStratumData(position.y, SIZE);
 }
 
 void Player::Update()
 {
 	// 状態をリセット
 	state = State::none;
+
 	// ---- 移動 ----
 	// キーボード操作
 	if (KeyInput::GetInstance()->Push(DIK_D)) // 右移動
@@ -99,7 +105,7 @@ void Player::Update()
 	if (Math::HitCheck_AABB_Sphere(collBox, collSphere)) // box と sphereが当たったら
 	{
 		// フラグをtrue
-		//hitFlag = true;
+		hitFlag = true;
 		// boxを赤色に設定
 		boxObj->color = { 1,0,0 };
 		// 無敵状態じゃなかったら
@@ -116,7 +122,7 @@ void Player::Update()
 	else 
 	{
 		//フラグをfalse
-		//hitFlag = false;
+		hitFlag = false;
 		// boxの色を戻す
 		boxObj->color = { 1,1,1 };
 	}
@@ -143,11 +149,14 @@ void Player::Update()
 	// ---- 最終的な座標を設定　----
 	object->position = position; // 改めて設定(当たった時に押し出す処理を考慮)
 
+	// 階層データの更新
+	stratumData = Stratum::GetStratumData(position.y, SIZE);
+
 	// ---- objectの更新 ----
 	object->Update();
 	boxObj->Update();
 
-	// ---- カウンター ----
+	// ---- カウント ----
 	// 無敵状態かつ、カウントが最大までいったら
 	if (invincibleCnt >= INVINCIBLE_TIME && invincible) 
 	{
@@ -163,7 +172,6 @@ void Player::Update()
 
 	// 無敵状態なら
 	if(invincible){ invincibleCnt++; } // 無敵時間をカウント
-
 }
 
 void Player::Draw()
