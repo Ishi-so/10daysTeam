@@ -18,6 +18,7 @@
 #include "../Game/Block.h"
 #include "../Game/ItemBox.h"
 #include "../Game/Common.h"
+#include "../Tool/DigitalNumberText.h"
 
 GameScene* GameScene::Create()
 {
@@ -155,6 +156,8 @@ bool GameScene::Initialize()
 	Math::Vector3 playerPos = m_player->GetPosition();
 	d_camera->SetPosition(playerPos.x, playerPos.y,Z_AXIS);
 	d_camera->_Update();
+
+	DigitalNumberText::GetInstance()->Initialize(2);
 	return true;
 }
 
@@ -203,6 +206,7 @@ void GameScene::Draw()
 	state->DrawTexture();
 	XIIlib::Messenger::GetInstance()->DrawMessage();
 	DebugJISText::GetInstance()->DrawAll();
+	DigitalNumberText::GetInstance()->DrawAll();
 
 	Sprite::PostDraw();
 
