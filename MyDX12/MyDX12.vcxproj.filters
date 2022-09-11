@@ -354,6 +354,9 @@
     <ClCompile Include="Game\ItemBox.cpp">
       <Filter>2_Game\Object\ObjTemplate</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Stratum.cpp">
+      <Filter>2_Game\Object\Common</Filter>
+    </ClCompile>
     <ClCompile Include="Game\InstBill.cpp">
       <Filter>2_Game\Object\Common</Filter>
     </ClCompile>
@@ -595,6 +598,9 @@
     </ClInclude>
     <ClInclude Include="Game\ItemBox.h">
       <Filter>2_Game\Object\ObjTemplate</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Stratum.h">
+      <Filter>2_Game\Object\Common</Filter>
     </ClInclude>
     <ClInclude Include="Game\InstBill.h">
       <Filter>2_Game\Object\Common</Filter>

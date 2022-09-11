@@ -17,8 +17,11 @@ private: // 構造体 or 列挙型
 		speedUp, // 加速
 		invincible, // 無敵
 	};
+
 private: // メンバ定数
-	int INVINCIBLE_TIME = 60.0f; // 無敵時間
+	const int INVINCIBLE_TIME = 60.0f; // 無敵時間
+	const float SIZE = 3.0f;
+
 public: // メンバ関数
 	Player() = default; // コンストラクタ
 	~Player(); // デストラクタ
@@ -33,12 +36,16 @@ public: // メンバ関数
 	Math::Vector3 GetPosition()const { return position; }
 	Math::Sphere GetCollision()const { return collSphere; }
 private: // メンバ変数
+	// Playerデータ
 	Object3D* object = nullptr; // ゲームオブジェクト
 	State state = State::none; // プレイヤーの状態
 	int hitPoint = 3; // 体力(仮)
 	Math::Vector3 position; // 座標
 	Math::Vector3 velocity; // 速度
 	Math::Vector3 acc; // 加速度
+	std::vector<unsigned int> stratumData;
+
+	// プレイヤーの状態系
 	float stateAcc = 1.0f; // 状態によって決まる加減速値倍率
 	bool invincible = false; // 無敵フラグ
 	int invincibleCnt = 0; // 無敵時間のカウント
