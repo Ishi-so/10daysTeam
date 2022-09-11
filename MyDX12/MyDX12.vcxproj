@@ -199,6 +199,7 @@
     <ClCompile Include="Game\ModelLoader.cpp" />
     <ClCompile Include="Game\ObjectManager.cpp" />
     <ClCompile Include="Game\Player.cpp" />
+    <ClCompile Include="Game\Stratum.cpp" />
     <ClCompile Include="ImGui\Docking\imgui.cpp" />
     <ClCompile Include="ImGui\Docking\imgui_demo.cpp" />
     <ClCompile Include="ImGui\Docking\imgui_draw.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="Game\ModelLoader.h" />
     <ClInclude Include="Game\ObjectManager.h" />
     <ClInclude Include="Game\Player.h" />
+    <ClInclude Include="Game\Stratum.h" />
     <ClInclude Include="ImGui\Docking\imconfig.h" />
     <ClInclude Include="ImGui\Docking\imgui.h" />
     <ClInclude Include="ImGui\Docking\imgui_impl_dx12.h" />
