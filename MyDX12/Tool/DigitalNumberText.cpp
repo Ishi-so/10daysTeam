@@ -66,6 +66,52 @@ void DigitalNumberText::Print(int score, float x, float y, float scale)
 	}
 }
 
+void DigitalNumberText::TimePrintHMS(const DrawTimeType& type,int h, int m, float s, float x, float y, float scale) {
+	int posIndex = 0;
+	std::string text1 = std::to_string(h);
+	std::string text2 = std::to_string(m);
+	std::string text3 = std::to_string(s);
+
+	std::string text = text1 + ":" + text2 + ":" + text3;
+	if (type == MS) {
+		text = text2 + ":" + text3;
+	}
+	else if (type == HM) {
+		text = text1 + ":" + text2;
+	}
+
+	// 全ての文字について
+	for (int i = 0; i < text.size(); i++)
+	{
+		// 最大文字数超過
+		if (spriteIndex >= maxCharCount) {
+			break;
+		}
+
+		// 1文字取り出す(※ASCIIコードでしか成り立たない,かつ文字は'0'をはじめとする)
+		const unsigned char& character = text[i];
+
+		int fontIndex = character - 48;
+		if (character >= 0x7f) {
+			fontIndex = 0;
+		}
+
+		const char& dot = '.';
+		if (dot == character)fontIndex = 11;
+
+		int fontIndexY = fontIndex / fontLineCount;
+		int fontIndexX = fontIndex % fontLineCount;
+
+		// 座標計算
+		spriteDatas[spriteIndex]->SetPosition({ x + fontWidth * scale * i, y });
+		spriteDatas[spriteIndex]->SetTextureRect({ (float)fontIndexX * fontWidth, (float)fontIndexY * fontHeight }, { (float)fontWidth, (float)fontHeight });
+		spriteDatas[spriteIndex]->SetSize({ fontWidth * scale, fontHeight * scale });
+
+		// 文字を１つ進める
+		spriteIndex++;
+	}
+}
+
 void DigitalNumberText::SetColor(float r, float g, float b, float a)
 {
 	cr = r;
