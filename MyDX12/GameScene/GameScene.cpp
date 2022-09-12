@@ -1,4 +1,4 @@
-#include "GameScene.h"
+ï»¿#include "GameScene.h"
 #include "../Light/LightGroup.h"
 #include "../Camera/DebugCamera.h"
 #include "../3D/Object3D.h"
@@ -10,7 +10,7 @@
 
 #include "../2D/Circle.h"
 
-// GameŒn
+// Gameç³»
 #include "Title.h"
 #include "../Game/Player.h"
 #include "../Game/ModelLoader.h"
@@ -21,14 +21,14 @@
 
 GameScene* GameScene::Create()
 {
-	// 3DƒIƒuƒWƒFƒNƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+	// 3Dã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ
 	GameScene* pGameScene = new GameScene();
 	if (pGameScene == nullptr)
 	{
 		return nullptr;
 	}
 
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	if (!pGameScene->Initialize())
 	{
 		delete pGameScene;
@@ -57,15 +57,15 @@ GameScene::~GameScene()
 
 bool GameScene::Initialize()
 {
-	// ‚±‚±‚Ín‚Ü‚è‚Ì‘!!
-	// ƒAƒtƒƒfƒB—Ñ‘®«‚È‚Ì‚ÉƒSƒbƒhƒmƒEƒY‚Æƒwƒuƒ“ƒYƒ^ƒCƒ€‚Í•—‘®«
+	// ã“ã“ã¯å§‹ã¾ã‚Šã®æ›¸!!
+	// ã‚¢ãƒ•ãƒ­ãƒ‡ã‚£æ—å±æ€§ãªã®ã«ã‚´ãƒƒãƒ‰ãƒã‚¦ã‚ºã¨ãƒ˜ãƒ–ãƒ³ã‚ºã‚¿ã‚¤ãƒ ã¯é¢¨å±æ€§
 
 	d_camera = new DebugCamera();
 	d_camera->_Initialize(100.0f, 0.05f, 10.0f);
 	d_camera->SetLookAtRange(0, 1, 0);
-	const float Z_AXIS = -25; // ‰œs‚ğİ’è
+	const float Z_AXIS = -25; // å¥¥è¡Œã‚’è¨­å®š
 
-	// ƒ‰ƒCƒg¶¬
+	// ãƒ©ã‚¤ãƒˆç”Ÿæˆ
 	lightGroup = LightGroup::Create();
 
 	lightGroup->SetDirLightActive(0, true);
@@ -75,12 +75,12 @@ bool GameScene::Initialize()
 	lightGroup->SetCircleShadowActive(0, true);
 	lightGroup->SetCircleShadowActive(1, true);
 
-	// ƒJƒƒ‰‚ÌƒZƒbƒg
+	// ã‚«ãƒ¡ãƒ©ã®ã‚»ãƒƒãƒˆ
 	Object3D::SetDebugCamera(d_camera);
-	// ƒ‰ƒCƒg‚ÌƒZƒbƒg
+	// ãƒ©ã‚¤ãƒˆã®ã‚»ãƒƒãƒˆ
 	Object3D::SetLightGroup(lightGroup);
 
-	// ƒ‚ƒfƒ‹ƒ[ƒ_[‚Ìİ’è
+	// ãƒ¢ãƒ‡ãƒ«ãƒ­ãƒ¼ãƒ€ãƒ¼ã®è¨­å®š
 	ModelLoader::GetInstance()->Initialize();
 	ModelLoader::GetInstance()->Load();
 
@@ -90,24 +90,36 @@ bool GameScene::Initialize()
 	Sprite::LoadTexture(texind, L"Resources/digitalNum.png");					texind++;//2
 	Sprite::LoadTexture(texind, L"Resources/effect1.png");						texind++;//3
 	Sprite::LoadTexture(texind, L"Resources/white1x1.png");						texind++;//4
+	Sprite::LoadTexture(texind, L"Resources/result.png");                       texind++;//5
+	Sprite::LoadTexture(texind, L"Resources/goldMedal.png");                    texind++;//6
+	Sprite::LoadTexture(texind, L"Resources/SilverMedal.png");                  texind++;//7
+	Sprite::LoadTexture(texind, L"Resources/bronzeMedal.png");                  texind++;//8
+	Sprite::LoadTexture(texind, L"Resources/medalBase.png");                   texind++;//9
+	Sprite::LoadTexture(texind, L"Resources/R.png");                       texind++;//10
+	Sprite::LoadTexture(texind, L"Resources/E.png");                       texind++;//11
+	Sprite::LoadTexture(texind, L"Resources/S.png");                       texind++;//12
+	Sprite::LoadTexture(texind, L"Resources/U.png");                       texind++;//13
+	Sprite::LoadTexture(texind, L"Resources/L.png");                       texind++;//14
+	Sprite::LoadTexture(texind, L"Resources/T.png");                       texind++;//15
+
 
 	DebugJISText::GetInstance()->Initialize(debugJISTextTexNumber);
 
 	circle = new Circle();
 	circle->Initialize();
 
-	// ƒXƒe[ƒW‚Ì¶¬
+	// ã‚¹ãƒ†ãƒ¼ã‚¸ã®ç”Ÿæˆ
 	mapData = CSVLoader::GetCSVTwoVector("stage0", CSVLoader::BoardType::BOARD_2D,64);
 	int xSize = CSVLoader::GetSize("x"), ySize = CSVLoader::GetSize("y");
 	for (int i = 0; i < ySize; i++)
 	{
 		for (int j = 0; j < xSize; j++)
 		{
-			if (mapData[i][j] == 0)// ‚È‚µ
+			if (mapData[i][j] == 0)// ãªã—
 			{}
-			else if (mapData[i][j] == 1) // ƒvƒŒƒCƒ„[
+			else if (mapData[i][j] == 1) // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 			{
-				// player‚Ì¶¬
+				// playerã®ç”Ÿæˆ
 				m_player = Player::Create({
 					Common::ConvertPositionX(j),
 					Common::ConvertPositionY(i),
@@ -129,7 +141,7 @@ bool GameScene::Initialize()
 			}
 			else if (mapData[i][j] == 3) // item
 			{}
-			else {} // ‚È‚µ
+			else {} // ãªã—
 		}
 	}
 
@@ -141,17 +153,17 @@ bool GameScene::Initialize()
 	);
 	ObjectManager::GetInstance()->AddObject(std::move(iBox));
 
-	// ƒV[ƒ“İ’è
+	// ã‚·ãƒ¼ãƒ³è¨­å®š
 	state->SetGameScene(this);
 	state->SetPlayer(m_player);
 	state->Initialize();
 
-	// ƒ}ƒl[ƒWƒƒ[‚Ì‰Šú‰»
+	// ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®åˆæœŸåŒ–
 	ObjectManager::GetInstance()->Initialize();
-	// ƒvƒŒƒCƒ„[‚ğƒ}ƒl[ƒWƒƒ[‚ÉƒRƒs[
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã«ã‚³ãƒ”ãƒ¼
 	ObjectManager::GetInstance()->SetPlayer(m_player);
 
-	// ƒJƒƒ‰‚ÌXV(1f–Ú‚¨‚©‚µ‚­‚È‚é‚½‚ß)
+	// ã‚«ãƒ¡ãƒ©ã®æ›´æ–°(1fç›®ãŠã‹ã—ããªã‚‹ãŸã‚)
 	Math::Vector3 playerPos = m_player->GetPosition();
 	d_camera->SetPosition(playerPos.x, playerPos.y,Z_AXIS);
 	d_camera->_Update();
@@ -160,43 +172,43 @@ bool GameScene::Initialize()
 
 void GameScene::Update()
 {
-	// ƒJƒƒ‰‚Ì“®‚«‚Ìˆ—
+	// ã‚«ãƒ¡ãƒ©ã®å‹•ãã®å‡¦ç†
 	const float m_rad = 0.01f;
 	const float m_range = 0.1f;
 	const float lookatRange = 5.0f;
 
 	
-	// ƒJƒƒ‰XV
+	// ã‚«ãƒ¡ãƒ©æ›´æ–°
 	d_camera->SetPosition(0,m_player->GetPosition().y,-25);
 	d_camera->_Update();
 
 	state->Update();
 
-	m_player->Update(); // SceneState”h¶‚ÌƒNƒ‰ƒX‚Å‚â‚é(¡‚Í‰¼’u‚«)
+	m_player->Update(); // SceneStateæ´¾ç”Ÿã®ã‚¯ãƒ©ã‚¹ã§ã‚„ã‚‹(ä»Šã¯ä»®ç½®ã)
 	ObjectManager::GetInstance()->Update();
 }
 
 void GameScene::Draw()
 {
-	// ”wŒiƒXƒvƒ‰ƒCƒg
+	// èƒŒæ™¯ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 	Sprite::PreDraw();
 
 	Sprite::PostDraw();
 	DirectX12::ClearDepthBuffer();
-	//3D‚Ü‚½‚Íƒ|ƒXƒgƒGƒtƒFƒNƒg‚Ì•`‰æ
+	//3Dã¾ãŸã¯ãƒã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æç”»
 	Object3D::PreDraw();
-	m_player->Draw(); // SceneState”h¶‚ÌƒNƒ‰ƒX‚Å‚â‚é(¡‚Í‰¼’u‚«)
+	m_player->Draw(); // SceneStateæ´¾ç”Ÿã®ã‚¯ãƒ©ã‚¹ã§ã‚„ã‚‹(ä»Šã¯ä»®ç½®ã)
 
 	ObjectManager::GetInstance()->Draw();
 	Object3D::PostDraw();
 
 	state->Draw();
 
-	// ImGui‚Ì•`‰æ
+	// ImGuiã®æç”»
 
-	// ‘OŒiƒXƒvƒ‰ƒCƒg
+	// å‰æ™¯ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 
-	// •¶šƒXƒvƒ‰ƒCƒg
+	// æ–‡å­—ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 	Sprite::PreDraw();
 
 	state->DrawTexture();
