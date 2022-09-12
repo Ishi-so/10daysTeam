@@ -18,9 +18,17 @@ private: // 構造体 or 列挙型
 		invincible, // 無敵
 	};
 
+	struct Info 
+	{
+		float radius = 0.5f;
+		float edge = 0.0f;
+	};
+	struct Info info;
+
 private: // メンバ定数
 	const int INVINCIBLE_TIME = 60.0f; // 無敵時間
 	const float SIZE = 3.0f;
+	const float MAX_AREA = 30.0f;
 
 public: // メンバ関数
 	Player() = default; // コンストラクタ
@@ -54,9 +62,7 @@ private: // メンバ変数
 	int invincibleCnt = 0; // 無敵時間のカウント
 
 	// 当たり判定確認用
-	Object3D* boxObj = nullptr; // box3Dオブジェクト
 	Math::Sphere collSphere; // 当たり判定用　球
-	Math::AABB collBox; // 当たり判定用　箱
 	bool hitFlag = false; // 当たり判定フラグ
 };
 
