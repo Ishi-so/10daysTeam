@@ -19,6 +19,7 @@
 #include "../Game/ItemBox.h"
 #include "../Game/Common.h"
 #include "../Tool/DigitalNumberText.h"
+#include "../Game/InstBill.h"
 
 GameScene* GameScene::Create()
 {
@@ -210,6 +211,12 @@ void GameScene::Draw()
 	state->Draw();
 	Object3D::PostDraw();
 
+	// ƒrƒ‹ƒ{[ƒh—pƒIƒuƒWƒFƒNƒg
+	InstBill::PreDraw();
+
+
+
+	InstBill::PostDraw();
 
 	// ImGuiç¸ºï½®è¬ å†—åˆ¤
 
