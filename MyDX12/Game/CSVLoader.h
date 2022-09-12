@@ -16,7 +16,7 @@ public:
 
 private:
 	// マスの数
-	static const int MAX_SQUARE_COUNT = 64;
+	static const int MAX_SQUARE_COUNT = 640;
 
 private: // 静的メンバ定数
 	// CSVが置いてあるフォルダ

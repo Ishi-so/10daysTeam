@@ -34,7 +34,7 @@ void Player::Initialize(Math::Vector3 createPos)
 	object = Object3D::Create(Model::CreateFromOBJ("sphere"));
 	object->position = position;
 	info.radius = object->scale.x / 2;
-	info.edge = object->position.x + (object->scale.x / 2); // プレイヤーオブジェクトの端っこ
+	info.edge = object->position.x + info.radius; // プレイヤーオブジェクトの端っこ
 
 	// ---- 当たり判定を付随させる ----
 	SetCollsion();
@@ -48,6 +48,8 @@ void Player::Update()
 {
 	// 状態をリセット
 	state = State::none;
+	// 現在の座標を保存
+	prevPos = position;
 
 	// ---- 移動 ----
 	// キーボード操作
@@ -72,6 +74,16 @@ void Player::Update()
 		}
 	}
 
+	// テスト用
+	if (KeyInput::GetInstance()->Push(DIK_W)) // 右移動
+	{
+		position.y += 0.5f;
+	}
+	else if (KeyInput::GetInstance()->Push(DIK_S)) // 左移動
+	{
+		position.y -= 0.5f;
+	}
+
 	// 落下
 	//acc.y = -0.1f;
 
@@ -94,18 +106,22 @@ void Player::Update()
 	}
 	
 	// ---- 座標の更新 ----
-	velocity += acc;
-	position += velocity * stateAcc;
+	velocity += acc; 
+	position += velocity * stateAcc; // 加算されたveloと状態加速によって座標を更新
 	// 横壁の範囲上限
-	if (position.x <= -MAX_AREA)
+	if (MAX_AREA <= position.x + info.radius)
 	{
-
+		// 押し出し
+		position.x = MAX_AREA - info.radius;
 	}
-	if (MAX_AREA <= info.edge)
+	else if (position.x - info.radius <= -MAX_AREA)
 	{
-		position.x = MAX_AREA - (object->scale.x / 2);
+		// 押し出し
+		position.x = -MAX_AREA + info.radius;
 	}
+	
 	object->position = position; // 座標の設定
+	direction = position - prevPos; // 方向を設定
 
 	// ---- 当たり判定を付随 ----
 	SetCollsion();
@@ -174,7 +190,7 @@ void Player::HitUpdate()
 
 void Player::SetCollsion()
 {
-	// sphere
+	// 当たり判定を設定
 	collSphere.pos = Math::Vector4(object->position.x, object->position.y, object->position.z, 1.0f);
 	collSphere.r = object->scale.x;
 }
