@@ -58,7 +58,7 @@ GameScene::~GameScene()
 bool GameScene::Initialize()
 {
 	// ここは始まりの書!!
-	// アフロディ林属性なのにゴッドノウズとヘブンズタイムは風属性
+	// アフロディ林属性なのにゴッドノウズとヘブンズタイムは風属
 
 	d_camera = new DebugCamera();
 	d_camera->_Initialize(100.0f, 0.05f, 10.0f);
