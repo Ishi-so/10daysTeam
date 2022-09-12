@@ -2,6 +2,7 @@
 #include "../Struct/Math/Vector3.h"
 #include "../3D/Object3D.h"
 #include "../Input/KeyInput.h"
+#include "Stratum.h"
 
 using namespace XIIlib;
 /*Player::Player()
@@ -9,7 +10,6 @@ using namespace XIIlib;
 
 Player::~Player()
 {
-	delete boxObj;
 	delete object;
 }
 
@@ -26,23 +26,31 @@ Player* Player::Create(Math::Vector3 createPos)
 
 void Player::Initialize(Math::Vector3 createPos)
 {
-	// 座標の設定
+	// ---- 座標の設定 ----
 	position = createPos;
-	// オブジェクトの生成設定
+
+	// ---- オブジェクトの生成設定 ----
+	// プレイヤーオブジェクトモデル
 	object = Object3D::Create(Model::CreateFromOBJ("sphere"));
 	object->position = position;
+	info.radius = object->scale.x / 2;
+	info.edge = object->position.x + info.radius; // プレイヤーオブジェクトの端っこ
 
-	boxObj = Object3D::Create(Model::CreateFromOBJ("box_v000"));
-	boxObj->position = {5.0f,0.0f,0.0f};
-
-	// 当たり判定を付随させる
+	// ---- 当たり判定を付随させる ----
 	SetCollsion();
+
+	// ---- 階層データの初期化 ----
+	stratumData.resize(2);
+	stratumData = Stratum::GetStratumData(position.y, SIZE);
 }
 
 void Player::Update()
 {
 	// 状態をリセット
 	state = State::none;
+	// 現在の座標を保存
+	prevPos = position;
+
 	// ---- 移動 ----
 	// キーボード操作
 	if (KeyInput::GetInstance()->Push(DIK_D)) // 右移動
@@ -66,8 +74,18 @@ void Player::Update()
 		}
 	}
 
+	// テスト用
+	if (KeyInput::GetInstance()->Push(DIK_W)) // 右移動
+	{
+		position.y += 0.5f;
+	}
+	else if (KeyInput::GetInstance()->Push(DIK_S)) // 左移動
+	{
+		position.y -= 0.5f;
+	}
+
 	// 落下
-	// acc.y -= 0.0001f;
+	//acc.y = -0.1f;
 
 	// 左右加速度制御
 	if (abs(velocity.x) > 0.1f)
@@ -82,55 +100,35 @@ void Player::Update()
 	}
 	
 	// 落下加速度制御
-	if (velocity.y > 0.001f)
+	if (velocity.y < -0.3f)
 	{
-		velocity.y = 0.001f;
+		velocity.y = -0.3f;
 	}
 	
 	// ---- 座標の更新 ----
-	velocity += acc;
-	position += velocity * stateAcc;
+	velocity += acc; 
+	position += velocity * stateAcc; // 加算されたveloと状態加速によって座標を更新
+	// 横壁の範囲上限
+	if (MAX_AREA <= position.x + info.radius)
+	{
+		// 押し出し
+		position.x = MAX_AREA - info.radius;
+	}
+	else if (position.x - info.radius <= -MAX_AREA)
+	{
+		// 押し出し
+		position.x = -MAX_AREA + info.radius;
+	}
+	
 	object->position = position; // 座標の設定
+	direction = position - prevPos; // 方向を設定
 
 	// ---- 当たり判定を付随 ----
 	SetCollsion();
 
 	// ---- 当たり判定 ----
-	if (Math::HitCheck_AABB_Sphere(collBox, collSphere)) // box と sphereが当たったら
-	{
-		// フラグをtrue
-		//hitFlag = true;
-		// boxを赤色に設定
-		boxObj->color = { 1,0,0 };
-		// 無敵状態じゃなかったら
-		if (!invincible)
-		{
-			// プレイヤーにダメージ
-			hitPoint--;
-			// playerを青色に設定
-			object->color = { 0,0,1 };
-			// 無敵付与
-			state = State::invincible;
-		}
-	}
-	else 
-	{
-		//フラグをfalse
-		//hitFlag = false;
-		// boxの色を戻す
-		boxObj->color = { 1,1,1 };
-	}
-
-	// 当たっているときの特別処理
-	if (hitFlag)
-	{
-
-	}
-	else
-	{
-
-	}
-
+	// ObjectManagerに記載
+ 
 	// 状態によって効果を付与
 	SetSkillAbility();
 
@@ -143,11 +141,14 @@ void Player::Update()
 	// ---- 最終的な座標を設定　----
 	object->position = position; // 改めて設定(当たった時に押し出す処理を考慮)
 
+	// 階層データの更新
+	stratumData = Stratum::GetStratumData(position.y, SIZE);
+	//stratumData = {2,3};
+
 	// ---- objectの更新 ----
 	object->Update();
-	boxObj->Update();
 
-	// ---- カウンター ----
+	// ---- カウント ----
 	// 無敵状態かつ、カウントが最大までいったら
 	if (invincibleCnt >= INVINCIBLE_TIME && invincible) 
 	{
@@ -163,31 +164,35 @@ void Player::Update()
 
 	// 無敵状態なら
 	if(invincible){ invincibleCnt++; } // 無敵時間をカウント
-
 }
 
 void Player::Draw()
 {
 	// objectの描画
 	object->Draw();
-	boxObj->Draw();
+}
+
+void Player::HitUpdate()
+{
+	// 無敵状態じゃなかったら
+	if (!invincible)
+	{
+		// プレイヤーにダメージ
+		hitPoint--;
+		// playerを青色に設定
+		object->color = { 0,0,1 };
+		// 無敵付与
+		state = State::invincible;
+		// 状態によって効果を付与
+		SetSkillAbility();
+	}
 }
 
 void Player::SetCollsion()
 {
-	// sphere
+	// 当たり判定を設定
 	collSphere.pos = Math::Vector4(object->position.x, object->position.y, object->position.z, 1.0f);
 	collSphere.r = object->scale.x;
-
-	// box
-	collBox.max = Math::Vector4(boxObj->position.x + boxObj->scale.x,
-		boxObj->position.y + boxObj->scale.y,
-		boxObj->position.z + boxObj->scale.z,
-		1.0f);
-	collBox.min = Math::Vector4(boxObj->position.x - boxObj->scale.x,
-		boxObj->position.y - boxObj->scale.y,
-		boxObj->position.z - boxObj->scale.z,
-		1.0f);
 }
 
 void Player::SetSkillAbility()

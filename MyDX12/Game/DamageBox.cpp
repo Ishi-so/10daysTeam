@@ -1,47 +1,44 @@
-#include "Block.h"
+#include "DamageBox.h"
 #include "../3D/Object3D.h"
 #include "Common.h"
 #include "ModelLoader.h"
-#include "Stratum.h"
 
-std::shared_ptr<Block> Block::Create(const Math::Vector3& _pos, const Math::Vector3& _scale)
+std::shared_ptr<DamageBox> DamageBox::Create(const Math::Vector3& _pos, const Math::Vector3& _scale)
 {
-	std::shared_ptr<Block> block = std::make_shared<Block>();
-	block->SetPos(_pos);
-	block->SetScale(_scale);
-	block->Init();
+	std::shared_ptr<DamageBox> damageBox = std::make_shared<DamageBox>();
+	damageBox->Init();
+	damageBox->SetPos(_pos);
+	damageBox->SetScale(_scale);
 
-	return std::move(block);
+	return std::move(damageBox);
 }
 
-Block::Block()
+DamageBox::DamageBox()
 {
 }
 
-Block::~Block()
+DamageBox::~DamageBox()
 {
 	delete obj;
 	obj = nullptr;
 }
 
-void Block::Init()
+void DamageBox::Init()
 {
 	// クラスネームのセット
 	// クラスネーム取得
-	const type_info& t_id = typeid(Block);
+	const type_info& t_id = typeid(DamageBox);
 	std::string path = t_id.name();
 	id = Common::SeparateFilePath(path).second;
 
 	// OBJクラスの生成
 	obj = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_BLOCK));
-	color = {1,1,1};
+	color = { 1,1,1 };
 	// ・・AABBの設定・・
 	collisionData = Math::SetAABB(obj->position, obj->scale);
-	// ---- 階層設定 ----
-	stratum = Stratum::GetStratumData(pos.y)[0];
 }
 
-void Block::Update()
+void DamageBox::Update()
 {
 	// 当たり判定の設定
 	collisionData = Math::SetAABB(pos, scale);
@@ -53,7 +50,7 @@ void Block::Update()
 	obj->Update();
 }
 
-void Block::Draw()
+void DamageBox::Draw()
 {
 	// 描画
 	obj->Draw();

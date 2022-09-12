@@ -237,7 +237,7 @@ void PostEffect::PreDrawScene(ID3D12GraphicsCommandList* cmdList)
 	CD3DX12_RECT scissorRects;
 
 	viewports = CD3DX12_VIEWPORT(0.0f, 0.0f, WindowsApp::window_width, WindowsApp::window_height);
-	scissorRects = CD3DX12_RECT(0, 0, WindowsApp::window_width, WindowsApp::window_height);
+	scissorRects = CD3DX12_RECT((LONG)0, (LONG)0, (LONG)WindowsApp::window_width, (LONG)WindowsApp::window_height);
 
 	// ビューポートの設定
 	cmdList->RSSetViewports(1, &viewports);
@@ -310,9 +310,9 @@ void PostEffect::CreateTexBuffer()
 	// リソース設定
 	CD3DX12_RESOURCE_DESC texresDesc = CD3DX12_RESOURCE_DESC::Tex2D(
 		DXGI_FORMAT_R8G8B8A8_UNORM,
-		WindowsApp::window_width,
+		(UINT64)WindowsApp::window_width,
 		(UINT)WindowsApp::window_height,
-		1, 0, 1, 0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET
+		(UINT16)1, (UINT16)0, (UINT)1, (UINT)0, D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET
 	);
 
 	auto prop = CD3DX12_HEAP_PROPERTIES(D3D12_CPU_PAGE_PROPERTY_WRITE_BACK,D3D12_MEMORY_POOL_L0);
@@ -329,14 +329,14 @@ void PostEffect::CreateTexBuffer()
 
 	// テクスチャを赤クリア
 	// 画素数(1280 x 720 = 921600ピクセル)
-	const UINT pixelCount = WindowsApp::window_width * WindowsApp::window_height;
+	const UINT pixelCount = (UINT)(WindowsApp::window_width * WindowsApp::window_height);
 	// 画像1行分のデータサイズ
-	const UINT rowPitch = sizeof(UINT) * WindowsApp::window_width;
+	const UINT rowPitch = sizeof(UINT) * (UINT)(WindowsApp::window_width);
 	// 画像全体のデータサイズ
-	const UINT depthPitch = rowPitch * WindowsApp::window_height;
+	const UINT depthPitch = (UINT)(rowPitch * WindowsApp::window_height);
 	// 画像イメージ
 	UINT* img = new UINT[pixelCount];
-	for (int j = 0; j < pixelCount; j++) { img[j] = 0xff0000ff; }
+	for (int j = 0; j < (int)(pixelCount); j++) { img[j] = 0xff0000ff; }
 
 	// テクスチャバッファにデータ転送
 	result = texBuff->WriteToSubresource(0, nullptr,
