@@ -130,18 +130,20 @@ bool GameScene::Initialize()
 
 			}
 			else if (mapData[i][j] == 3) // item
-			{}
+			{
+				std::shared_ptr<ItemBox> iBox = ItemBox::Create({
+				Common::ConvertPositionX(j),
+				Common::ConvertPositionY(i),
+				0 },
+					{ 1,1,1 }
+				);
+				ObjectManager::GetInstance()->AddObject(std::move(iBox));
+			}
 			else {} // ‚È‚µ
 		}
 	}
 
-	std::shared_ptr<ItemBox> iBox = ItemBox::Create({
-				Common::ConvertPositionX(7),
-				Common::ConvertPositionY(0),
-				0 },
-		{ 1,1,1 }
-	);
-	ObjectManager::GetInstance()->AddObject(std::move(iBox));
+	
 
 	// ƒV[ƒ“Ý’è
 	state->SetGameScene(this);

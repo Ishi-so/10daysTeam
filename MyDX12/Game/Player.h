@@ -18,26 +18,45 @@ private: // 構造体 or 列挙型
 		invincible, // 無敵
 	};
 
+	// プレイヤーの情報
+	struct Info 
+	{
+		float radius = 0.5f;
+		float edge = 0.0f;
+	};
+	struct Info info; // 情報の変数
+
 private: // メンバ定数
 	const int INVINCIBLE_TIME = 60.0f; // 無敵時間
-	const float SIZE = 3.0f;
+	const float SIZE = 3.0f; // 階層判別判定のサイズ
+	const float MAX_AREA = 10.4f; // 横幅の上限
 
 public: // メンバ関数
+	// 汎用関数
 	Player() = default; // コンストラクタ
 	~Player(); // デストラクタ
 	static Player* Create(Math::Vector3 createPos); // 生成関数
 	void Initialize(Math::Vector3 createPos); // 初期化
 	void Update(); // 毎フレーム処理
 	void Draw(); // 描画
-	void HitUpdate();
-
-	void SetCollsion(); // 当たり判定を設定
-	void SetSkillAbility(); // 状態によってバフデバフを付与
+	void HitUpdate(); // 当たっとき専用処理
+	
+	// ---- Setter Getter ---- 
+	/* Setter */
 	void SetHitFlag(bool flag) { hitFlag = flag; }// hitFlagを設定
 
-	Math::Vector3 GetPosition()const { return position; }
-	Math::Sphere GetCollision()const { return collSphere; }
-	std::vector<unsigned int> GetStratumData() { return stratumData; }
+	/* Getter */
+	Math::Vector3 GetPosition()const { return position; } // 座標を取得
+	Math::Sphere GetCollision()const { return collSphere; } // 当たり判定を取得
+	bool GetDeathFlag()const { return deathFlag; } // 死亡フラグの取得
+	std::vector<unsigned int> GetStratumData()const { return stratumData; } // 階層データを取得
+	Math::Vector3 GetDirection()const { return direction; } // 方向を取得
+
+private: // 固有メンバ関数(private)
+	// 固有関数
+	void SetCollsion(); // 当たり判定を設定
+	void SetSkillAbility(); // 状態によってバフデバフを付与
+
 private: // メンバ変数
 	// Playerデータ
 	Object3D* object = nullptr; // ゲームオブジェクト
@@ -46,7 +65,10 @@ private: // メンバ変数
 	Math::Vector3 position; // 座標
 	Math::Vector3 velocity; // 速度
 	Math::Vector3 acc; // 加速度
-	std::vector<unsigned int> stratumData;
+	Math::Vector3 prevPos; // 1f前の座標
+	Math::Vector3 direction; // 移動方向
+	bool deathFlag = false; // 死亡フラグ
+	std::vector<unsigned int> stratumData; // 階層データ
 
 	// プレイヤーの状態系
 	float stateAcc = 1.0f; // 状態によって決まる加減速値倍率
@@ -54,9 +76,7 @@ private: // メンバ変数
 	int invincibleCnt = 0; // 無敵時間のカウント
 
 	// 当たり判定確認用
-	Object3D* boxObj = nullptr; // box3Dオブジェクト
 	Math::Sphere collSphere; // 当たり判定用　球
-	Math::AABB collBox; // 当たり判定用　箱
 	bool hitFlag = false; // 当たり判定フラグ
 };
 

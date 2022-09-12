@@ -10,7 +10,6 @@ using namespace XIIlib;
 
 Player::~Player()
 {
-	delete boxObj;
 	delete object;
 }
 
@@ -27,19 +26,20 @@ Player* Player::Create(Math::Vector3 createPos)
 
 void Player::Initialize(Math::Vector3 createPos)
 {
-	// 座標の設定
+	// ---- 座標の設定 ----
 	position = createPos;
-	// オブジェクトの生成設定
+
+	// ---- オブジェクトの生成設定 ----
+	// プレイヤーオブジェクトモデル
 	object = Object3D::Create(Model::CreateFromOBJ("sphere"));
 	object->position = position;
+	info.radius = object->scale.x / 2;
+	info.edge = object->position.x + info.radius; // プレイヤーオブジェクトの端っこ
 
-	boxObj = Object3D::Create(Model::CreateFromOBJ("box_v000"));
-	boxObj->position = {5.0f,0.0f,0.0f};
-
-	// 当たり判定を付随させる
+	// ---- 当たり判定を付随させる ----
 	SetCollsion();
 
-	// 階層データの初期化
+	// ---- 階層データの初期化 ----
 	stratumData.resize(2);
 	stratumData = Stratum::GetStratumData(position.y, SIZE);
 }
@@ -48,6 +48,8 @@ void Player::Update()
 {
 	// 状態をリセット
 	state = State::none;
+	// 現在の座標を保存
+	prevPos = position;
 
 	// ---- 移動 ----
 	// キーボード操作
@@ -72,6 +74,16 @@ void Player::Update()
 		}
 	}
 
+	// テスト用
+	if (KeyInput::GetInstance()->Push(DIK_W)) // 右移動
+	{
+		position.y += 0.5f;
+	}
+	else if (KeyInput::GetInstance()->Push(DIK_S)) // 左移動
+	{
+		position.y -= 0.5f;
+	}
+
 	// 落下
 	//acc.y = -0.1f;
 
@@ -94,21 +106,29 @@ void Player::Update()
 	}
 	
 	// ---- 座標の更新 ----
-	velocity += acc;
-	position += velocity * stateAcc;
+	velocity += acc; 
+	position += velocity * stateAcc; // 加算されたveloと状態加速によって座標を更新
+	// 横壁の範囲上限
+	if (MAX_AREA <= position.x + info.radius)
+	{
+		// 押し出し
+		position.x = MAX_AREA - info.radius;
+	}
+	else if (position.x - info.radius <= -MAX_AREA)
+	{
+		// 押し出し
+		position.x = -MAX_AREA + info.radius;
+	}
+	
 	object->position = position; // 座標の設定
+	direction = position - prevPos; // 方向を設定
 
 	// ---- 当たり判定を付随 ----
 	SetCollsion();
 
 	// ---- 当たり判定 ----
 	// ObjectManagerに記載
-
-	if (!invincible) {
-		// boxの色を戻す
-		boxObj->color = { 1,1,1 };
-	}
-
+ 
 	// 状態によって効果を付与
 	SetSkillAbility();
 
@@ -127,7 +147,6 @@ void Player::Update()
 
 	// ---- objectの更新 ----
 	object->Update();
-	boxObj->Update();
 
 	// ---- カウント ----
 	// 無敵状態かつ、カウントが最大までいったら
@@ -151,13 +170,10 @@ void Player::Draw()
 {
 	// objectの描画
 	object->Draw();
-	boxObj->Draw();
 }
 
 void Player::HitUpdate()
 {
-	// boxを赤色に設定
-	boxObj->color = { 1,0,0 };
 	// 無敵状態じゃなかったら
 	if (!invincible)
 	{
@@ -174,19 +190,9 @@ void Player::HitUpdate()
 
 void Player::SetCollsion()
 {
-	// sphere
+	// 当たり判定を設定
 	collSphere.pos = Math::Vector4(object->position.x, object->position.y, object->position.z, 1.0f);
 	collSphere.r = object->scale.x;
-
-	// box
-	collBox.max = Math::Vector4(boxObj->position.x + boxObj->scale.x,
-		boxObj->position.y + boxObj->scale.y,
-		boxObj->position.z + boxObj->scale.z,
-		1.0f);
-	collBox.min = Math::Vector4(boxObj->position.x - boxObj->scale.x,
-		boxObj->position.y - boxObj->scale.y,
-		boxObj->position.z - boxObj->scale.z,
-		1.0f);
 }
 
 void Player::SetSkillAbility()
