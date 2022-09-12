@@ -19,6 +19,7 @@
 #include "../Game/ItemBox.h"
 #include "../Game/Common.h"
 #include "../Tool/DigitalNumberText.h"
+#include "../Game/InstBill.h"
 
 GameScene* GameScene::Create()
 {
@@ -195,6 +196,12 @@ void GameScene::Draw()
 	state->Draw();
 	Object3D::PostDraw();
 
+	// ビルボード用オブジェクト
+	InstBill::PreDraw();
+
+
+
+	InstBill::PostDraw();
 
 	// ImGuiの描画
 
