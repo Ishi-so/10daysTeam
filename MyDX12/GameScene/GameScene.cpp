@@ -1,4 +1,4 @@
-�ｿ#include "GameScene.h"
+#include "GameScene.h"
 #include "../Light/LightGroup.h"
 #include "../Camera/DebugCamera.h"
 #include "../3D/Object3D.h"
@@ -23,14 +23,14 @@
 
 GameScene* GameScene::Create()
 {
-	// 3D繧ｪ繝悶ず繧ｧ繧ｯ繝医�繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繧堤函謌
+	// 3D繧�E�繝悶ず繧�E�繧�E�繝医�E�繧�E�繝ｳ繧�E�繧�E�繝ｳ繧�E�繧堤函謁E
 	GameScene* pGameScene = new GameScene();
 	if (pGameScene == nullptr)
 	{
 		return nullptr;
 	}
 
-	// 蛻晄悄蛹
+	// 蛻晁E��蛹
 	if (!pGameScene->Initialize())
 	{
 		delete pGameScene;
@@ -59,15 +59,12 @@ GameScene::~GameScene()
 
 bool GameScene::Initialize()
 {
-	// 縺薙％縺ｯ蟋九∪繧翫�譖ｸ!!
-	// 繧｢繝輔Ο繝�ぅ譫怜ｱ樊ｧ縺ｪ縺ｮ縺ｫ繧ｴ繝�ラ繝弱え繧ｺ縺ｨ繝倥ヶ繝ｳ繧ｺ繧ｿ繧､繝縺ｯ鬚ｨ螻樊ｧ
-
 	d_camera = new DebugCamera();
 	d_camera->_Initialize(100.0f, 0.05f, 10.0f);
 	d_camera->SetLookAtRange(0, 1, 0);
-	const float Z_AXIS = -25; // 螂･陦後ｒ險ｭ螳
+	const float Z_AXIS = -25; // 螂･陦後ｒ險�E�螳
 
-	// 繝ｩ繧､繝育函謌
+	// 繝ｩ繧�E�繝育函謁E
 	lightGroup = LightGroup::Create();
 
 	lightGroup->SetDirLightActive(0, true);
@@ -77,12 +74,12 @@ bool GameScene::Initialize()
 	lightGroup->SetCircleShadowActive(0, true);
 	lightGroup->SetCircleShadowActive(1, true);
 
-	// 繧ｫ繝｡繝ｩ縺ｮ繧ｻ繝�ヨ
+	// 繧�E�繝｡繝ｩ縺�E�繧�E�繝�ヨ
 	Object3D::SetDebugCamera(d_camera);
-	// 繝ｩ繧､繝医�繧ｻ繝�ヨ
+	// 繝ｩ繧�E�繝医�E�繧�E�繝�ヨ
 	Object3D::SetLightGroup(lightGroup);
 
-	// 繝｢繝�Ν繝ｭ繝ｼ繝繝ｼ縺ｮ險ｭ螳
+	// 繝｢繝�Ν繝ｭ繝ｼ繁E繝ｼ縺�E�險�E�螳
 	ModelLoader::GetInstance()->Initialize();
 	ModelLoader::GetInstance()->Load();
 
@@ -110,18 +107,18 @@ bool GameScene::Initialize()
 	circle = new Circle();
 	circle->Initialize();
 
-	// 繧ｹ繝��繧ｸ縺ｮ逕滓�
+	// 繧�E�繝��E�繧�E�縺�E�逕滓�
 	mapData = CSVLoader::GetCSVTwoVector("stage0", CSVLoader::BoardType::BOARD_2D,64);
 	int xSize = CSVLoader::GetSize("x"), ySize = CSVLoader::GetSize("y");
 	for (int i = 0; i < ySize; i++)
 	{
 		for (int j = 0; j < xSize; j++)
 		{
-			if (mapData[i][j] == 0)// 縺ｪ縺
+			if (mapData[i][j] == 0)// 縺�E�縺
 			{}
-			else if (mapData[i][j] == 1) // 繝励Ξ繧､繝､繝ｼ
+			else if (mapData[i][j] == 1) // 繝励Ξ繧�E�繝､繝ｼ
 			{
-				// player縺ｮ逕滓�
+				// player縺�E�逕滓�
 				m_player = Player::Create({
 					Common::ConvertPositionX(j),
 					Common::ConvertPositionY(i),
@@ -152,23 +149,23 @@ bool GameScene::Initialize()
 				ObjectManager::GetInstance()->AddObject(std::move(iBox));
 			}
 			else
-      {} // なし
+      {} // なぁE
 		}
 	}
 
 	
 
-	// 繧ｷ繝ｼ繝ｳ險ｭ螳
+	// 繧�E�繝ｼ繝ｳ險�E�螳
 	state->SetGameScene(this);
 	state->SetPlayer(m_player);
 	state->Initialize();
 
-	// 繝槭ロ繝ｼ繧ｸ繝｣繝ｼ縺ｮ蛻晄悄蛹
+	// 繝槭ロ繝ｼ繧�E�繝｣繝ｼ縺�E�蛻晁E��蛹
 	ObjectManager::GetInstance()->Initialize();
-	// 繝励Ξ繧､繝､繝ｼ繧偵�繝阪�繧ｸ繝｣繝ｼ縺ｫ繧ｳ繝斐�
+	// 繝励Ξ繧�E�繝､繝ｼ繧偵�E�繝阪�E�繧�E�繝｣繝ｼ縺�E�繧�E�繝斐�E�
 	ObjectManager::GetInstance()->SetPlayer(m_player);
 
-	// 繧ｫ繝｡繝ｩ縺ｮ譖ｴ譁ｰ(1f逶ｮ縺翫°縺励￥縺ｪ繧九◆繧)
+	// 繧�E�繝｡繝ｩ縺�E�譖ｴ譁E��(1f逶�E�縺翫°縺励�E�縺�E�繧九◆繧)
 	Math::Vector3 playerPos = m_player->GetPosition();
 	d_camera->SetPosition(playerPos.x, playerPos.y,Z_AXIS);
 	d_camera->_Update();
@@ -179,7 +176,7 @@ bool GameScene::Initialize()
 
 void GameScene::Update()
 {
-	// 繧ｫ繝｡繝ｩ縺ｮ蜍輔″縺ｮ蜃ｦ逅
+	// 繧�E�繝｡繝ｩ縺�E�蜍輔″縺�E�蜁E��送E
 	const float m_rad = 0.01f;
 	const float m_range = 0.1f;
 	const float lookatRange = 5.0f;
@@ -192,20 +189,20 @@ void GameScene::Update()
 
 	state->Update();
 
-	m_player->Update(); // SceneState豢ｾ逕溘�繧ｯ繝ｩ繧ｹ縺ｧ繧�ｋ(莉翫�莉ｮ鄂ｮ縺)
+	m_player->Update(); // SceneState豢�E�逕溘�繧�E�繝ｩ繧�E�縺�E�繧�E��E�E莉翫�E�莉ｮ鄂ｮ縺)
 	ObjectManager::GetInstance()->Update();
 }
 
 void GameScene::Draw()
 {
-	// 閭梧勹繧ｹ繝励Λ繧､繝
+	// 閭梧勹繧�E�繝励Λ繧�E�繁E
 	Sprite::PreDraw();
 
 	Sprite::PostDraw();
 	DirectX12::ClearDepthBuffer();
-	//3D縺ｾ縺溘�繝昴せ繝医お繝輔ぉ繧ｯ繝医�謠冗判
+	//3D縺�E�縺溘�繝昴せ繝医お繝輔ぉ繧�E�繝医�E�謠冗判
 	Object3D::PreDraw();
-	m_player->Draw(); // SceneState豢ｾ逕溘�繧ｯ繝ｩ繧ｹ縺ｧ繧�ｋ(莉翫�莉ｮ鄂ｮ縺)
+	m_player->Draw(); // SceneState豢�E�逕溘�繧�E�繝ｩ繧�E�縺�E�繧�E��E�E莉翫�E�莉ｮ鄂ｮ縺)
 
 	ObjectManager::GetInstance()->Draw();
 	state->Draw();
@@ -218,11 +215,11 @@ void GameScene::Draw()
 
 	InstBill::PostDraw();
 
-	// ImGui縺ｮ謠冗判
+	// ImGui縺�E�謠冗判
 
-	// 蜑肴勹繧ｹ繝励Λ繧､繝
+	// 蜑肴勹繧�E�繝励Λ繧�E�繁E
 
-	// 譁�ｭ励せ繝励Λ繧､繝
+	// 譁E���E�励せ繝励Λ繧�E�繁E
 	Sprite::PreDraw();
 
 	state->DrawTexture();
