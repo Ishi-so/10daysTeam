@@ -1,4 +1,4 @@
-#include "GameScene.h"
+ï¿½ï½¿#include "GameScene.h"
 #include "../Light/LightGroup.h"
 #include "../Camera/DebugCamera.h"
 #include "../3D/Object3D.h"
@@ -10,7 +10,7 @@
 
 #include "../2D/Circle.h"
 
-// GameŒn
+// Gameé‚‰ï½»
 #include "Title.h"
 #include "../Game/Player.h"
 #include "../Game/ModelLoader.h"
@@ -22,14 +22,14 @@
 
 GameScene* GameScene::Create()
 {
-	// 3DƒIƒuƒWƒFƒNƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
+	// 3Dç¹§ï½ªç¹æ‚¶ãšç¹§ï½§ç¹§ï½¯ç¹åŒ»ï¿½ç¹§ï½¤ç¹ï½³ç¹§ï½¹ç¹§ï½¿ç¹ï½³ç¹§ï½¹ç¹§å ¤å‡½è¬Œ
 	GameScene* pGameScene = new GameScene();
 	if (pGameScene == nullptr)
 	{
 		return nullptr;
 	}
 
-	// ‰Šú‰»
+	// è›»æ™„æ‚„è›¹
 	if (!pGameScene->Initialize())
 	{
 		delete pGameScene;
@@ -58,15 +58,15 @@ GameScene::~GameScene()
 
 bool GameScene::Initialize()
 {
-	// ‚±‚±‚Ín‚Ü‚è‚Ì‘!!
-	// ƒAƒtƒƒfƒB—Ñ‘®«‚È‚Ì‚ÉƒSƒbƒhƒmƒEƒY‚Æƒwƒuƒ“ƒYƒ^ƒCƒ€‚Í•—‘®«
+	// ç¸ºè–™ï¼…ç¸ºï½¯èŸ‹ä¹âˆªç¹§ç¿«ï¿½è­–ï½¸!!
+	// ç¹§ï½¢ç¹è¼”ÎŸç¹ï¿½ã…è­«æ€œï½±æ¨Šï½§ç¸ºï½ªç¸ºï½®ç¸ºï½«ç¹§ï½´ç¹ï¿½ãƒ©ç¹å¼±ãˆç¹§ï½ºç¸ºï½¨ç¹å€¥ãƒ¶ç¹ï½³ç¹§ï½ºç¹§ï½¿ç¹§ï½¤ç¹ç¸ºï½¯é¬šï½¨è»æ¨Šï½§
 
 	d_camera = new DebugCamera();
 	d_camera->_Initialize(100.0f, 0.05f, 10.0f);
 	d_camera->SetLookAtRange(0, 1, 0);
-	const float Z_AXIS = -25; // ‰œs‚ğİ’è
+	const float Z_AXIS = -25; // è‚ï½¥é™¦å¾Œï½’éšªï½­è³
 
-	// ƒ‰ƒCƒg¶¬
+	// ç¹ï½©ç¹§ï½¤ç¹è‚²å‡½è¬Œ
 	lightGroup = LightGroup::Create();
 
 	lightGroup->SetDirLightActive(0, true);
@@ -76,12 +76,12 @@ bool GameScene::Initialize()
 	lightGroup->SetCircleShadowActive(0, true);
 	lightGroup->SetCircleShadowActive(1, true);
 
-	// ƒJƒƒ‰‚ÌƒZƒbƒg
+	// ç¹§ï½«ç¹ï½¡ç¹ï½©ç¸ºï½®ç¹§ï½»ç¹ï¿½ãƒ¨
 	Object3D::SetDebugCamera(d_camera);
-	// ƒ‰ƒCƒg‚ÌƒZƒbƒg
+	// ç¹ï½©ç¹§ï½¤ç¹åŒ»ï¿½ç¹§ï½»ç¹ï¿½ãƒ¨
 	Object3D::SetLightGroup(lightGroup);
 
-	// ƒ‚ƒfƒ‹ƒ[ƒ_[‚Ìİ’è
+	// ç¹ï½¢ç¹ï¿½Îç¹ï½­ç¹ï½¼ç¹ç¹ï½¼ç¸ºï½®éšªï½­è³
 	ModelLoader::GetInstance()->Initialize();
 	ModelLoader::GetInstance()->Load();
 
@@ -91,24 +91,36 @@ bool GameScene::Initialize()
 	Sprite::LoadTexture(texind, L"Resources/digitalNum.png");					texind++;//2
 	Sprite::LoadTexture(texind, L"Resources/effect1.png");						texind++;//3
 	Sprite::LoadTexture(texind, L"Resources/white1x1.png");						texind++;//4
+	Sprite::LoadTexture(texind, L"Resources/result.png");                       texind++;//5
+	Sprite::LoadTexture(texind, L"Resources/goldMedal.png");                    texind++;//6
+	Sprite::LoadTexture(texind, L"Resources/SilverMedal.png");                  texind++;//7
+	Sprite::LoadTexture(texind, L"Resources/bronzeMedal.png");                  texind++;//8
+	Sprite::LoadTexture(texind, L"Resources/medalBase.png");                   texind++;//9
+	Sprite::LoadTexture(texind, L"Resources/R.png");                       texind++;//10
+	Sprite::LoadTexture(texind, L"Resources/E.png");                       texind++;//11
+	Sprite::LoadTexture(texind, L"Resources/S.png");                       texind++;//12
+	Sprite::LoadTexture(texind, L"Resources/U.png");                       texind++;//13
+	Sprite::LoadTexture(texind, L"Resources/L.png");                       texind++;//14
+	Sprite::LoadTexture(texind, L"Resources/T.png");                       texind++;//15
+
 
 	DebugJISText::GetInstance()->Initialize(debugJISTextTexNumber);
 
 	circle = new Circle();
 	circle->Initialize();
 
-	// ƒXƒe[ƒW‚Ì¶¬
+	// ç¹§ï½¹ç¹ï¿½ï¿½ç¹§ï½¸ç¸ºï½®é€•æ»“ï¿½
 	mapData = CSVLoader::GetCSVTwoVector("stage0", CSVLoader::BoardType::BOARD_2D,64);
 	int xSize = CSVLoader::GetSize("x"), ySize = CSVLoader::GetSize("y");
 	for (int i = 0; i < ySize; i++)
 	{
 		for (int j = 0; j < xSize; j++)
 		{
-			if (mapData[i][j] == 0)// ‚È‚µ
+			if (mapData[i][j] == 0)// ç¸ºï½ªç¸º
 			{}
-			else if (mapData[i][j] == 1) // ƒvƒŒƒCƒ„[
+			else if (mapData[i][j] == 1) // ç¹åŠ±Îç¹§ï½¤ç¹ï½¤ç¹ï½¼
 			{
-				// player‚Ì¶¬
+				// playerç¸ºï½®é€•æ»“ï¿½
 				m_player = Player::Create({
 					Common::ConvertPositionX(j),
 					Common::ConvertPositionY(i),
@@ -138,23 +150,24 @@ bool GameScene::Initialize()
 				);
 				ObjectManager::GetInstance()->AddObject(std::move(iBox));
 			}
-			else {} // ‚È‚µ
+			else
+      {} // ãªã—
 		}
 	}
 
 	
 
-	// ƒV[ƒ“İ’è
+	// ç¹§ï½·ç¹ï½¼ç¹ï½³éšªï½­è³
 	state->SetGameScene(this);
 	state->SetPlayer(m_player);
 	state->Initialize();
 
-	// ƒ}ƒl[ƒWƒƒ[‚Ì‰Šú‰»
+	// ç¹æ§­ãƒ­ç¹ï½¼ç¹§ï½¸ç¹ï½£ç¹ï½¼ç¸ºï½®è›»æ™„æ‚„è›¹
 	ObjectManager::GetInstance()->Initialize();
-	// ƒvƒŒƒCƒ„[‚ğƒ}ƒl[ƒWƒƒ[‚ÉƒRƒs[
+	// ç¹åŠ±Îç¹§ï½¤ç¹ï½¤ç¹ï½¼ç¹§åµï¿½ç¹é˜ªï¿½ç¹§ï½¸ç¹ï½£ç¹ï½¼ç¸ºï½«ç¹§ï½³ç¹æ–ï¿½
 	ObjectManager::GetInstance()->SetPlayer(m_player);
 
-	// ƒJƒƒ‰‚ÌXV(1f–Ú‚¨‚©‚µ‚­‚È‚é‚½‚ß)
+	// ç¹§ï½«ç¹ï½¡ç¹ï½©ç¸ºï½®è­–ï½´è­ï½°(1fé€¶ï½®ç¸ºç¿«Â°ç¸ºåŠ±ï¿¥ç¸ºï½ªç¹§ä¹â—†ç¹§)
 	Math::Vector3 playerPos = m_player->GetPosition();
 	d_camera->SetPosition(playerPos.x, playerPos.y,Z_AXIS);
 	d_camera->_Update();
@@ -165,44 +178,44 @@ bool GameScene::Initialize()
 
 void GameScene::Update()
 {
-	// ƒJƒƒ‰‚Ì“®‚«‚Ìˆ—
+	// ç¹§ï½«ç¹ï½¡ç¹ï½©ç¸ºï½®èœè¼”â€³ç¸ºï½®èœƒï½¦é€…
 	const float m_rad = 0.01f;
 	const float m_range = 0.1f;
 	const float lookatRange = 5.0f;
 
-	
-	// ƒJƒƒ‰XV
+	// ã‚«ãƒ¡ãƒ©æ›´æ–°
 	d_camera->SetLookAtRange(0, m_player->GetPosition().y,0);
 	d_camera->SetPosition(0,m_player->GetPosition().y,-40);
+
 	d_camera->_Update();
 
 	state->Update();
 
-	m_player->Update(); // SceneState”h¶‚ÌƒNƒ‰ƒX‚Å‚â‚é(¡‚Í‰¼’u‚«)
+	m_player->Update(); // SceneStateè±¢ï½¾é€•æº˜ï¿½ç¹§ï½¯ç¹ï½©ç¹§ï½¹ç¸ºï½§ç¹§ï¿½ï½‹(è‰ç¿«ï¿½è‰ï½®é„‚ï½®ç¸º)
 	ObjectManager::GetInstance()->Update();
 }
 
 void GameScene::Draw()
 {
-	// ”wŒiƒXƒvƒ‰ƒCƒg
+	// é–­æ¢§å‹¹ç¹§ï½¹ç¹åŠ±Î›ç¹§ï½¤ç¹
 	Sprite::PreDraw();
 
 	Sprite::PostDraw();
 	DirectX12::ClearDepthBuffer();
-	//3D‚Ü‚½‚Íƒ|ƒXƒgƒGƒtƒFƒNƒg‚Ì•`‰æ
+	//3Dç¸ºï½¾ç¸ºæº˜ï¿½ç¹æ˜´ã›ç¹åŒ»ãŠç¹è¼”ã‰ç¹§ï½¯ç¹åŒ»ï¿½è¬ å†—åˆ¤
 	Object3D::PreDraw();
-	m_player->Draw(); // SceneState”h¶‚ÌƒNƒ‰ƒX‚Å‚â‚é(¡‚Í‰¼’u‚«)
+	m_player->Draw(); // SceneStateè±¢ï½¾é€•æº˜ï¿½ç¹§ï½¯ç¹ï½©ç¹§ï½¹ç¸ºï½§ç¹§ï¿½ï½‹(è‰ç¿«ï¿½è‰ï½®é„‚ï½®ç¸º)
 
 	ObjectManager::GetInstance()->Draw();
 	state->Draw();
 	Object3D::PostDraw();
 
 
-	// ImGui‚Ì•`‰æ
+	// ImGuiç¸ºï½®è¬ å†—åˆ¤
 
-	// ‘OŒiƒXƒvƒ‰ƒCƒg
+	// èœ‘è‚´å‹¹ç¹§ï½¹ç¹åŠ±Î›ç¹§ï½¤ç¹
 
-	// •¶šƒXƒvƒ‰ƒCƒg
+	// è­ï¿½ï½­åŠ±ã›ç¹åŠ±Î›ç¹§ï½¤ç¹
 	Sprite::PreDraw();
 
 	state->DrawTexture();

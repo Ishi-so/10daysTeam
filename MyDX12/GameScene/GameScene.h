@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "../Struct/Math/Vector3.h"
 #include <vector>
 
@@ -7,14 +7,14 @@ class LightGroup;
 class Circle;
 class Tessellation;
 class SceneState;
-class Player; // ‰¼
+class Player; // ä»®
 
 class GameScene {
-private:// Ã“Iƒƒ“ƒo
+private:// é™çš„ãƒ¡ãƒ³ãƒ
 	static const int debugTextTexNumber = 0;
 	static const int debugJISTextTexNumber = 1;
 
-private:// ƒƒ“ƒo
+private:// ãƒ¡ãƒ³ãƒ
 	LightGroup* lightGroup = nullptr;
 	DebugCamera* d_camera = nullptr;
 	SceneState* state = nullptr;// Scene
@@ -24,8 +24,8 @@ private:// ƒƒ“ƒo
 
 	Circle* circle = nullptr;
 
-	// GameŒn
-	Player* m_player = nullptr;// ƒvƒŒƒCƒ„[ƒNƒ‰ƒX
+	// Gameç³»
+	Player* m_player = nullptr;// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¯ãƒ©ã‚¹
 	std::vector<std::vector<int>>mapData = {};
 
 public:
@@ -34,11 +34,11 @@ public:
 	GameScene();
 	~GameScene();
 
-	bool Initialize();// ‰Šú‰»
+	bool Initialize();// åˆæœŸåŒ–
 
-	void Update();// XV
+	void Update();// æ›´æ–°
 
-	void Draw();// •`‰æ
+	void Draw();// æç”»
 
-	void ChangeState(SceneState* different_state);// ƒV[ƒ“‚ÌØ‚è‘Ö‚¦
+	void ChangeState(SceneState* different_state);// ã‚·ãƒ¼ãƒ³ã®åˆ‡ã‚Šæ›¿ãˆ
 };
