@@ -21,20 +21,21 @@ PlayerEffectManager* PlayerEffectManager::Create()
 
 void PlayerEffectManager::Initialize()
 {
-	//vcon.reserve(sizeof(DataAset) * 10);
+	vcon.reserve(sizeof(DataAset) * 100);
 	iBill = InstBill::Create("");
 }
 
-void PlayerEffectManager::Add(float c, float s, const Math::Vector3& v, const Math::Vector3& pos)
+void PlayerEffectManager::Add(const Math::Vector3& v, const Math::Vector3& pos)
 {
 	float cR = static_cast<float>((rand() % 11)) / 10.0f;
 	float cG = static_cast<float>((rand() % 11)) / 10.0f;
 	float cB = static_cast<float>((rand() % 11)) / 10.0f;
 	const float dColor = 255.0f;
 	DataAset data = { pos,v,
-		s,						// addScale
+		{cR * dColor,cG * dColor,cB * dColor},				// color
+		0.04f,						// addScale
 		0.1f,					// scale
-		dColor * cR,dColor * cG,dColor * cB	// color
+		255.0f					// alpha
 	};
 
 	vcon.push_back(data);
@@ -46,7 +47,6 @@ void PlayerEffectManager::Update()
 	for (auto& u : vcon) {
 		u.position += u.vec;
 		u.scale += u.addScale;
-		u.color += u.addColor;
 		u.a += -2.55f;
 	}
 
@@ -60,7 +60,7 @@ void PlayerEffectManager::Update()
 	vcon.erase(removeIt, vcon.end());
 
 	for (auto& u : vcon) {
-		iBill->DrawBillBox(u.position, u.scale, u.color, u.color, u.color, u.a);
+		iBill->DrawBillBox(u.position, u.scale, u.color.x, u.color.y, u.color.z, u.a);
 	}
 }
 

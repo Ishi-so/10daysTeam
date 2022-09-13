@@ -8,6 +8,7 @@ class Circle;
 class Tessellation;
 class SceneState;
 class Player; // 仮
+class PlayerEffectManager;
 
 class GameScene {
 private:// 静的メンバ
@@ -27,6 +28,8 @@ private:// メンバ
 	// Game系
 	Player* m_player = nullptr;// プレイヤークラス
 	std::vector<std::vector<int>>mapData = {};
+	PlayerEffectManager* playerEffects = nullptr;
+	int playerDistTimer;
 
 public:
 	static GameScene* Create();
