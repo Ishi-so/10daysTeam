@@ -9,7 +9,8 @@ public:
 	struct DataAset {
 		Math::Vector3 position;
 		Math::Vector3 vec;
-		float addScale, scale, addColor, color, a;
+		Math::Vector3 color;
+		float addScale, scale,a;
 	};
 private:
 	std::vector<DataAset> vcon;
@@ -22,7 +23,7 @@ public:
 	~PlayerEffectManager();
 
 	void Initialize();
-	void Add(float c, float s, const Math::Vector3& v, const Math::Vector3& pos);
+	void Add(const Math::Vector3& v, const Math::Vector3& pos);
 	void Update();
 	void Draw();
 
