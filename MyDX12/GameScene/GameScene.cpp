@@ -20,6 +20,7 @@
 #include "../Game/Common.h"
 #include "../Tool/DigitalNumberText.h"
 #include "../Game/InstBill.h"
+#include "../Game/PlayerEffectManager.h"
 
 GameScene* GameScene::Create()
 {
@@ -47,6 +48,8 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
+	delete playerEffects;
+	playerEffects = nullptr;
 	delete m_player;
 	delete circle;
 	delete state;
@@ -177,6 +180,7 @@ bool GameScene::Initialize()
 	d_camera->_Update();
 
 	DigitalNumberText::GetInstance()->Initialize(2);
+	playerEffects = PlayerEffectManager::Create();
 	return true;
 }
 
@@ -196,6 +200,12 @@ void GameScene::Update()
 	state->Update();
 
 	m_player->Update(); // SceneState”h¶‚ÌƒNƒ‰ƒX‚Å‚â‚é(¡‚Í‰¼’u‚«)
+	if (playerDistTimer >= 30) {
+		playerDistTimer = 0;
+		playerEffects->Add(0.0f,0.3f,m_player->GetDirection() * -1.0f,m_player->GetPosition() - Math::Vector3(0,1.5f,0));
+	}
+	playerDistTimer++;
+
 	ObjectManager::GetInstance()->Update();
 }
 
