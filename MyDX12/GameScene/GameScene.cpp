@@ -20,6 +20,7 @@
 #include "../Game/Common.h"
 #include "../Tool/DigitalNumberText.h"
 #include "../Game/InstBill.h"
+#include "../Game/PlayerEffectManager.h"
 
 GameScene* GameScene::Create()
 {
@@ -47,6 +48,8 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
+	delete playerEffects;
+	playerEffects = nullptr;
 	delete m_player;
 	delete circle;
 	delete state;
@@ -81,6 +84,9 @@ bool GameScene::Initialize()
 	Object3D::SetDebugCamera(d_camera);
 	// ライトのセット
 	Object3D::SetLightGroup(lightGroup);
+
+	// カメラセット
+	InstBill::SetDebugCamera(d_camera);
 
 	// モデルローダーの設定
 	ModelLoader::GetInstance()->Initialize();
@@ -175,6 +181,8 @@ bool GameScene::Initialize()
 	d_camera->_Update();
 
 	DigitalNumberText::GetInstance()->Initialize(2);
+	playerEffects = PlayerEffectManager::Create();
+	playerDistTimer = 0;
 	return true;
 }
 
@@ -194,6 +202,14 @@ void GameScene::Update()
 	state->Update();
 
 	m_player->Update(); // SceneState派生のクラスでやる(今は仮置き)
+	if (playerDistTimer >= 10) {
+		playerDistTimer = 0;
+		playerEffects->Add(m_player->GetDirection().normalize() * -1.0f, m_player->GetPosition());
+	}
+	playerDistTimer++;
+
+	playerEffects->Update();
+
 	ObjectManager::GetInstance()->Update();
 }
 
@@ -213,11 +229,7 @@ void GameScene::Draw()
 	Object3D::PostDraw();
 
 	// ビルボード用オブジェクト
-	InstBill::PreDraw();
-
-
-
-	InstBill::PostDraw();
+	playerEffects->Draw();
 
 	// ImGuiの描画
 
