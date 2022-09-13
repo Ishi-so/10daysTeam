@@ -8,6 +8,8 @@
 
 using namespace XIIlib;
 
+const float End::resultScore = score;
+
 End::End()
 {
 }
@@ -29,38 +31,33 @@ void End::Initialize()
 {
 	Messenger::GetInstance()->AddPrintOut("エンドシーンです！");
 	result = Sprite::Create(5, resultPos); // リザルト画像の生成
-	result->SetAnchorPoint({ 0.5f, 0.5f });
+	result->SetAnchorPoint(center);
 
 	for (int i = 0; i < _countof(medal); i++) {
 		medal[i] = Sprite::Create(6 + i, medalPos); // メダル画像の生成
-		medal[i]->SetAnchorPoint({ 0.5f, 0.5f });
+		medal[i]->SetAnchorPoint(center);
 		medal[i]->SetSize(medalSize);
 	}
 	medalBase = Sprite::Create(9, medalPos); // メダル台画像の生成
-	medalBase->SetAnchorPoint({ 0.5f, 0.5f });
+	medalBase->SetAnchorPoint(center);
 
-	returnTitle = Sprite::Create(10, { 50, 610 }); // タイトルへ画像の生成
+	returnTitle = Sprite::Create(10, titlePos); // タイトルへ画像の生成
 	returnTitle->SetSize({ 500 * 0.7f, 100 * 0.7f });
-	returnSelect = Sprite::Create(11, { 600, 610 }); // セレクトへ画像の生成
+	returnSelect = Sprite::Create(11, selectpos); // セレクトへ画像の生成
 	returnSelect->SetSize({ 900 * 0.7f, 100 * 0.7f });
 
-	titleCursor = Sprite::Create(12, { 50, 610 }); //
-	selectCursor = Sprite::Create(13, { 600, 610 }); //
+	titleCursor = Sprite::Create(12, titlePos); //
+	selectCursor = Sprite::Create(13, selectpos); //
 }
 
 void End::Update()
 {
-	// 押したら切り替え
-	/*if (KeyInput::GetInstance()->Trigger(DIK_SPACE)) {
-		p_game_scene->ChangeState(new Title());
-	}*/
-
 	if (resultPos.y < resultLastY) { // リザルトが最終座標に到達していない時
 		resultPos.y += 5.0f; // リザルトを下に移動
 		result->SetPosition(resultPos);
 	}
 	else { // リザルトが最終座標に到達した時
-		medalDrawFlag = true; // 描画フラグをtrueに
+		medalDrawFlag = true; // メダル描画フラグをtrueに
 		if (medalSize.x > medalLastSize.x) {
 			medalSize -= {2.0f, 2.0f}; // サイズを縮小
 			for (auto x : medal) {
@@ -82,9 +79,19 @@ void End::Update()
 		if (pushLeftFlag) {
 			p_game_scene->ChangeState(new Title());
 		}
-		else if(pushLeftFlag == false) {
+		else if (pushLeftFlag == false) {
 			p_game_scene->ChangeState(new Select());
 		}
+	}
+
+	if (resultTime < goldTime) {
+		medalColor = MedalColor::GOLD; // 金色に
+	}
+	else if (resultTime < silverTime && resultTime >= goldTime) {
+		medalColor = MedalColor::SILVER; // 銀色に
+	}
+	else {
+		medalColor = MedalColor::BRONZE; // 銅色に
 	}
 }
 
@@ -99,7 +106,7 @@ void End::DrawTexture()
 	medalBase->Draw(); // メダル台の描画
 
 	if (medalDrawFlag) {
-		medal[0]->Draw(); // メダルの描画
+		medal[static_cast<int>(medalColor)]->Draw(); // メダルの描画
 	}
 
 	returnTitle->Draw(); // タイトルへの描画

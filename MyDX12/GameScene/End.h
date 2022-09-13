@@ -4,14 +4,10 @@
 
 class Sprite;
 
-enum class ShrinkChar {
-	R,
-	E,
-	S,
-	U,
-	L,
-	T,
-	M,
+enum class MedalColor{
+	GOLD,
+	SILVER,
+	BRONZE,
 };
 
 class End : public SceneState {
@@ -38,16 +34,23 @@ private:// 変数
 
 	const Math::Vector2 center{ 0.5f, 0.5f }; // 中心設定用
 
-	Sprite* medalBase = nullptr; // メダル台
+	Sprite* medalBase = nullptr; // メダル台画像
 	Math::Vector2 medalBasePos{ medalPos }; // メダル台の座標
 
-	Sprite* returnTitle = nullptr; //
-	Sprite* returnSelect = nullptr; //
+	Sprite* returnTitle = nullptr; // タイトルへ画像
+	Sprite* returnSelect = nullptr; // セレクトへ画像
 
-	Sprite* titleCursor = nullptr; //
-	Sprite* selectCursor = nullptr; //
+	Sprite* titleCursor = nullptr; // タイトル用カーソル
+	Sprite* selectCursor = nullptr; // セレクト用カーソル
 
 	const Math::Vector2 titlePos{ 50, 610 };
 	const Math::Vector2 selectpos{ 600, 610 };
 	bool pushLeftFlag = true; // 左キーを押しているか
+
+	MedalColor medalColor = MedalColor::GOLD; // メダルの色
+	const float goldTime = 20.0f;
+	const float silverTime = goldTime * 2;
+	const float bronzeTime = goldTime * 3;
+	static const float resultScore;
+	const float resultTime = time;
 };

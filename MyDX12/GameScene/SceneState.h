@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "../Tool/Messenger.h"
 
 class GameScene;
@@ -8,24 +8,26 @@ class SceneState {
 protected:
 	SceneState() {}
 public:
-	// ƒRƒs[‹Ö~
+	// ã‚³ãƒ”ãƒ¼ç¦æ­¢
 	SceneState(const SceneState&) = delete;
 	SceneState& operator=(const SceneState&) = delete;
 
-	// ‰¼‘zƒfƒXƒgƒ‰ƒNƒ^
+	// ä»®æƒ³ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	virtual ~SceneState() = default;
-public: // Œp³
-	virtual void Initialize() = 0;// ‰Šú‰»
-	virtual void Update() = 0;//@XV
-	virtual void Draw() = 0;// •`‰æ
+public: // ç¶™æ‰¿
+	virtual void Initialize() = 0;// åˆæœŸåŒ–
+	virtual void Update() = 0;//ã€€æ›´æ–°
+	virtual void Draw() = 0;// æç”»
 	virtual void DrawTexture(){}
 
-public: // SetterŠÖ”
+public: // Setteré–¢æ•°
 	void SetGameScene(GameScene* p_game_scene) { this->p_game_scene = p_game_scene; }
 	void SetPlayer(Player* p_player) { this->p_player = p_player; }
-public: // GetterŠÖ”
+public: // Getteré–¢æ•°
 
-protected: // Ã“Iƒƒ“ƒo•Ï”
+protected: // é™çš„ãƒ¡ãƒ³ãƒå¤‰æ•°
 	static GameScene* p_game_scene;
 	static Player* p_player;
+	static float score;
+	static float time;
 };
