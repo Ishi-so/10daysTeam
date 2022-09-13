@@ -142,9 +142,6 @@
     <Filter Include="2_Game\Object\Common">
       <UniqueIdentifier>{c812a5ba-19d8-46ad-8ed0-3b19022ee3e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="1_Engine\HLSL\InstBill">
-      <UniqueIdentifier>{9d92120a-db9d-4ca5-a38c-6f1138264e24}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\DirectX12.cpp">
@@ -357,13 +354,13 @@
     <ClCompile Include="Game\Stratum.cpp">
       <Filter>2_Game\Object\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Game\InstBill.cpp">
-      <Filter>2_Game\Object\Common</Filter>
-    </ClCompile>
     <ClCompile Include="Game\DamageBox.cpp">
       <Filter>2_Game\Object\ObjTemplate</Filter>
     </ClCompile>
     <ClCompile Include="Game\PlayerEffectManager.cpp">
+      <Filter>2_Game\Object\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\SphereEff.cpp">
       <Filter>2_Game\Object\Common</Filter>
     </ClCompile>
   </ItemGroup>
@@ -605,13 +602,13 @@
     <ClInclude Include="Game\Stratum.h">
       <Filter>2_Game\Object\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Game\InstBill.h">
-      <Filter>2_Game\Object\Common</Filter>
-    </ClInclude>
     <ClInclude Include="Game\DamageBox.h">
       <Filter>2_Game\Object\ObjTemplate</Filter>
     </ClInclude>
     <ClInclude Include="Game\PlayerEffectManager.h">
+      <Filter>2_Game\Object\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\SphereEff.h">
       <Filter>2_Game\Object\Common</Filter>
     </ClInclude>
   </ItemGroup>
@@ -651,9 +648,6 @@
     </None>
     <None Include="Resources\Shaders\OBJShaderHeader.hlsli">
       <Filter>1_Engine\HLSL\obj</Filter>
-    </None>
-    <None Include="Resources\Shaders\InstanceB.hlsli">
-      <Filter>1_Engine\HLSL\InstBill</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -737,12 +731,6 @@
     </FxCompile>
     <FxCompile Include="Resources\Shaders\OBJVertexShader.hlsl">
       <Filter>1_Engine\HLSL\obj</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\InstancePS.hlsl">
-      <Filter>1_Engine\HLSL\InstBill</Filter>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\InstanceVS.hlsl">
-      <Filter>1_Engine\HLSL\InstBill</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

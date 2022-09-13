@@ -1,21 +1,14 @@
 #pragma once
 #include <vector>
 #include "../Struct/Math/Vector3.h"
+#include <memory>
 
-class InstBill;
+class SphereEff;
 
 class PlayerEffectManager {
-public:
-	struct DataAset {
-		Math::Vector3 position;
-		Math::Vector3 vec;
-		Math::Vector3 color;
-		float addScale, scale,a;
-	};
 private:
-	std::vector<DataAset> vcon;
+	std::vector<std::shared_ptr<SphereEff>> vcon;
 
-	InstBill* iBill = nullptr;
 public:
 	static PlayerEffectManager* Create();
 

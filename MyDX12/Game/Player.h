@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "../Struct/Math/Vector3.h"
 #include "../Struct/TypeCollision.h"
 #include <string>

@@ -17,7 +17,6 @@
 #include "../3D/CollCircle.h"
 #include "../GameScene/GameScene.h"
 #include "../3D/Tessellation.h"
-#include "../Game/InstBill.h"
 
 using namespace XIIlib;
 
@@ -59,7 +58,6 @@ bool XIIlib::Library::Initialize()
 	CollisionBox::StaticInitialize();
 	CollisionCircle::StaticInitialize();
 	Tessellation::StaticInitialize();
-	InstBill::StaticInitialize();
 
 	dx12->SetClearColor(0.5f, 0.5f, 0.5f);
 
