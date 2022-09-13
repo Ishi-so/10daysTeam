@@ -32,6 +32,9 @@ void Block::Init()
 	std::string path = t_id.name();
 	id = Common::SeparateFilePath(path).second;
 
+	// スキルに設定
+	skill = "speeddown";
+
 	// OBJクラスの生成
 	obj = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_BLOCK));
 	color = {1,1,1};

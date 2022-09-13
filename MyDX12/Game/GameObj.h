@@ -15,6 +15,7 @@ protected:
 	Math::AABB collisionData;	// 判定データ
 	unsigned int stratum = 0;	// 階層
 	bool hitFlag = false;       // 当たっているかフラグ
+	std::string skill;          // 効果
 
 	Object3D* obj = nullptr;// オブジェクトデータ
 
@@ -33,10 +34,12 @@ public:
 	bool GetIsActive()const { return isActive; }				// 存在しているかどうか
 	Math::AABB GetCollisionData()const { return collisionData; }// AABBデータの取得
 	unsigned int GetStratum()const { return stratum; }			// 階層値の取得
-
+	std::string GetSkill()const { return skill; }				// スキルの取得
+	 
 	//・・・Set・・・
 	void SetPos(const Math::Vector3& c_pos) { pos = c_pos; }		// 座標の設定
 	void SetScale(const Math::Vector3& c_scale) { scale = c_scale; }// スケールの設定
 	void SetColor(const Math::Vector3& c_color) { color = c_color; }// カラーの設定
 	void SetStratum(unsigned int _stratum) { stratum = _stratum; }	// 階層の設定
+	void SetActive(bool _active){isActive = _active;}				// 生存フラグの設定
 };

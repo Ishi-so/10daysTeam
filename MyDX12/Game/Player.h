@@ -1,6 +1,8 @@
 #pragma once
+#include <string>
 #include "../Struct/Math/Vector3.h"
 #include "../Struct/TypeCollision.h"
+#include <string>
 
 // 前方宣言
 class Object3D;
@@ -15,7 +17,6 @@ private: // 構造体 or 列挙型
 		none = 0, // なし
 		speedDown, // 減速
 		speedUp, // 加速
-		invincible, // 無敵
 	};
 
 	// プレイヤーの情報
@@ -39,7 +40,7 @@ public: // メンバ関数
 	void Initialize(Math::Vector3 createPos); // 初期化
 	void Update(); // 毎フレーム処理
 	void Draw(); // 描画
-	void HitUpdate(); // 当たっとき専用処理
+	void HitUpdate(std::string& skillName); // 当たっとき専用処理
 	
 	// ---- Setter Getter ---- 
 	/* Setter */
@@ -55,7 +56,8 @@ public: // メンバ関数
 private: // 固有メンバ関数(private)
 	// 固有関数
 	void SetCollsion(); // 当たり判定を設定
-	void SetSkillAbility(); // 状態によってバフデバフを付与
+	void StateControl(); // 状態によってバフデバフを付与
+	void SetSkillState(std::string& skillName); // skill名でstateを設定
 
 private: // メンバ変数
 	// Playerデータ

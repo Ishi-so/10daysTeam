@@ -194,12 +194,12 @@
     <ClCompile Include="Game\Common.cpp" />
     <ClCompile Include="Game\CSVLoader.cpp" />
     <ClCompile Include="Game\DamageBox.cpp" />
-    <ClCompile Include="Game\InstBill.cpp" />
     <ClCompile Include="Game\ItemBox.cpp" />
     <ClCompile Include="Game\ModelLoader.cpp" />
     <ClCompile Include="Game\ObjectManager.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\PlayerEffectManager.cpp" />
+    <ClCompile Include="Game\SphereEff.cpp" />
     <ClCompile Include="Game\Stratum.cpp" />
     <ClCompile Include="ImGui\Docking\imgui.cpp" />
     <ClCompile Include="ImGui\Docking\imgui_demo.cpp" />
@@ -270,12 +270,12 @@
     <ClInclude Include="Game\CSVLoader.h" />
     <ClInclude Include="Game\DamageBox.h" />
     <ClInclude Include="Game\GameObj.h" />
-    <ClInclude Include="Game\InstBill.h" />
     <ClInclude Include="Game\ItemBox.h" />
     <ClInclude Include="Game\ModelLoader.h" />
     <ClInclude Include="Game\ObjectManager.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\PlayerEffectManager.h" />
+    <ClInclude Include="Game\SphereEff.h" />
     <ClInclude Include="Game\Stratum.h" />
     <ClInclude Include="ImGui\Docking\imconfig.h" />
     <ClInclude Include="ImGui\Docking\imgui.h" />
@@ -327,7 +327,6 @@
     <None Include="Resources\Shaders\BoxPrimitive.hlsli" />
     <None Include="Resources\Shaders\CapsuleHLSLI.hlsli" />
     <None Include="Resources\Shaders\DS_ShadeHeader.hlsli" />
-    <None Include="Resources\Shaders\InstanceB.hlsli" />
     <None Include="Resources\Shaders\Line2DShader.hlsli" />
     <None Include="Resources\Shaders\Line3DShader.hlsli" />
     <None Include="Resources\Shaders\OBJShaderHeader.hlsli" />
@@ -373,14 +372,6 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\InstancePS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Resources\Shaders\InstanceVS.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Resources\Shaders\Line2DPixelShader.hlsl">

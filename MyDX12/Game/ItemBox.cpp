@@ -3,6 +3,7 @@
 #include "Common.h"
 #include "ModelLoader.h"
 #include "../Tool/Easing.h"
+#include "Stratum.h"
 
 const float ItemBox::dist = 0.5f;
 const float ItemBox::endTime = 1.5f;
@@ -10,9 +11,9 @@ const float ItemBox::endTime = 1.5f;
 std::shared_ptr<ItemBox> ItemBox::Create(const Math::Vector3& _pos, const Math::Vector3& _scale)
 {
 	std::shared_ptr<ItemBox> itemBox = std::make_shared<ItemBox>();
-	itemBox->Init();
 	itemBox->SetPos(_pos);
 	itemBox->SetScale(_scale);
+	itemBox->Init();
 
 	return std::move(itemBox);
 }
@@ -34,15 +35,22 @@ void ItemBox::Init()
 	const type_info& t_id = typeid(ItemBox);
 	std::string path = t_id.name();
 	id = Common::SeparateFilePath(path).second;
+	
+	// スキルに設定
+	skill = "speedup";
 
 	// OBJクラスの生成
 	obj = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_ITEM));
 	Math::Vector3 tmpV = { 1,1,1 };
 	color = tmpV;
 	scale = tmpV * 0.5f;
+	obj->position = pos;
 
 	// ・・AABBの設定・・
 	collisionData = Math::SetAABB(obj->position, obj->scale);
+
+	// ---- 階層設定 ----
+	stratum = Stratum::GetStratumData(pos.y)[0];
 }
 
 void ItemBox::Update()

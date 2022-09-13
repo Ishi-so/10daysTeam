@@ -19,7 +19,6 @@
 #include "../Game/ItemBox.h"
 #include "../Game/Common.h"
 #include "../Tool/DigitalNumberText.h"
-#include "../Game/InstBill.h"
 #include "../Game/PlayerEffectManager.h"
 
 GameScene* GameScene::Create()
@@ -85,9 +84,6 @@ bool GameScene::Initialize()
 	// ライトのセット
 	Object3D::SetLightGroup(lightGroup);
 
-	// カメラセット
-	InstBill::SetDebugCamera(d_camera);
-
 	// モデルローダーの設定
 	ModelLoader::GetInstance()->Initialize();
 	ModelLoader::GetInstance()->Load();
@@ -115,7 +111,7 @@ bool GameScene::Initialize()
 	circle->Initialize();
 
 	// ステージ生成
-	mapData = CSVLoader::GetCSVTwoVector("stage0", CSVLoader::BoardType::BOARD_2D, 64);
+	mapData = CSVLoader::GetCSVTwoVector("stage2", CSVLoader::BoardType::BOARD_2D, 15);
 	int xSize = CSVLoader::GetSize("x"), ySize = CSVLoader::GetSize("y");
 	for (int i = 0; i < ySize; i++)
 	{
@@ -163,8 +159,6 @@ bool GameScene::Initialize()
 		}
 	}
 
-
-
 	// シーン設定
 	state->SetGameScene(this);
 	state->SetPlayer(m_player);
@@ -204,8 +198,11 @@ void GameScene::Update()
 	m_player->Update(); // SceneState派生のクラスでやる(今は仮置き)
 	if (playerDistTimer >= 10) {
 		playerDistTimer = 0;
-		playerEffects->Add(m_player->GetDirection().normalize() * -1.0f, m_player->GetPosition());
+		if (m_player->GetDirection().y >= 1.0f) {
+			
+		}
 	}
+	playerEffects->Add(m_player->GetDirection().normalize(), m_player->GetPosition());
 	playerDistTimer++;
 
 	playerEffects->Update();
@@ -226,10 +223,11 @@ void GameScene::Draw()
 
 	ObjectManager::GetInstance()->Draw();
 	state->Draw();
+	playerEffects->Draw();
 	Object3D::PostDraw();
 
 	// ビルボード用オブジェクト
-	playerEffects->Draw();
+	
 
 	// ImGuiの描画
 
