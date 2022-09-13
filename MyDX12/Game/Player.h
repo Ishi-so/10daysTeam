@@ -2,6 +2,7 @@
 #include <string>
 #include "../Struct/Math/Vector3.h"
 #include "../Struct/TypeCollision.h"
+#include <string>
 
 // ‘O•ûéŒ¾
 class Object3D;
