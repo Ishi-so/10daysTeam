@@ -113,7 +113,7 @@ bool GameScene::Initialize()
 	circle->Initialize();
 
 	// ステージ生成
-	mapData = CSVLoader::GetCSVTwoVector("stage0", CSVLoader::BoardType::BOARD_2D, 64);
+	mapData = CSVLoader::GetCSVTwoVector("stage2", CSVLoader::BoardType::BOARD_2D, 15);
 	int xSize = CSVLoader::GetSize("x"), ySize = CSVLoader::GetSize("y");
 	for (int i = 0; i < ySize; i++)
 	{
@@ -160,8 +160,6 @@ bool GameScene::Initialize()
 			}
 		}
 	}
-
-
 
 	// シーン設定
 	state->SetGameScene(this);
