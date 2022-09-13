@@ -17,7 +17,6 @@ private: // 構造体 or 列挙型
 		none = 0, // なし
 		speedDown, // 減速
 		speedUp, // 加速
-		invincible, // 無敵
 	};
 
 	// プレイヤーの情報
@@ -57,8 +56,8 @@ public: // メンバ関数
 private: // 固有メンバ関数(private)
 	// 固有関数
 	void SetCollsion(); // 当たり判定を設定
-	void SetSkillAbility(); // 状態によってバフデバフを付与
-	void SetSkill(); // skill名でstateを設定
+	void StateControl(); // 状態によってバフデバフを付与
+	void SetSkillState(std::string& skillName); // skill名でstateを設定
 
 private: // メンバ変数
 	// Playerデータ

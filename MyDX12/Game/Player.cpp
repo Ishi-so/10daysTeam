@@ -47,7 +47,7 @@ void Player::Initialize(Math::Vector3 createPos)
 void Player::Update()
 {
 	// 状態をリセット
-	state = State::none;
+	//state = State::none;
 	// 現在の座標を保存
 	prevPos = position;
 
@@ -85,7 +85,7 @@ void Player::Update()
 	}
 
 	// 落下
-	//acc.y = -0.1f;
+	acc.y = -0.1f;
 
 	// 左右加速度制御
 	if (abs(velocity.x) > 0.1f)
@@ -130,7 +130,7 @@ void Player::Update()
 	// ObjectManagerに記載
  
 	// 状態によって効果を付与
-	SetSkillAbility();
+	StateControl();
 
 	// 体力が0未満になったら
 	if (hitPoint <= 0)
@@ -158,8 +158,6 @@ void Player::Update()
 		invincibleCnt = 0;
 		// playerの色を戻す
 		object->color = { 1,1,1 };
-		// 状態を戻す
-		state = State::none;
 	}
 
 	// 無敵状態なら
@@ -183,9 +181,9 @@ void Player::HitUpdate(std::string& skillName)
 		object->color = { 0,0,1 };
 		// 無敵付与
 		invincible = true;
-		state = State::invincible;
 		// 状態によって効果を付与
-		SetSkillAbility();
+		SetSkillState(skillName);
+		StateControl();
 	}
 }
 
@@ -196,7 +194,7 @@ void Player::SetCollsion()
 	collSphere.r = object->scale.x;
 }
 
-void Player::SetSkillAbility()
+void Player::StateControl()
 {
 	// 状態によってそれぞれの効果を付与
 	if (state == State::none)
@@ -211,16 +209,21 @@ void Player::SetSkillAbility()
 	{
 		stateAcc = 1.5f;
 	}
-	else if (state == State::invincible)
-	{
-		invincible = true;
-	}
 	else
 	{
 		stateAcc = 1.0f;
 	}
 }
 
-void Player::SetSkill()
+void Player::SetSkillState(std::string& skillName)
 {
+	// 名前によって状態変化
+	if (skillName == "speedup")
+	{
+		state = State::speedUp;
+	}
+	else if (skillName == "speeddown")
+	{
+		state = State::speedDown;
+	}
 }
