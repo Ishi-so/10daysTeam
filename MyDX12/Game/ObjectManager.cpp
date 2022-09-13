@@ -95,6 +95,7 @@ void ObjectManager::PropValueCheck(const std::shared_ptr<GameObj>& obj, const in
 		// “¯‚¶ŠK‘w‚Æ‚Å‚µ‚©“–‚½‚è”»’è
 		if (Math::HitCheck_AABB_Sphere(obj->GetCollisionData(), pPlayer->GetCollision())) {
 			obj->SetColor({ 1, 0, 0 });
+			obj->GetSkill();
 			pPlayer->HitUpdate();
 		}
 		else {

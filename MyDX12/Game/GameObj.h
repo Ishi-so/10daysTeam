@@ -34,8 +34,8 @@ public:
 	bool GetIsActive()const { return isActive; }				// 存在しているかどうか
 	Math::AABB GetCollisionData()const { return collisionData; }// AABBデータの取得
 	unsigned int GetStratum()const { return stratum; }			// 階層値の取得
-	std::string Get
-
+	std::string GetSkill()const { return skill; }				// スキルの取得
+	 
 	//・・・Set・・・
 	void SetPos(const Math::Vector3& c_pos) { pos = c_pos; }		// 座標の設定
 	void SetScale(const Math::Vector3& c_scale) { scale = c_scale; }// スケールの設定

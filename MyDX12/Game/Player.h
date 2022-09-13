@@ -39,7 +39,7 @@ public: // メンバ関数
 	void Initialize(Math::Vector3 createPos); // 初期化
 	void Update(); // 毎フレーム処理
 	void Draw(); // 描画
-	void HitUpdate(); // 当たっとき専用処理
+	void HitUpdate(std::string& skillName); // 当たっとき専用処理
 	
 	// ---- Setter Getter ---- 
 	/* Setter */
@@ -56,6 +56,7 @@ private: // 固有メンバ関数(private)
 	// 固有関数
 	void SetCollsion(); // 当たり判定を設定
 	void SetSkillAbility(); // 状態によってバフデバフを付与
+	void SetSkill(); // skill名でstateを設定
 
 private: // メンバ変数
 	// Playerデータ

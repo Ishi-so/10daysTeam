@@ -172,7 +172,7 @@ void Player::Draw()
 	object->Draw();
 }
 
-void Player::HitUpdate()
+void Player::HitUpdate(std::string& skillName)
 {
 	// –³“Gó‘Ô‚¶‚á‚È‚©‚Á‚½‚ç
 	if (!invincible)
@@ -182,6 +182,7 @@ void Player::HitUpdate()
 		// player‚ğÂF‚Éİ’è
 		object->color = { 0,0,1 };
 		// –³“G•t—^
+		invincible = true;
 		state = State::invincible;
 		// ó‘Ô‚É‚æ‚Á‚ÄŒø‰Ê‚ğ•t—^
 		SetSkillAbility();
@@ -218,4 +219,8 @@ void Player::SetSkillAbility()
 	{
 		stateAcc = 1.0f;
 	}
+}
+
+void Player::SetSkill()
+{
 }
