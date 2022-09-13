@@ -363,6 +363,9 @@
     <ClCompile Include="Game\DamageBox.cpp">
       <Filter>2_Game\Object\ObjTemplate</Filter>
     </ClCompile>
+    <ClCompile Include="Game\PlayerEffectManager.cpp">
+      <Filter>2_Game\Object\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\DirectX12.h">
@@ -607,6 +610,9 @@
     </ClInclude>
     <ClInclude Include="Game\DamageBox.h">
       <Filter>2_Game\Object\ObjTemplate</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PlayerEffectManager.h">
+      <Filter>2_Game\Object\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
