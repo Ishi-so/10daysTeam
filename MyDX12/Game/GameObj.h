@@ -41,4 +41,5 @@ public:
 	void SetScale(const Math::Vector3& c_scale) { scale = c_scale; }// スケールの設定
 	void SetColor(const Math::Vector3& c_color) { color = c_color; }// カラーの設定
 	void SetStratum(unsigned int _stratum) { stratum = _stratum; }	// 階層の設定
+	void SetActive(bool _active){isActive = _active;}				// 生存フラグの設定
 };
