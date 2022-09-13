@@ -289,7 +289,7 @@ void InstBill::Draw()
 	// 頂点バッファの設定
 	cmdList->IASetVertexBuffers(0, 1, &this->vbView);
 	// 描画コマンド
-	cmdList->DrawInstanced((UINT)(vertNum), (UINT)(iData.size()), (UINT)0, (UINT)0);
+	cmdList->DrawInstanced(vertNum,iData.size(),0,0);
 	// 描画毎にデータを空にしておく
 	ClearData();
 }

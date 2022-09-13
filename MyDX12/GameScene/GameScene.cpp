@@ -85,6 +85,9 @@ bool GameScene::Initialize()
 	// ライトのセット
 	Object3D::SetLightGroup(lightGroup);
 
+	// カメラセット
+	InstBill::SetDebugCamera(d_camera);
+
 	// モデルローダーの設定
 	ModelLoader::GetInstance()->Initialize();
 	ModelLoader::GetInstance()->Load();
@@ -177,6 +180,7 @@ bool GameScene::Initialize()
 
 	DigitalNumberText::GetInstance()->Initialize(2);
 	playerEffects = PlayerEffectManager::Create();
+	playerDistTimer = 0;
 	return true;
 }
 
@@ -196,11 +200,13 @@ void GameScene::Update()
 	state->Update();
 
 	m_player->Update(); // SceneState派生のクラスでやる(今は仮置き)
-	if (playerDistTimer >= 30) {
+	if (playerDistTimer >= 10) {
 		playerDistTimer = 0;
-		playerEffects->Add(0.0f,0.3f,m_player->GetDirection() * -1.0f,m_player->GetPosition() - Math::Vector3(0,1.5f,0));
+		playerEffects->Add(m_player->GetDirection().normalize() * -1.0f, m_player->GetPosition());
 	}
 	playerDistTimer++;
+
+	playerEffects->Update();
 
 	ObjectManager::GetInstance()->Update();
 }
@@ -221,11 +227,7 @@ void GameScene::Draw()
 	Object3D::PostDraw();
 
 	// ビルボード用オブジェクト
-	InstBill::PreDraw();
-
-
-
-	InstBill::PostDraw();
+	playerEffects->Draw();
 
 	// ImGuiの描画
 
