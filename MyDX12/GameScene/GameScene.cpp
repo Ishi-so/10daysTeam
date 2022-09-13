@@ -1,4 +1,4 @@
-�ｿ#include "GameScene.h"
+﻿#include "GameScene.h"
 #include "../Light/LightGroup.h"
 #include "../Camera/DebugCamera.h"
 #include "../3D/Object3D.h"
@@ -10,7 +10,7 @@
 
 #include "../2D/Circle.h"
 
-// Game邉ｻ
+// Game系
 #include "Title.h"
 #include "../Game/Player.h"
 #include "../Game/ModelLoader.h"
@@ -23,14 +23,14 @@
 
 GameScene* GameScene::Create()
 {
-	// 3D繧ｪ繝悶ず繧ｧ繧ｯ繝医�繧､繝ｳ繧ｹ繧ｿ繝ｳ繧ｹ繧堤函謌
+	// 3Dオブジェクトのインスタンスを生成
 	GameScene* pGameScene = new GameScene();
 	if (pGameScene == nullptr)
 	{
 		return nullptr;
 	}
 
-	// 蛻晄悄蛹
+	// 初期化
 	if (!pGameScene->Initialize())
 	{
 		delete pGameScene;
@@ -59,15 +59,15 @@ GameScene::~GameScene()
 
 bool GameScene::Initialize()
 {
-	// 縺薙％縺ｯ蟋九∪繧翫�譖ｸ!!
-	// 繧｢繝輔Ο繝�ぅ譫怜ｱ樊ｧ縺ｪ縺ｮ縺ｫ繧ｴ繝�ラ繝弱え繧ｺ縺ｨ繝倥ヶ繝ｳ繧ｺ繧ｿ繧､繝縺ｯ鬚ｨ螻樊ｧ
+	// ここは始まりの書!!
+	// アフロディ林属性なのにゴッドノウズとヘブンズタイムは風属性
 
 	d_camera = new DebugCamera();
 	d_camera->_Initialize(100.0f, 0.05f, 10.0f);
 	d_camera->SetLookAtRange(0, 1, 0);
-	const float Z_AXIS = -25; // 螂･陦後ｒ險ｭ螳
+	const float Z_AXIS = -25; // 奥行を設定
 
-	// 繝ｩ繧､繝育函謌
+	// ライト生成
 	lightGroup = LightGroup::Create();
 
 	lightGroup->SetDirLightActive(0, true);
@@ -77,12 +77,12 @@ bool GameScene::Initialize()
 	lightGroup->SetCircleShadowActive(0, true);
 	lightGroup->SetCircleShadowActive(1, true);
 
-	// 繧ｫ繝｡繝ｩ縺ｮ繧ｻ繝�ヨ
+	// カメラのセット
 	Object3D::SetDebugCamera(d_camera);
-	// 繝ｩ繧､繝医�繧ｻ繝�ヨ
+	// ライトのセット
 	Object3D::SetLightGroup(lightGroup);
 
-	// 繝｢繝�Ν繝ｭ繝ｼ繝繝ｼ縺ｮ險ｭ螳
+	// モデルローダーの設定
 	ModelLoader::GetInstance()->Initialize();
 	ModelLoader::GetInstance()->Load();
 
@@ -110,18 +110,18 @@ bool GameScene::Initialize()
 	circle = new Circle();
 	circle->Initialize();
 
-	// 繧ｹ繝��繧ｸ縺ｮ逕滓�
+	// ステージ生成
 	mapData = CSVLoader::GetCSVTwoVector("stage0", CSVLoader::BoardType::BOARD_2D,64);
 	int xSize = CSVLoader::GetSize("x"), ySize = CSVLoader::GetSize("y");
 	for (int i = 0; i < ySize; i++)
 	{
 		for (int j = 0; j < xSize; j++)
 		{
-			if (mapData[i][j] == 0)// 縺ｪ縺
+			if (mapData[i][j] == 0)// なし
 			{}
-			else if (mapData[i][j] == 1) // 繝励Ξ繧､繝､繝ｼ
+			else if (mapData[i][j] == 1) // プレイヤー
 			{
-				// player縺ｮ逕滓�
+				// player生成
 				m_player = Player::Create({
 					Common::ConvertPositionX(j),
 					Common::ConvertPositionY(i),
@@ -129,7 +129,7 @@ bool GameScene::Initialize()
 					}
 				);
 			}
-			else if (mapData[i][j] == 2) // block
+			else if (mapData[i][j] == 2) // Block
 			{
 				
 				std::shared_ptr<Block> box = Block::Create({
@@ -141,7 +141,7 @@ bool GameScene::Initialize()
 				ObjectManager::GetInstance()->AddObject(std::move(box));
 
 			}
-			else if (mapData[i][j] == 3) // item
+			else if (mapData[i][j] == 3) // Item
 			{
 				std::shared_ptr<ItemBox> iBox = ItemBox::Create({
 				Common::ConvertPositionX(j),
@@ -152,23 +152,25 @@ bool GameScene::Initialize()
 				ObjectManager::GetInstance()->AddObject(std::move(iBox));
 			}
 			else
-      {} // なし
+			{
+				// なし
+			}
 		}
 	}
 
 	
 
-	// 繧ｷ繝ｼ繝ｳ險ｭ螳
+	// シーン設定
 	state->SetGameScene(this);
 	state->SetPlayer(m_player);
 	state->Initialize();
 
-	// 繝槭ロ繝ｼ繧ｸ繝｣繝ｼ縺ｮ蛻晄悄蛹
+	// マネージャーの初期化
 	ObjectManager::GetInstance()->Initialize();
-	// 繝励Ξ繧､繝､繝ｼ繧偵�繝阪�繧ｸ繝｣繝ｼ縺ｫ繧ｳ繝斐�
+	// マネージャーにPlayerを設定
 	ObjectManager::GetInstance()->SetPlayer(m_player);
 
-	// 繧ｫ繝｡繝ｩ縺ｮ譖ｴ譁ｰ(1f逶ｮ縺翫°縺励￥縺ｪ繧九◆繧)
+	// カメラの更新(1f目おかしくなるため)
 	Math::Vector3 playerPos = m_player->GetPosition();
 	d_camera->SetPosition(playerPos.x, playerPos.y,Z_AXIS);
 	d_camera->_Update();
@@ -179,50 +181,50 @@ bool GameScene::Initialize()
 
 void GameScene::Update()
 {
-	// 繧ｫ繝｡繝ｩ縺ｮ蜍輔″縺ｮ蜃ｦ逅
+	// カメラの動き定数
 	const float m_rad = 0.01f;
 	const float m_range = 0.1f;
 	const float lookatRange = 5.0f;
 
-	// カメラ更新
+	// カメラの更新
 	d_camera->SetLookAtRange(0, m_player->GetPosition().y,0);
 	d_camera->SetPosition(0,m_player->GetPosition().y,-40);
-
 	d_camera->_Update();
 
+	// シーンの更新
 	state->Update();
 
-	m_player->Update(); // SceneState豢ｾ逕溘�繧ｯ繝ｩ繧ｹ縺ｧ繧�ｋ(莉翫�莉ｮ鄂ｮ縺)
+	m_player->Update(); // SceneState派生のクラスでやる(今は仮置き)
 	ObjectManager::GetInstance()->Update();
 }
 
 void GameScene::Draw()
 {
-	// 閭梧勹繧ｹ繝励Λ繧､繝
+	// 背景スプライト
 	Sprite::PreDraw();
 
 	Sprite::PostDraw();
 	DirectX12::ClearDepthBuffer();
-	//3D縺ｾ縺溘�繝昴せ繝医お繝輔ぉ繧ｯ繝医�謠冗判
+	// 3Dまたはポストエフェクトの描画
 	Object3D::PreDraw();
-	m_player->Draw(); // SceneState豢ｾ逕溘�繧ｯ繝ｩ繧ｹ縺ｧ繧�ｋ(莉翫�莉ｮ鄂ｮ縺)
+	m_player->Draw(); // SceneState派生のクラスでやる(今は仮置き)
 
 	ObjectManager::GetInstance()->Draw();
 	state->Draw();
 	Object3D::PostDraw();
 
-	// �r���{�[�h�p�I�u�W�F�N�g
+	// ビルボード用オブジェクト
 	InstBill::PreDraw();
 
 
 
 	InstBill::PostDraw();
 
-	// ImGui縺ｮ謠冗判
+	// ImGuiの描画
 
-	// 蜑肴勹繧ｹ繝励Λ繧､繝
+	// 前景スプライト
 
-	// 譁�ｭ励せ繝励Λ繧､繝
+	// 文字スプライト
 	Sprite::PreDraw();
 
 	state->DrawTexture();
