@@ -33,7 +33,7 @@ void InstBill::PreDraw()
 	InstBill::cmdList = DirectX12::GetCmdList();
 
 	// プリミティブ形状を設定
-	cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	cmdList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
 void InstBill::PostDraw()
