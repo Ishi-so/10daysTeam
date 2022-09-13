@@ -96,13 +96,9 @@ bool GameScene::Initialize()
 	Sprite::LoadTexture(texind, L"Resources/goldMedal.png");                    texind++;//6
 	Sprite::LoadTexture(texind, L"Resources/SilverMedal.png");                  texind++;//7
 	Sprite::LoadTexture(texind, L"Resources/bronzeMedal.png");                  texind++;//8
-	Sprite::LoadTexture(texind, L"Resources/medalBase.png");                   texind++;//9
-	Sprite::LoadTexture(texind, L"Resources/R.png");                       texind++;//10
-	Sprite::LoadTexture(texind, L"Resources/E.png");                       texind++;//11
-	Sprite::LoadTexture(texind, L"Resources/S.png");                       texind++;//12
-	Sprite::LoadTexture(texind, L"Resources/U.png");                       texind++;//13
-	Sprite::LoadTexture(texind, L"Resources/L.png");                       texind++;//14
-	Sprite::LoadTexture(texind, L"Resources/T.png");                       texind++;//15
+	Sprite::LoadTexture(texind, L"Resources/medalBase.png");                    texind++;//9
+	Sprite::LoadTexture(texind, L"Resources/return_title.png");                 texind++;//10
+	Sprite::LoadTexture(texind, L"Resources/return_select.png");                texind++;//11
 
 
 	DebugJISText::GetInstance()->Initialize(debugJISTextTexNumber);
