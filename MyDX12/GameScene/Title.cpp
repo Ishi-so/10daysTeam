@@ -2,12 +2,15 @@
 #include "GameScene.h"
 #include "../Tool/Messenger.h"
 #include "Select.h"
+#include "Play.h"
 #include "../Input/KeyInput.h"
 #include "../3D/Object3D.h"
 #include "../Game/ModelLoader.h"
 #include "../Game/Common.h"
 #include "../2D/Sprite.h"
 #include "../Struct/Math/Vector2.h"
+#include "../Game/ObjectManager.h"
+#include "../Game/Player.h"
 
 using namespace XIIlib;
 
@@ -65,17 +68,23 @@ void Title::Update()
 	const float maxRot = 360.0f;
 	clonePlayer->rotation.z += addRotZ;
 	clonePlayer->alpha = 1.0f;
-	if (clonePlayer->rotation.z >= maxRot)
+	if (clonePlayer->rotation.z >= maxRot) {
 		clonePlayer->rotation.z = clonePlayer->rotation.z - maxRot;
+	}
 	clonePlayer->Update();
+	p_player->Update();
+	ObjectManager::GetInstance()->Update();
 	// 押したら切り替え
 	if (KeyInput::GetInstance()->Trigger(DIK_SPACE)) {
-		p_game_scene->ChangeState(new Select());
+		p_player->SetStart();
+		p_game_scene->ChangeState(new Play());
 	}
 }
 
 void Title::Draw()
 {
+	p_player->Draw();
+	ObjectManager::GetInstance()->Draw();
 	clonePlayer->Draw();
 }
 
