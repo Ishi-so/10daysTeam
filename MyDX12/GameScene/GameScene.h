@@ -53,4 +53,6 @@ public:
 
 	// オンオフ
 	bool FadeInOut(bool flag);
+
+	void CreateStage();
 };
