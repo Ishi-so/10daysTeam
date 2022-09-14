@@ -3,6 +3,7 @@
 #include "../3D/Object3D.h"
 #include "../Input/KeyInput.h"
 #include "Stratum.h"
+#include "ModelLoader.h"
 
 using namespace XIIlib;
 /*Player::Player()
@@ -32,7 +33,7 @@ void Player::Initialize(Math::Vector3 createPos)
 
 	// ---- オブジェクトの生成設定 ----
 	// プレイヤーオブジェクトモデル
-	object = Object3D::Create(Model::CreateFromOBJ("sphere"));
+	object = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_PLAYER));
 	object->position = position;
 	info.radius = object->scale.x / 2;
 	info.edge = object->position.x + info.radius; // プレイヤーオブジェクトの端っこ
