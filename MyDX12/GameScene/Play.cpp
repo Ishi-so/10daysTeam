@@ -45,19 +45,9 @@ void Play::Update()
 		p_game_scene->ChangeState(new Menu());
 	}
 
-	if (KeyInput::GetInstance()->Trigger(DIK_RETURN)) {
+	if (p_player->GetGoalFlag()) {
 		p_game_scene->ChangeState(new End());
 	}
-
-	/*if (KeyInput::GetInstance()->Trigger(DIK_1)) {
-		time = 19.0f;
-	}
-	else if (KeyInput::GetInstance()->Trigger(DIK_2)) {
-		time = 39.0f;
-	}
-	else if (KeyInput::GetInstance()->Trigger(DIK_3)) {
-		time = 59.0f;
-	}*/
 
 	timeF++;
 
@@ -66,7 +56,7 @@ void Play::Update()
 		timeF = 0;
 	}
 
-	DigitalNumberText::GetInstance()->Print(timeS, 1050, 33);
+	DigitalNumberText::GetInstance()->Print(timeS, 1100, 33);
 
 	time = timeS;
 }

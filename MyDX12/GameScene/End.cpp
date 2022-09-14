@@ -26,7 +26,7 @@ End::~End()
 	delete medalBase;
 
 	delete returnTitle;
-	delete returnSelect;
+	delete nextStage;
 }
 
 void End::Initialize()
@@ -48,11 +48,11 @@ void End::Initialize()
 
 	returnTitle = Sprite::Create(10, titlePos); // タイトルへ画像の生成
 	returnTitle->SetSize({ 500 * 0.7f, 100 * 0.7f });
-	returnSelect = Sprite::Create(11, selectpos); // セレクトへ画像の生成
-	returnSelect->SetSize({ 900 * 0.7f, 100 * 0.7f });
+	nextStage = Sprite::Create(11, selectpos); // セレクトへ画像の生成
+	nextStage->SetSize({ 700 * 0.7f, 100 * 0.7f });
 
 	titleCursor = Sprite::Create(12, titlePos); //
-	selectCursor = Sprite::Create(13, selectpos); //
+	nextStageCursor = Sprite::Create(13, selectpos); //
 }
 
 void End::Update()
@@ -82,6 +82,7 @@ void End::Update()
 
 	if (input->Trigger(DIK_SPACE)) {
 		if (pushLeftFlag) {
+			p_player->InitPlayerData();
 			p_game_scene->ChangeState(new Title());
 		}
 		else if (pushLeftFlag == false) {
@@ -117,13 +118,13 @@ void End::DrawTexture()
 	}
 
 	returnTitle->Draw(); // タイトルへの描画
-	returnSelect->Draw(); // セレクトへの描画
+	nextStage->Draw(); // セレクトへの描画
 
 	if (pushLeftFlag) {
 		titleCursor->Draw(); //
 	}
 	else {
-		selectCursor->Draw(); // 
+		nextStageCursor->Draw(); // 
 	}
 
 }
