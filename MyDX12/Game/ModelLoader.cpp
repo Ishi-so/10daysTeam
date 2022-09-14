@@ -16,6 +16,8 @@ void ModelLoader::Load(){
 	SetModel(MODEL_BLOCK, "box_v000");
 	SetModel(MODEL_ITEM, "box_v000");
 	SetModel(MODEL_PLAYER, "sphere");
+	SetModel(MODEL_BG, "bg");
+	SetModel(MODEL_LONGBOX, "LongBox");
 }
 
 Model* ModelLoader::GetModel(const ModelNum& modelNum) const

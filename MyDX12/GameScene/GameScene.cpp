@@ -195,13 +195,7 @@ void GameScene::Update()
 	// シーンの更新
 	state->Update();
 
-	m_player->Update(); // SceneState派生のクラスでやる(今は仮置き)
-	if (playerDistTimer >= 10) {
-		playerDistTimer = 0;
-		if (m_player->GetDirection().y >= 1.0f) {
-			
-		}
-	}
+	//m_player->Update(); // SceneState派生のクラスでやる(今は仮置き)
 	playerEffects->Add(m_player->GetDirection().normalize(), m_player->GetPosition());
 	playerDistTimer++;
 
@@ -219,11 +213,11 @@ void GameScene::Draw()
 	DirectX12::ClearDepthBuffer();
 	// 3Dまたはポストエフェクトの描画
 	Object3D::PreDraw();
-	m_player->Draw(); // SceneState派生のクラスでやる(今は仮置き)
+	//m_player->Draw(); // SceneState派生のクラスでやる(今は仮置き)
 
-	ObjectManager::GetInstance()->Draw();
+	//ObjectManager::GetInstance()->Draw();
 	state->Draw();
-	playerEffects->Draw();
+	//playerEffects->Draw();
 	Object3D::PostDraw();
 
 	// ビルボード用オブジェクト
