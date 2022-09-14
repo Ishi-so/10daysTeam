@@ -177,20 +177,21 @@ bool GameScene::Initialize()
 		}
 	}
 
+	// カメラの更新(1f目おかしくなるため)
+	Math::Vector3 playerPos = m_player->GetPosition();
+	d_camera->SetPosition(playerPos.x, playerPos.y, Z_AXIS);
+	d_camera->_Update();
+
 	// シーン設定
 	state->SetGameScene(this);
 	state->SetPlayer(m_player);
+	state->SetCamera(d_camera);
 	state->Initialize();
 
 	// マネージャーの初期化
 	ObjectManager::GetInstance()->Initialize();
 	// マネージャーにPlayerを設定
 	ObjectManager::GetInstance()->SetPlayer(m_player);
-
-	// カメラの更新(1f目おかしくなるため)
-	Math::Vector3 playerPos = m_player->GetPosition();
-	d_camera->SetPosition(playerPos.x, playerPos.y, Z_AXIS);
-	d_camera->_Update();
 
 	DigitalNumberText::GetInstance()->Initialize(2);
 	playerEffects = PlayerEffectManager::Create();
