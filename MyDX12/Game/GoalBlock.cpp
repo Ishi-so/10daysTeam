@@ -36,7 +36,7 @@ void GoalBlock::Init()
 	ability = "Goal";
 
 	// OBJクラスの生成
-	obj = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_BLOCK));
+	obj = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_GOAL));
 	color = { 1,1,1 };
 	// ・・AABBの設定・・
 	collisionData = Math::SetAABB(obj->position, obj->scale);

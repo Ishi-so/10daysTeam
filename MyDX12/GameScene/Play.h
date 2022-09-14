@@ -15,7 +15,8 @@ public:
 	void DrawTexture()override;
 
 private:// 変数
-	Sprite* operation = nullptr; // 操作説明
+	Sprite* operationL = nullptr; // 操作説明
+	Sprite* operationR = nullptr; // 操作説明
 	const Math::Vector2 center{ 0.5f, 0.5f }; // 中心設定用
 	Sprite* life[3];
 	Sprite* timeTex = nullptr;
