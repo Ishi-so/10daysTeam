@@ -201,10 +201,20 @@ void GameScene::Update()
 	const float lookatRange = 5.0f;
 
 	// カメラの更新
+	if (m_player->GetHitFlag())
+	{
+		shakeFlag = true;
+	}
+	if (shakeCnt >= SHAKE_MAX_TIME)
+	{
+		shakeCnt = 0;
+		shakeFlag = false;
+	}
 	d_camera->SetLookAtRange(0, m_player->GetPosition().y, 0);
 	d_camera->SetPosition(0, m_player->GetPosition().y, -40);
 	d_camera->_Update();
-
+	if(shakeFlag)shakeCnt++;
+	
 	// シーンの更新
 	state->Update();
 
