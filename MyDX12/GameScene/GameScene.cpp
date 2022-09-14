@@ -204,7 +204,7 @@ void GameScene::Update()
 
 	// カメラの更新
 	ShakeCamera();
-	d_camera->SetLookAtRange(0, m_player->GetPosition().y, 0);
+	d_camera->SetLookAtRange(shakePos.x, m_player->GetPosition().y + shakePos.y , 0);
 	d_camera->SetPosition(shakePos.x, m_player->GetPosition().y + shakePos.y, -40);
 	d_camera->_Update();
 	
@@ -287,8 +287,12 @@ void GameScene::ShakeCamera()
 	// シェイク中
 	if (shakeFlag)
 	{
-		shakePos.x = SHAKE_RAND_MIN + (int)(rand() * (SHAKE_RAND_MAX - SHAKE_RAND_MIN + 1) / (1 + RAND_MAX));
-		shakePos.y = SHAKE_RAND_MIN + (int)(rand() * (SHAKE_RAND_MAX - SHAKE_RAND_MIN + 1) / (1 + RAND_MAX));
+		// 偶数の時揺れる
+		if (shakeCnt % 2 == 0)
+		{
+			shakePos.x = SHAKE_RAND_MIN + (int)(rand() * (SHAKE_RAND_MAX - SHAKE_RAND_MIN + 1) / (1 + RAND_MAX));
+			shakePos.y = SHAKE_RAND_MIN + (int)(rand() * (SHAKE_RAND_MAX - SHAKE_RAND_MIN + 1) / (1 + RAND_MAX));
+		}
 		shakeCnt++;
 	}
 }
