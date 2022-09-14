@@ -15,9 +15,9 @@ private:// 静的メンバ
 	static const int debugTextTexNumber = 0;
 	static const int debugJISTextTexNumber = 1;
 private: // メンバ定数
-	const float SHAKE_RAND_MIN = -3.0f;
-	const float SHAKE_RAND_MAX = 3.0f;
-	const int SHAKE_MAX_TIME = 120.0f;
+	const float SHAKE_RAND_MIN = -2.0f;
+	const float SHAKE_RAND_MAX = 2.0f;
+	const int SHAKE_MAX_TIME = 40.0f;
 
 private:// メンバ
 	LightGroup* lightGroup = nullptr;
