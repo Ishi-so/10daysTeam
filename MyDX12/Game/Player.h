@@ -6,6 +6,10 @@
 
 // 前方宣言
 class Object3D;
+namespace XIIlib
+{
+	class Audio;
+}
 
 // プレイヤークラス
 class Player
@@ -52,6 +56,7 @@ public: // メンバ関数
 	/* Setter */
 	void SetHitFlag(bool flag) { hitFlag = flag; }// hitFlagを設定
 	void SetStart() { startFlag = true; }
+	void SetAudio(XIIlib::Audio* p_audio) { this->p_audio = p_audio; }
 
 	/* Getter */
 	Math::Vector3 GetPosition()const { return position; } // 座標を取得
@@ -94,5 +99,8 @@ private: // メンバ変数
 	// 当たり判定確認用
 	Math::Sphere collSphere; // 当たり判定用　球
 	bool hitFlag = false; // 当たり判定フラグ
+
+	// その他
+	XIIlib::Audio* p_audio = nullptr;
 };
 

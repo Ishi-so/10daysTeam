@@ -22,4 +22,5 @@ private:// 変数
 	Sprite* timeTex = nullptr;
 	int timeS = 0;
 	int timeF = 0;
+	bool appFlag = false; 
 };
