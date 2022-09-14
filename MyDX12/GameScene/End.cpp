@@ -36,6 +36,7 @@ void End::Initialize()
 	Messenger::GetInstance()->AddPrintOut("エンドシーンです！");
 	result = Sprite::Create(5, resultPos); // リザルト画像の生成
 	result->SetAnchorPoint(center);
+	result->SetSize({ 450, 150 });
 
 	for (int i = 0; i < _countof(medal); i++) {
 		medal[i] = Sprite::Create(6 + i, medalPos); // メダル画像の生成
@@ -63,7 +64,7 @@ void End::Update()
 	else { // リザルトが最終座標に到達した時
 		medalDrawFlag = true; // メダル描画フラグをtrueに
 		if (medalSize.x > medalLastSize.x) {
-			medalSize -= {2.0f, 2.0f}; // サイズを縮小
+			medalSize -= {3.0f, 3.0f}; // サイズを縮小
 			for (auto x : medal) {
 				x->SetSize(medalSize);
 			}

@@ -7,6 +7,7 @@
 #include "../Game/Player.h"
 #include "../Game/ObjectManager.h"
 #include "../2D/Sprite.h"
+#include "../Tool/DigitalNumberText.h"
 
 using namespace XIIlib;
 
@@ -23,6 +24,12 @@ void Play::Initialize()
 	Messenger::GetInstance()->AddPrintOut("プレイシーンです！");
 	operation = Sprite::Create(16, { 200, 720 / 2 });
 	operation->SetAnchorPoint(center);
+
+	for (int i = 0; i < _countof(life); i++) {
+		life[i] = Sprite::Create(18, { (float)0 + 150 * i, 0 });
+	}
+
+	timeTex = Sprite::Create(19, { 1280 - 300, 0 });
 }
 
 void Play::Update()
@@ -51,6 +58,18 @@ void Play::Update()
 	else if (KeyInput::GetInstance()->Trigger(DIK_3)) {
 		time = 59.0f;
 	}*/
+
+	timeF++;
+
+	if (timeF % 60 == 0) {
+		timeM++;
+	}
+
+	if (timeM % 600 == 0) {
+		timeS++;
+	}
+
+	DigitalNumberText::GetInstance()->TimePrintHMS(HM, timeS, timeM, 0, 1050, 35);
 }
 
 void Play::Draw()
@@ -62,4 +81,12 @@ void Play::Draw()
 void Play::DrawTexture()
 {
 	operation->Draw();
+
+	for (int i = 0; i < _countof(life); i++) {
+		if (i + 1 >= i + 1) {
+			life[i]->Draw();
+		}
+	}
+
+	timeTex->Draw();
 }
