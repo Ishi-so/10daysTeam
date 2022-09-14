@@ -7,6 +7,7 @@
 #include "../2D/Sprite.h"
 #include "../Game/Player.h"
 #include "../Game/ObjectManager.h"
+#include "../Tool/DigitalNumberText.h"
 
 using namespace XIIlib;
 
@@ -26,7 +27,8 @@ End::~End()
 	delete medalBase;
 
 	delete returnTitle;
-	delete nextStage;
+
+	delete titleCursor;
 }
 
 void End::Initialize()
@@ -48,11 +50,13 @@ void End::Initialize()
 
 	returnTitle = Sprite::Create(10, titlePos); // タイトルへ画像の生成
 	returnTitle->SetSize({ 500 * 0.7f, 100 * 0.7f });
-	nextStage = Sprite::Create(11, selectpos); // セレクトへ画像の生成
-	nextStage->SetSize({ 700 * 0.7f, 100 * 0.7f });
+	returnTitle->SetAnchorPoint(center);
 
 	titleCursor = Sprite::Create(12, titlePos); //
-	nextStageCursor = Sprite::Create(13, selectpos); //
+	titleCursor->SetAnchorPoint(center);
+
+	timeTex = Sprite::Create(19, resultPos + Math::Vector2(0, 130));
+	timeTex->SetAnchorPoint(center);
 }
 
 void End::Update()
@@ -60,6 +64,7 @@ void End::Update()
 	if (resultPos.y < resultLastY) { // リザルトが最終座標に到達していない時
 		resultPos.y += 5.0f; // リザルトを下に移動
 		result->SetPosition(resultPos);
+		timeTex->SetPosition(resultPos + Math::Vector2(0, 130));
 	}
 	else { // リザルトが最終座標に到達した時
 		medalDrawFlag = true; // メダル描画フラグをtrueに
@@ -99,6 +104,8 @@ void End::Update()
 	else {
 		medalColor = MedalColor::BRONZE; // 銅色に
 	}
+
+	DigitalNumberText::GetInstance()->Print(resultTime, resultPos.x - 20, resultPos.y + 110);
 }
 
 void End::Draw()
@@ -118,13 +125,8 @@ void End::DrawTexture()
 	}
 
 	returnTitle->Draw(); // タイトルへの描画
-	nextStage->Draw(); // セレクトへの描画
 
-	if (pushLeftFlag) {
-		titleCursor->Draw(); //
-	}
-	else {
-		nextStageCursor->Draw(); // 
-	}
+	titleCursor->Draw();
 
+	timeTex->Draw();
 }

@@ -17,6 +17,10 @@ Play::Play()
 
 Play::~Play()
 {
+	delete timeTex;
+	for (auto& x : life) {
+		delete x;
+	}
 }
 
 void Play::Initialize()
