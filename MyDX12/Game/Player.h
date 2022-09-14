@@ -61,6 +61,7 @@ public: // メンバ関数
 	Math::Vector3 GetDirection()const { return direction; } // 方向を取得
 	bool GetGoalFlag() const { return goalFlag; } // ゴールフラグを取得
 	bool GetHitFlag() const { return hitFlag; } // ヒットフラグを取得
+	int GetHitPoint()const { return hitPoint; } // 体力を取得
 
 private: // 固有メンバ関数(private)
 	// 固有関数
