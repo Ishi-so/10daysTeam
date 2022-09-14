@@ -4,7 +4,6 @@
 
 class DebugCamera;
 class LightGroup;
-class Circle;
 class Tessellation;
 class SceneState;
 class Player; // 仮
@@ -15,8 +14,8 @@ private:// 静的メンバ
 	static const int debugTextTexNumber = 0;
 	static const int debugJISTextTexNumber = 1;
 private: // メンバ定数
-	const float SHAKE_RAND_MIN = -0.5f;
-	const float SHAKE_RAND_MAX = 0.5f;
+	const float SHAKE_RAND_MIN = -0.3f;
+	const float SHAKE_RAND_MAX = 0.3f;
 	const int SHAKE_MAX_TIME = 20.0f;
 
 private:// メンバ
@@ -30,8 +29,6 @@ private:// メンバ
 	int shakeCnt = 0;
 	Math::Vector3 shakePos;
 	bool shakeFlag = false;
-
-	Circle* circle = nullptr;
 
 	// Game系
 	Player* m_player = nullptr;// プレイヤークラス

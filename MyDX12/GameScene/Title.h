@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "SceneState.h"
 #include "../Struct/Math/Vector2.h"
+#include <vector>
 
 class Object3D;
 class Sprite;
@@ -14,10 +15,10 @@ public:
 	void Update()override;// 更新
 	void Draw()override;// 描画
 	void DrawTexture()override;
+	void BackTexture()override;
 
 private:// 変数
-	Object3D* bgArray[3] = { nullptr,nullptr,nullptr };
-	Object3D* boxArray[2] = { nullptr,nullptr };
+	std::vector<Sprite*>bgArray;
 	Object3D* clonePlayer = nullptr;
 
 	Sprite* title = nullptr; // タイトル
