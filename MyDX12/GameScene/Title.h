@@ -1,6 +1,8 @@
 #pragma once
 #include "SceneState.h"
 
+class Object3D;
+
 class Title : public SceneState {
 public:
 	Title();	// コンストラクタ
@@ -11,5 +13,7 @@ public:
 	void Draw()override;// 描画
 
 private:// 変数
-
+	Object3D* bgArray[3] = { nullptr,nullptr,nullptr };
+	Object3D* boxArray[12] = {nullptr,nullptr,nullptr ,nullptr ,nullptr ,nullptr ,nullptr ,nullptr };
+	Object3D* clonePlayer = nullptr;
 };

@@ -9,6 +9,8 @@ enum ModelNum {
 	MODEL_BLOCK = 0,
 	MODEL_ITEM,
 	MODEL_PLAYER,
+	MODEL_BG,
+	MODEL_LONGBOX,
 };
 
 class ModelLoader
