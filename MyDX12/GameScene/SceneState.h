@@ -3,6 +3,7 @@
 
 class GameScene;
 class Player;
+class DebugCamera;
 
 class SceneState {
 protected:
@@ -24,11 +25,14 @@ public: // 継承
 public: // Setter関数
 	void SetGameScene(GameScene* p_game_scene) { this->p_game_scene = p_game_scene; }
 	void SetPlayer(Player* p_player) { this->p_player = p_player; }
+	void SetCamera(DebugCamera* p_camera) { this->p_camera = p_camera; }
+
 public: // Getter関数
 
 protected: // 静的メンバ変数
 	static GameScene* p_game_scene;
 	static Player* p_player;
+	static DebugCamera* p_camera;
 	static float score;
 	static float time;
 };
