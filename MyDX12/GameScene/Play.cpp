@@ -35,6 +35,16 @@ void Play::Update()
 	if (KeyInput::GetInstance()->Trigger(DIK_RETURN)) {
 		p_game_scene->ChangeState(new End());
 	}
+
+	if (KeyInput::GetInstance()->Trigger(DIK_1)) {
+		time = 19.0f;
+	}
+	else if (KeyInput::GetInstance()->Trigger(DIK_2)) {
+		time = 39.0f;
+	}
+	else if (KeyInput::GetInstance()->Trigger(DIK_3)) {
+		time = 59.0f;
+	}
 }
 
 void Play::Draw()

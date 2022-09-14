@@ -9,8 +9,7 @@ SphereEff::SphereEff(const Math::Vector3& pos, const Math::Vector3& _vec)
 	obj->position = pos;
 	position = pos;
 	vec = _vec;
-	addScale = 0.04f;
-	scale = 0.5f;
+	scale = 1.0f;
 	Math::Vector3 rColor = {
 		static_cast<float>((rand() % 11)) / 10.0f,
 		static_cast<float>((rand() % 11)) / 10.0f,
@@ -30,10 +29,10 @@ SphereEff::~SphereEff()
 void SphereEff::Update()
 {
 	position -= vec;
-	scale += addScale;
 	a -= 0.01f;
 	obj->position = position;
 	obj->scale = { scale,scale ,scale };
+	obj->rotation.z += 1.5f;
 	obj->alpha = a;
 	obj->Update();
 }

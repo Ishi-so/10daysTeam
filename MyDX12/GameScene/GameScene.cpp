@@ -100,8 +100,10 @@ bool GameScene::Initialize()
 	Sprite::LoadTexture(texind, L"Resources/SilverMedal.png");                  texind++;//7
 	Sprite::LoadTexture(texind, L"Resources/bronzeMedal.png");                  texind++;//8
 	Sprite::LoadTexture(texind, L"Resources/medalBase.png");                    texind++;//9
-	Sprite::LoadTexture(texind, L"Resources/return_title.png");                 texind++;//10
-	Sprite::LoadTexture(texind, L"Resources/return_select.png");                texind++;//11
+	Sprite::LoadTexture(texind, L"Resources/returnTitle.png");                 texind++;//10
+	Sprite::LoadTexture(texind, L"Resources/returnSelect.png");                texind++;//11
+	Sprite::LoadTexture(texind, L"Resources/titleCursor.png");                 texind++;//12
+	Sprite::LoadTexture(texind, L"Resources/selectCursor.png");                texind++;//13
 
 
 	DebugJISText::GetInstance()->Initialize(debugJISTextTexNumber);
@@ -218,13 +220,7 @@ void GameScene::Update()
 	// シーンの更新
 	state->Update();
 
-	m_player->Update(); // SceneState派生のクラスでやる(今は仮置き)
-	if (playerDistTimer >= 10) {
-		playerDistTimer = 0;
-		if (m_player->GetDirection().y >= 1.0f) {
-			
-		}
-	}
+	//m_player->Update(); // SceneState派生のクラスでやる(今は仮置き)
 	playerEffects->Add(m_player->GetDirection().normalize(), m_player->GetPosition());
 	playerDistTimer++;
 
@@ -242,11 +238,11 @@ void GameScene::Draw()
 	DirectX12::ClearDepthBuffer();
 	// 3Dまたはポストエフェクトの描画
 	Object3D::PreDraw();
-	m_player->Draw(); // SceneState派生のクラスでやる(今は仮置き)
+	//m_player->Draw(); // SceneState派生のクラスでやる(今は仮置き)
 
-	ObjectManager::GetInstance()->Draw();
+	//ObjectManager::GetInstance()->Draw();
 	state->Draw();
-	playerEffects->Draw();
+	//playerEffects->Draw();
 	Object3D::PostDraw();
 
 	// ビルボード用オブジェクト

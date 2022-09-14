@@ -38,3 +38,8 @@ float Common::ConvertPositionY(int point)
 {
 	return posStartY - (static_cast<float>(point) * posDistance);
 }
+
+float Common::ConvertTitlePositionY(int point)
+{
+	return 20.0f - (static_cast<float>(point) * posDistanceTitle);
+}
