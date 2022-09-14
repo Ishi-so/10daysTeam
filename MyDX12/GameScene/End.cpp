@@ -8,6 +8,7 @@
 #include "../Game/Player.h"
 #include "../Game/ObjectManager.h"
 #include "../Camera/DebugCamera.h"
+#include "../Tool/DigitalNumberText.h"
 
 using namespace XIIlib;
 
@@ -27,14 +28,15 @@ End::~End()
 	delete medalBase;
 
 	delete returnTitle;
-	delete returnSelect;
+
+	delete titleCursor;
 }
 
 void End::Initialize()
 {
 	p_player->Update();
 	ObjectManager::GetInstance()->Update();
-	Messenger::GetInstance()->AddPrintOut("エンドシーンです！");
+	//Messenger::GetInstance()->AddPrintOut("エンドシーンです！");
 	result = Sprite::Create(5, resultPos); // リザルト画像の生成
 	result->SetAnchorPoint(center);
 	result->SetSize({ 450, 150 });
@@ -49,11 +51,13 @@ void End::Initialize()
 
 	returnTitle = Sprite::Create(10, titlePos); // タイトルへ画像の生成
 	returnTitle->SetSize({ 500 * 0.7f, 100 * 0.7f });
-	returnSelect = Sprite::Create(11, selectpos); // セレクトへ画像の生成
-	returnSelect->SetSize({ 900 * 0.7f, 100 * 0.7f });
+	returnTitle->SetAnchorPoint(center);
 
 	titleCursor = Sprite::Create(12, titlePos); //
-	selectCursor = Sprite::Create(13, selectpos); //
+	titleCursor->SetAnchorPoint(center);
+
+	timeTex = Sprite::Create(19, resultPos + Math::Vector2(0, 130));
+	timeTex->SetAnchorPoint(center);
 }
 
 void End::Update()
@@ -65,6 +69,7 @@ void End::Update()
 	if (resultPos.y < resultLastY) { // リザルトが最終座標に到達していない時
 		resultPos.y += 5.0f; // リザルトを下に移動
 		result->SetPosition(resultPos);
+		timeTex->SetPosition(resultPos + Math::Vector2(0, 130));
 	}
 	else { // リザルトが最終座標に到達した時
 		medalDrawFlag = true; // メダル描画フラグをtrueに
@@ -87,6 +92,7 @@ void End::Update()
 
 	if (input->Trigger(DIK_SPACE)) {
 		if (pushLeftFlag) {
+			p_player->InitPlayerData();
 			p_game_scene->ChangeState(new Title());
 		}
 		else if (pushLeftFlag == false) {
@@ -103,6 +109,8 @@ void End::Update()
 	else {
 		medalColor = MedalColor::BRONZE; // 銅色に
 	}
+
+	DigitalNumberText::GetInstance()->Print(resultTime, resultPos.x - 20, resultPos.y + 110);
 }
 
 void End::Draw()
@@ -122,13 +130,8 @@ void End::DrawTexture()
 	}
 
 	returnTitle->Draw(); // タイトルへの描画
-	returnSelect->Draw(); // セレクトへの描画
 
-	if (pushLeftFlag) {
-		titleCursor->Draw(); //
-	}
-	else {
-		selectCursor->Draw(); // 
-	}
+	titleCursor->Draw();
 
+	timeTex->Draw();
 }

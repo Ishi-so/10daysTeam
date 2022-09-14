@@ -18,6 +18,10 @@ Play::Play()
 
 Play::~Play()
 {
+	delete timeTex;
+	for (auto& x : life) {
+		delete x;
+	}
 }
 
 void Play::Initialize()
@@ -62,7 +66,7 @@ void Play::Update()
 		timeF = 0;
 	}
 
-	DigitalNumberText::GetInstance()->Print(timeS, 1050, 33);
+	DigitalNumberText::GetInstance()->Print(timeS, 1100, 33);
 
 	time = timeS;
 }
@@ -78,7 +82,7 @@ void Play::DrawTexture()
 	operation->Draw();
 
 	for (int i = 0; i < _countof(life); i++) {
-		if (i + 1 >= i + 1) {
+		if (i + 1 <= p_player->GetHitPoint()) {
 			life[i]->Draw();
 		}
 	}
