@@ -69,7 +69,7 @@ bool GameScene::Initialize()
 	d_camera = new DebugCamera();
 	d_camera->_Initialize(100.0f, 0.05f, 10.0f);
 	d_camera->SetLookAtRange(0, 1, 0);
-	const float Z_AXIS = -25; // 奥行を設定
+	const float Z_AXIS = -40; // 奥行を設定
 
 	// ライト生成
 	lightGroup = LightGroup::Create();
@@ -216,10 +216,7 @@ void GameScene::Update()
 	const float lookatRange = 5.0f;
 
 	// カメラの更新
-	ShakeCamera();
-	d_camera->SetLookAtRange(shakePos.x, m_player->GetPosition().y + shakePos.y , 0);
-	d_camera->SetPosition(shakePos.x, m_player->GetPosition().y + shakePos.y, -40);
-	d_camera->_Update();
+	
 	const float distTex = 360.0f;
 	for (auto& x : bgArray) {
 		Math::Vector2 mPos = x->GetPosition();
@@ -286,32 +283,3 @@ void GameScene::ChangeState(SceneState* different_state)
 	state->Initialize();
 }
 
-void GameScene::ShakeCamera()
-{
-	// Playerが何かと当たったら
-	if (m_player->GetHitFlag())
-	{
-		shakeFlag = true;
-	}
-
-	// カウントが指定したフレームまで来たら止める
-	if (shakeCnt >= SHAKE_MAX_TIME)
-	{
-		// 0クリア
-		shakePos = {0,0,0};
-		shakeCnt = 0; 
-		shakeFlag = false; // シェイクをやめる
-	}
-	
-	// シェイク中
-	if (shakeFlag)
-	{
-		// 偶数の時揺れる
-		if (shakeCnt % 2 == 0)
-		{
-			shakePos.x = SHAKE_RAND_MIN + (int)(rand() * (SHAKE_RAND_MAX - SHAKE_RAND_MIN + 1) / (1 + RAND_MAX));
-			shakePos.y = SHAKE_RAND_MIN + (int)(rand() * (SHAKE_RAND_MAX - SHAKE_RAND_MIN + 1) / (1 + RAND_MAX));
-		}
-		shakeCnt++;
-	}
-}
