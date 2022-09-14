@@ -4,7 +4,6 @@
 
 class DebugCamera;
 class LightGroup;
-class Circle;
 class Tessellation;
 class SceneState;
 class Player; // 仮
@@ -30,8 +29,6 @@ private:// メンバ
 	int shakeCnt = 0;
 	Math::Vector3 shakePos;
 	bool shakeFlag = false;
-
-	Circle* circle = nullptr;
 
 	// Game系
 	Player* m_player = nullptr;// プレイヤークラス

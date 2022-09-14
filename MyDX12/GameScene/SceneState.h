@@ -19,6 +19,7 @@ public: // 継承
 	virtual void Update() = 0;//　更新
 	virtual void Draw() = 0;// 描画
 	virtual void DrawTexture(){}
+	virtual void BackTexture(){}
 
 public: // Setter関数
 	void SetGameScene(GameScene* p_game_scene) { this->p_game_scene = p_game_scene; }
