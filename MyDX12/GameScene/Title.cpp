@@ -29,7 +29,7 @@ void Title::Initialize()
 	title->SetAnchorPoint(center);
 	pushSpace = Sprite::Create(15, { 1280 / 2, 720 - 100 });
 	pushSpace->SetAnchorPoint(center);
-	Messenger::GetInstance()->AddPrintOut("タイトルシーンです！");
+	//Messenger::GetInstance()->AddPrintOut("タイトルシーンです！");
 }
 
 void Title::Update()
