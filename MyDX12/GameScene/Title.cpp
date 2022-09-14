@@ -18,10 +18,10 @@ Title::~Title()
 {
 	delete clonePlayer;
 	clonePlayer = nullptr;
-	for (int i = 0; i < 12; i++) {
-		delete boxArray[i];
-		boxArray[i] = nullptr;
-	}
+	delete boxArray[1];
+	boxArray[1] = nullptr;
+	delete boxArray[0];
+	boxArray[0] = nullptr;
 	for (int i = 0; i < 3; i++) {
 		delete bgArray[i];
 		bgArray[i] = nullptr;
@@ -37,15 +37,11 @@ void Title::Initialize()
 		bgArray[i]->position = { 0,-37.2f,1 };
 		bgArray[i]->scale = { 13.6f,13.6f,1.0f };
 	}
-	int yValue = 0;
-	for (int i = 0; i < 12; i+=2) {// (1,13)
-		// ボックスを指定の個所に
-		boxArray[i] = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_LONGBOX));
-		boxArray[i + 1] = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_LONGBOX));
-		boxArray[i]->position = {Common::ConvertPositionX(1),Common::ConvertTitlePositionY(yValue),0.0f};
-		boxArray[i + 1]->position = {Common::ConvertPositionX(13),Common::ConvertTitlePositionY(yValue),0.0f};
-		yValue++;
-	}
+
+	boxArray[0] = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_LONGBOX));
+	boxArray[0]->position = { Common::ConvertPositionX(1),0.0f,0.0f };
+	boxArray[1] = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_LONGBOX));
+	boxArray[1]->position = { Common::ConvertPositionX(13),0.0f,0.0f };
 
 	clonePlayer = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_PLAYER));
 	const float cLine = 27.2f;
@@ -72,7 +68,7 @@ void Title::Update()
 		bgArray[i]->Update();
 	}
 
-	for (int i = 0; i < 12; i++) {
+	for (int i = 0; i < 2; i++) {
 		boxArray[i]->Update();
 	}
 
@@ -89,7 +85,7 @@ void Title::Draw()
 	for (int i = 0; i < 3; i++) {
 		bgArray[i]->Draw();
 	}
-	for (int i = 0; i < 12; i++) {
+	for (int i = 0; i < 2; i++) {
 		boxArray[i]->Draw();
 	}
 	clonePlayer->Draw();

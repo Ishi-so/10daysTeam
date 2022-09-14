@@ -17,7 +17,7 @@ public:
 
 private:// 変数
 	Object3D* bgArray[3] = { nullptr,nullptr,nullptr };
-	Object3D* boxArray[12] = {nullptr,nullptr,nullptr ,nullptr ,nullptr ,nullptr ,nullptr ,nullptr };
+	Object3D* boxArray[2] = { nullptr,nullptr };
 	Object3D* clonePlayer = nullptr;
 
 	Sprite* title = nullptr; // タイトル
