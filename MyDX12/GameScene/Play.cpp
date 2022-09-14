@@ -26,7 +26,7 @@ void Play::Initialize()
 	operation->SetAnchorPoint(center);
 
 	for (int i = 0; i < _countof(life); i++) {
-		life[i] = Sprite::Create(18, { (float)0 + 150 * i, 0 });
+		life[i] = Sprite::Create(18, { (float)0 + 130 * i, 0 });
 	}
 
 	timeTex = Sprite::Create(19, { 1280 - 300, 0 });
@@ -61,15 +61,14 @@ void Play::Update()
 
 	timeF++;
 
-	if (timeF % 60 == 0) {
-		timeM++;
-	}
-
-	if (timeM % 600 == 0) {
+	if (timeF == 60) {
 		timeS++;
+		timeF = 0;
 	}
 
-	DigitalNumberText::GetInstance()->TimePrintHMS(HM, timeS, timeM, 0, 1050, 35);
+	DigitalNumberText::GetInstance()->Print(timeS, 1050, 33);
+
+	time = timeS;
 }
 
 void Play::Draw()

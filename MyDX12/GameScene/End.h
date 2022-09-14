@@ -48,9 +48,9 @@ private:// 変数
 	bool pushLeftFlag = true; // 左キーを押しているか
 
 	MedalColor medalColor = MedalColor::GOLD; // メダルの色
-	const float goldTime = 20.0f;
-	const float silverTime = goldTime * 2;
-	const float bronzeTime = goldTime * 3;
+	const int goldTime = 8;
+	const int silverTime = 10;
+	const int bronzeTime = 12;
 	static const float resultScore;
 	const float resultTime = time;
 };
