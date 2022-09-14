@@ -27,7 +27,7 @@ private:// 変数
 	const float resultLastY = 150.0f; // リザルトの最終座標
 
 	Sprite* medal[3]; // メダルの画像
-	Math::Vector2 medalPos{ 1280 / 2, 400 }; // メダルの座標
+	Math::Vector2 medalPos{ 1280 / 2, 470 }; // メダルの座標
 	bool medalDrawFlag = false; // 描画フラグ
 	Math::Vector2 medalSize{ 600.0f, 600.0f }; // メダルのサイズ
 	const Math::Vector2 medalLastSize{ 300.0f, 300.0f }; // メダルの最終サイズ
@@ -38,13 +38,10 @@ private:// 変数
 	Math::Vector2 medalBasePos{ medalPos }; // メダル台の座標
 
 	Sprite* returnTitle = nullptr; // タイトルへ画像
-	Sprite* nextStage = nullptr; // セレクトへ画像
 
 	Sprite* titleCursor = nullptr; // タイトル用カーソル
-	Sprite* nextStageCursor = nullptr; // セレクト用カーソル
 
-	const Math::Vector2 titlePos{ 100, 610 };
-	const Math::Vector2 selectpos{ 700, 610 };
+	const Math::Vector2 titlePos{ 1280 / 2, 650 };
 	bool pushLeftFlag = true; // 左キーを押しているか
 
 	MedalColor medalColor = MedalColor::GOLD; // メダルの色
@@ -53,4 +50,6 @@ private:// 変数
 	const int bronzeTime = 12;
 	static const float resultScore;
 	const float resultTime = time;
+
+	Sprite* timeTex = nullptr;
 };
