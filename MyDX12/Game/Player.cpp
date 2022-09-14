@@ -157,6 +157,8 @@ void Player::Update()
 	// 無敵状態かつ、カウントが最大までいったら
 	if (invincibleCnt >= INVINCIBLE_TIME && invincible) 
 	{
+		// ヒットフラグを立てる
+		hitFlag = false;
 		// 無敵解除
 		invincible = false;
 		// カウントを0クリア
@@ -177,6 +179,9 @@ void Player::Draw()
 
 void Player::HitUpdate(std::string& skillName)
 {
+	// ヒットフラグを立てる
+	hitFlag = true;
+
 	// ゴールブロックと当たったらフラグを変えてリターン
 	if (skillName == "Goal") { 
 		goalFlag = true; 

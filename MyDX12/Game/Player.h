@@ -58,6 +58,7 @@ public: // メンバ関数
 	std::vector<unsigned int> GetStratumData()const { return stratumData; } // 階層データを取得
 	Math::Vector3 GetDirection()const { return direction; } // 方向を取得
 	bool GetGoalFlag() const { return goalFlag; } // ゴールフラグを取得
+	bool GetHitFlag() const { return hitFlag; } // ヒットフラグを取得
 
 private: // 固有メンバ関数(private)
 	// 固有関数
