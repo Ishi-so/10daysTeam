@@ -14,7 +14,7 @@ void ModelLoader::Initialize()
 
 void ModelLoader::Load(){
 	SetModel(MODEL_BLOCK, "block");
-	SetModel(MODEL_ITEM, "box_v000");
+	SetModel(MODEL_ITEM, "ICO");
 	SetModel(MODEL_PLAYER, "rice_ball");
 	SetModel(MODEL_GOAL, "box_v000");
 }
