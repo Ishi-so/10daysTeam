@@ -35,6 +35,7 @@ private: // メンバ定数
 	const float SUB_ACC = 0.02f; // not移動加速用
 	const float GRAVITY = -0.1f; // 落下
 	const float MAX_GRAVITY = -0.3f; // 最高落下速度
+	const float ADD_ROT_Z = 1.5f;
 
 public: // メンバ関数
 	// 汎用関数
@@ -50,6 +51,7 @@ public: // メンバ関数
 	// ---- Setter Getter ---- 
 	/* Setter */
 	void SetHitFlag(bool flag) { hitFlag = flag; }// hitFlagを設定
+	void SetStart() { startFlag = true; }
 
 	/* Getter */
 	Math::Vector3 GetPosition()const { return position; } // 座標を取得
@@ -75,10 +77,13 @@ private: // メンバ変数
 	Math::Vector3 velocity; // 速度
 	Math::Vector3 acc; // 加速度
 	Math::Vector3 prevPos; // 1f前の座標
+	Math::Vector3 defaultPos; // 生成時の座標
+	Math::Vector3 rotation; // 回転
 	Math::Vector3 direction; // 移動方向
 	bool deathFlag = false; // 死亡フラグ
 	std::vector<unsigned int> stratumData; // 階層データ
-	bool goalFlag = false;
+	bool goalFlag = false; // ゴール
+	bool startFlag = false; // スタート
 
 	// プレイヤーの状態系
 	float stateAcc = 1.0f; // 状態によって決まる加減速値倍率
