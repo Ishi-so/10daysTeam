@@ -4,6 +4,8 @@
 #include "Menu.h"
 #include "End.h"
 #include "../Input/KeyInput.h"
+#include "../Game/Player.h"
+
 using namespace XIIlib;
 
 Play::Play()
@@ -21,6 +23,10 @@ void Play::Initialize()
 
 void Play::Update()
 {
+	if (KeyInput::GetInstance()->Trigger(DIK_R)) {
+		Messenger::GetInstance()->AddPrintOut("R");
+		p_player->InitPlayerData();
+	}
 	// ‰Ÿ‚µ‚½‚çØ‚è‘Ö‚¦
 	if (KeyInput::GetInstance()->Trigger(DIK_SPACE)) {
 		p_game_scene->ChangeState(new Menu());

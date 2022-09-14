@@ -37,5 +37,5 @@ public:
 
 	void HitCheck();// ”»’èˆ—
 
-	void PropValueCheck(const std::shared_ptr<GameObj>& obj,const int stratum);
+	void PropValueCheck(const std::shared_ptr<GameObj>& obj,const int stratum,int& count);
 };

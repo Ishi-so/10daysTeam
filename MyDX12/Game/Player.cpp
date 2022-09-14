@@ -55,59 +55,62 @@ void Player::Update()
 	// キーボード操作
 	if (KeyInput::GetInstance()->Push(DIK_D)) // 右移動
 	{
-		acc.x = 0.02f;
+		acc.x = ADD_ACC;
 	}
 	else if (KeyInput::GetInstance()->Push(DIK_A)) // 左移動
 	{
-		acc.x = -0.02f;
+		acc.x = -ADD_ACC;
 	}
 	else // 移動していない
 	{
 		// 少しづつ停止
 		acc.x = 0.0f;
 		if (velocity.x > 0) {
-			velocity.x += -0.02f;
+			velocity.x += -SUB_ACC;
 		}
 		else if (velocity.x < 0)
 		{
-			velocity.x += 0.02f;
+			velocity.x += SUB_ACC;
 		}
 	}
 
 	// テスト用
-	if (KeyInput::GetInstance()->Push(DIK_W)) // 右移動
-	{
-		position.y += 0.5f;
-	}
-	else if (KeyInput::GetInstance()->Push(DIK_S)) // 左移動
-	{
-		position.y -= 0.5f;
-	}
+	//if (KeyInput::GetInstance()->Push(DIK_W)) // 右移動
+	//{
+	//	position.y += 0.5f;
+	//}
+	//else if (KeyInput::GetInstance()->Push(DIK_S)) // 左移動
+	//{
+	//	position.y -= 0.5f;
+	//}
 
 	// 落下
-	acc.y = -0.1f;
+	acc.y = GRAVITY;
 
-	// 左右加速度制御
-	if (abs(velocity.x) > 0.1f)
+	// 左右加速度制御(0.1f以内に調整)
+	if (abs(velocity.x) > 0.1f) // veloが0.1f以上になれば
 	{
-		if (velocity.x > 0) {
+		if (velocity.x > 0) // veloが+なら
+		{
 			velocity.x += 0.1f - velocity.x;
 		}
-		else if (velocity.x < 0)
+		else if (velocity.x < 0) // veloが-なら
 		{
 			velocity.x += -0.1f - velocity.x;
 		}
 	}
 	
 	// 落下加速度制御
-	if (velocity.y < -0.3f)
+	if (velocity.y < MAX_GRAVITY)
 	{
-		velocity.y = -0.3f;
+		velocity.y = MAX_GRAVITY;
 	}
 	
 	// ---- 座標の更新 ----
 	velocity += acc; 
-	position += velocity * stateAcc; // 加算されたveloと状態加速によって座標を更新
+	position.y += velocity.y * stateAcc; // 加算されたveloと状態加速によって座標を更新
+	position.x += velocity.x;
+
 	// 横壁の範囲上限
 	if (MAX_AREA <= position.x + info.radius)
 	{
@@ -128,14 +131,17 @@ void Player::Update()
 
 	// ---- 当たり判定 ----
 	// ObjectManagerに記載
- 
+	
+	// ---- プレイヤー状態更新 ----
 	// 状態によって効果を付与
 	StateControl();
 
 	// 体力が0未満になったら
 	if (hitPoint <= 0)
 	{
+		InitPlayerData();
 		object->color = { 1,0,1 };
+		deathFlag = true;
 	}
 
 	// ---- 最終的な座標を設定　----
@@ -143,7 +149,6 @@ void Player::Update()
 
 	// 階層データの更新
 	stratumData = Stratum::GetStratumData(position.y, SIZE);
-	//stratumData = {2,3};
 
 	// ---- objectの更新 ----
 	object->Update();
@@ -152,6 +157,8 @@ void Player::Update()
 	// 無敵状態かつ、カウントが最大までいったら
 	if (invincibleCnt >= INVINCIBLE_TIME && invincible) 
 	{
+		// ヒットフラグを立てる
+		hitFlag = false;
 		// 無敵解除
 		invincible = false;
 		// カウントを0クリア
@@ -172,19 +179,49 @@ void Player::Draw()
 
 void Player::HitUpdate(std::string& skillName)
 {
-	// 無敵状態じゃなかったら
-	if (!invincible)
-	{
-		// プレイヤーにダメージ
-		hitPoint--;
-		// playerを青色に設定
-		object->color = { 0,0,1 };
-		// 無敵付与
-		invincible = true;
-		// 状態によって効果を付与
-		SetSkillState(skillName);
-		StateControl();
+	// ヒットフラグを立てる
+	hitFlag = true;
+
+	// ゴールブロックと当たったらフラグを変えてリターン
+	if (skillName == "Goal") { 
+		goalFlag = true; 
+		return;
 	}
+
+	// 無敵状態であれば即リターン
+	if (invincible)return;
+	// プレイヤーにダメージ
+	hitPoint--;
+	// playerを青色に設定
+	object->color = { 0,0,1 };
+	// 無敵付与
+	invincible = true;
+	// 状態によって効果を付与
+	SetGameObjAbility(skillName);
+	StateControl();
+}
+
+void Player::InitPlayerData()
+{
+	// 基本情報
+	state = State::none; // プレイヤーの状態
+	hitPoint = 3; // 体力(仮)
+	position = {}; // 座標
+	velocity = {}; // 速度
+	acc = {}; // 加速度
+	prevPos = {}; // 1f前の座標
+	direction = {}; // 移動方向
+	deathFlag = false; // 死亡フラグ
+	stratumData = {0,0}; // 階層データ
+	goalFlag = false;
+
+	// プレイヤーの状態系
+	stateAcc = 1.0f; // 状態によって決まる加減速値倍率
+	invincible = false; // 無敵フラグ
+	invincibleCnt = 0; // 無敵時間のカウント
+
+	// 当たり判定確認用
+	hitFlag = false; // 当たり判定フラグ
 }
 
 void Player::SetCollsion()
@@ -203,7 +240,17 @@ void Player::StateControl()
 	}
 	else if (state == State::speedDown)
 	{
-		stateAcc = 0.5f;
+		if (hitPoint == 2) {
+			stateAcc = 0.7f;
+		}
+		else if (hitPoint == 1)
+		{
+			stateAcc = 0.4f;
+		}
+		else
+		{
+			stateAcc = 0.0f;
+		}
 	}
 	else if (state == State::speedUp)
 	{
@@ -215,7 +262,7 @@ void Player::StateControl()
 	}
 }
 
-void Player::SetSkillState(std::string& skillName)
+void Player::SetGameObjAbility(std::string& skillName)
 {
 	// 名前によって状態変化
 	if (skillName == "speedup")
