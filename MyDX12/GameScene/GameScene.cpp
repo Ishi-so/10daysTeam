@@ -17,6 +17,7 @@
 #include "../Game/CSVLoader.h"
 #include "../Game/Block.h"
 #include "../Game/ItemBox.h"
+#include "../Game/GoalBlock.h"
 #include "../Game/Common.h"
 #include "../Tool/DigitalNumberText.h"
 #include "../Game/PlayerEffectManager.h"
@@ -149,6 +150,20 @@ bool GameScene::Initialize()
 					{ 1,1,1 }
 				);
 				ObjectManager::GetInstance()->AddObject(std::move(iBox));
+			}
+			else if (mapData[i][j] == 4) // –¢’è
+			{
+				
+			}
+			else if (mapData[i][j] == 5) // GoalBlock
+			{
+				std::shared_ptr<GoalBlock> gaol = GoalBlock::Create({
+				Common::ConvertPositionX(j),
+				Common::ConvertPositionY(i),
+				0 },
+					{ 1,1,1 }
+				);
+				ObjectManager::GetInstance()->AddObject(std::move(gaol));
 			}
 			else
 			{

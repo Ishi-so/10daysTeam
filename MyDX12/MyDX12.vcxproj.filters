@@ -363,6 +363,9 @@
     <ClCompile Include="Game\SphereEff.cpp">
       <Filter>2_Game\Object\Common</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GoalBlock.cpp">
+      <Filter>2_Game\Object\ObjTemplate</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base\DirectX12.h">
@@ -610,6 +613,9 @@
     </ClInclude>
     <ClInclude Include="Game\SphereEff.h">
       <Filter>2_Game\Object\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GoalBlock.h">
+      <Filter>2_Game\Object\ObjTemplate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

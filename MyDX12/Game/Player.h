@@ -28,9 +28,13 @@ private: // 構造体 or 列挙型
 	struct Info info; // 情報の変数
 
 private: // メンバ定数
-	const int INVINCIBLE_TIME = 60.0f; // 無敵時間
+	const int INVINCIBLE_TIME = 120.0f; // 無敵時間
 	const float SIZE = 3.0f; // 階層判別判定のサイズ
 	const float MAX_AREA = 10.4f; // 横幅の上限
+	const float ADD_ACC = 0.05f; // 移動加算用
+	const float SUB_ACC = 0.02f; // not移動加速用
+	const float GRAVITY = -0.1f; // 落下
+	const float MAX_GRAVITY = -0.3f; // 最高落下速度
 
 public: // メンバ関数
 	// 汎用関数
@@ -52,12 +56,13 @@ public: // メンバ関数
 	bool GetDeathFlag()const { return deathFlag; } // 死亡フラグの取得
 	std::vector<unsigned int> GetStratumData()const { return stratumData; } // 階層データを取得
 	Math::Vector3 GetDirection()const { return direction; } // 方向を取得
+	bool GetGoalFlag() const { return goalFlag; } // ゴールフラグを取得
 
 private: // 固有メンバ関数(private)
 	// 固有関数
 	void SetCollsion(); // 当たり判定を設定
 	void StateControl(); // 状態によってバフデバフを付与
-	void SetSkillState(std::string& skillName); // skill名でstateを設定
+	void SetGameObjAbility(std::string& skillName); // skill名でstateを設定
 
 private: // メンバ変数
 	// Playerデータ
@@ -71,6 +76,7 @@ private: // メンバ変数
 	Math::Vector3 direction; // 移動方向
 	bool deathFlag = false; // 死亡フラグ
 	std::vector<unsigned int> stratumData; // 階層データ
+	bool goalFlag = false;
 
 	// プレイヤーの状態系
 	float stateAcc = 1.0f; // 状態によって決まる加減速値倍率

@@ -36,8 +36,8 @@ void ItemBox::Init()
 	std::string path = t_id.name();
 	id = Common::SeparateFilePath(path).second;
 	
-	// スキルに設定
-	skill = "speedup";
+	// 効果を設定
+	ability = "speedup";
 
 	// OBJクラスの生成
 	obj = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_ITEM));
