@@ -32,6 +32,9 @@ void Title::Initialize()
 	//Messenger::GetInstance()->AddPrintOut("タイトルシーンです！");
 
 	time = 0;
+
+	ObjectManager::GetInstance()->AllDestroy();
+	p_game_scene->CreateStage();
 }
 
 void Title::Update()

@@ -294,3 +294,63 @@ void GameScene::ChangeState(SceneState* different_state)
 bool GameScene::FadeInOut(bool flag) {
 	return true;
 }
+
+void GameScene::CreateStage()
+{
+	// ステージ生成
+	mapData = CSVLoader::GetCSVTwoVector("stage2", CSVLoader::BoardType::BOARD_2D, 15);
+	int xSize = CSVLoader::GetSize("x"), ySize = CSVLoader::GetSize("y");
+	for (int i = 0; i < ySize; i++)
+	{
+		for (int j = 0; j < xSize; j++)
+		{
+			if (mapData[i][j] == 0)// なし
+			{
+			}
+			else if (mapData[i][j] == 1) // プレイヤー
+			{
+				
+			}
+			else if (mapData[i][j] == 2) // Block
+			{
+
+				std::shared_ptr<Block> box = Block::Create({
+				Common::ConvertPositionX(j),
+				Common::ConvertPositionY(i),
+				0 },
+					{ 1,1,1 }
+				);
+				ObjectManager::GetInstance()->AddObject(std::move(box));
+
+			}
+			else if (mapData[i][j] == 3) // Item
+			{
+				std::shared_ptr<ItemBox> iBox = ItemBox::Create({
+				Common::ConvertPositionX(j),
+				Common::ConvertPositionY(i),
+				0 },
+					{ 1,1,1 }
+				);
+				ObjectManager::GetInstance()->AddObject(std::move(iBox));
+			}
+			else if (mapData[i][j] == 4) // 未定
+			{
+
+			}
+			else if (mapData[i][j] == 5) // GoalBlock
+			{
+				std::shared_ptr<GoalBlock> gaol = GoalBlock::Create({
+				Common::ConvertPositionX(j),
+				Common::ConvertPositionY(i),
+				0 },
+					{ 1,1,1 }
+				);
+				ObjectManager::GetInstance()->AddObject(std::move(gaol));
+			}
+			else
+			{
+				// なし
+			}
+		}
+	}
+}

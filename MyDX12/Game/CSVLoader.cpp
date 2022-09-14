@@ -19,8 +19,11 @@ int CSVLoader::xSize = 0, CSVLoader::ySize = 0;
 void CSVLoader::CSVLoad(const std::string& fileName, int newLine)
 {
 	// サイズの初期化
+	x = 0; 
+	y = 0;
 	xSize = 0;
 	ySize = 0;
+	//csvVector = {};
 
 	// 名前
 	std::string name = fileName;

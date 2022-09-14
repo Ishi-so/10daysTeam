@@ -81,7 +81,7 @@ void ObjectManager::HitCheck()
 	for (auto& obj : mObjs) {
 
 		// デフォカラーに設定
-		obj->SetColor({ 1, 1, 1 });
+		//obj->SetColor({ 1, 1, 1 });
 
 		// 階層が同じであれば
 		PropValueCheck(obj, playerStratum[0],hitcheckCnt);
@@ -110,7 +110,9 @@ void ObjectManager::PropValueCheck(const std::shared_ptr<GameObj>& obj, const in
 		if (Math::HitCheck_AABB_Sphere(obj->GetCollisionData(), pPlayer->GetCollision()))
 		{
 			// 色を赤色に変更
-			obj->SetColor({ 1, 0, 0 });
+			// obj->SetColor({ 1, 0, 0 });
+			// アイテムだったら表示を消す
+			if (obj->GetID() == "ItemBox")obj->SetActive(false);
 			// 当たった時の固有関数
 			pPlayer->HitUpdate(obj->GetAbility());
 			// カウント
