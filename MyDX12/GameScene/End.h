@@ -44,9 +44,8 @@ private:// 変数
 	const Math::Vector2 titlePos{ 1280 / 2, 650 };
 
 	MedalColor medalColor = MedalColor::GOLD; // メダルの色
-	const int goldTime = 8 * 3;
-	const int silverTime = 10 * 3;
-	const int bronzeTime = 12 * 3;
+	const int goldTime = 20;
+	const int silverTime = 30;
 
 	const float resultTime = time;
 
