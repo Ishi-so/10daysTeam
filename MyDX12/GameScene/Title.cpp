@@ -30,6 +30,8 @@ void Title::Initialize()
 	pushSpace = Sprite::Create(15, { 1280 / 2, 720 - 100 });
 	pushSpace->SetAnchorPoint(center);
 	//Messenger::GetInstance()->AddPrintOut("タイトルシーンです！");
+
+	time = 0;
 }
 
 void Title::Update()

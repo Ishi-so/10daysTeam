@@ -53,6 +53,7 @@ void Play::Update()
 	}
 
 	if (p_player->GetDeathFlag()) {
+		p_player->InitPlayerData();
 		p_game_scene->ChangeState(new Title());
 	}
 
