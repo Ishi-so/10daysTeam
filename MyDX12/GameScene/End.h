@@ -42,13 +42,12 @@ private:// 変数
 	Sprite* titleCursor = nullptr; // タイトル用カーソル
 
 	const Math::Vector2 titlePos{ 1280 / 2, 650 };
-	bool pushLeftFlag = true; // 左キーを押しているか
 
 	MedalColor medalColor = MedalColor::GOLD; // メダルの色
-	const int goldTime = 8;
-	const int silverTime = 10;
-	const int bronzeTime = 12;
-	static const float resultScore;
+	const int goldTime = 8 * 3;
+	const int silverTime = 10 * 3;
+	const int bronzeTime = 12 * 3;
+
 	const float resultTime = time;
 
 	Sprite* timeTex = nullptr;
