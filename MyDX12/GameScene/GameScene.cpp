@@ -290,18 +290,5 @@ void GameScene::ChangeState(SceneState* different_state)
 }
 
 bool GameScene::FadeInOut(bool flag) {
-	if (flag) {
-		frontAlpha += 0.01f;
-		if (frontAlpha >= 1.0f) {
-			frontAlpha = 1.0f;
-			return true;
-		}
-	}
-	else {
-		frontAlpha -= 0.01f;
-		if (frontAlpha <= 0.0f) {
-			frontAlpha = 0.0f;
-			return true;
-		}
-	}
+	return true;
 }

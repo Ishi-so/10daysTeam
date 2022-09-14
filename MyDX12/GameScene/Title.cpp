@@ -41,10 +41,19 @@ void Title::Update()
 	p_camera->SetLookAtRange(shakePos.x, p_player->GetPosition().y + shakePos.y, 0);
 	p_camera->SetPosition(shakePos.x, p_player->GetPosition().y + shakePos.y, -40);
 	p_camera->_Update();
-	// 押したら切り替え
-	if (KeyInput::GetInstance()->Trigger(DIK_SPACE)) {
-		p_player->SetStart();
-		p_game_scene->ChangeState(new Play());
+	if (setOffFlag) {
+		
+		// 押したら切り替え
+		if (KeyInput::GetInstance()->Trigger(DIK_SPACE)) {
+			p_player->SetStart();
+			p_game_scene->ChangeState(new Play());
+		}
+	}
+	else
+	{
+		if (p_game_scene->FadeInOut(false)) {
+			setOffFlag = true;
+		}
 	}
 }
 
