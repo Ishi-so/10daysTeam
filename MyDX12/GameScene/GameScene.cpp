@@ -100,11 +100,13 @@ bool GameScene::Initialize()
 	Sprite::LoadTexture(texind, L"Resources/SilverMedal.png");                  texind++;//7
 	Sprite::LoadTexture(texind, L"Resources/bronzeMedal.png");                  texind++;//8
 	Sprite::LoadTexture(texind, L"Resources/medalBase.png");                    texind++;//9
-	Sprite::LoadTexture(texind, L"Resources/returnTitle.png");                 texind++;//10
-	Sprite::LoadTexture(texind, L"Resources/returnSelect.png");                texind++;//11
-	Sprite::LoadTexture(texind, L"Resources/titleCursor.png");                 texind++;//12
-	Sprite::LoadTexture(texind, L"Resources/selectCursor.png");                texind++;//13
-
+	Sprite::LoadTexture(texind, L"Resources/returnTitle.png");                  texind++;//10
+	Sprite::LoadTexture(texind, L"Resources/returnSelect.png");                 texind++;//11
+	Sprite::LoadTexture(texind, L"Resources/titleCursor.png");                  texind++;//12
+	Sprite::LoadTexture(texind, L"Resources/selectCursor.png");                 texind++;//13
+	Sprite::LoadTexture(texind, L"Resources/title.png");                        texind++;//14
+	Sprite::LoadTexture(texind, L"Resources/pushSpace.png");                    texind++;//15
+	Sprite::LoadTexture(texind, L"Resources/operation.png");                    texind++;//16
 
 	DebugJISText::GetInstance()->Initialize(debugJISTextTexNumber);
 
@@ -204,7 +206,7 @@ void GameScene::Update()
 
 	// カメラの更新
 	ShakeCamera();
-	d_camera->SetLookAtRange(0, m_player->GetPosition().y, 0);
+	d_camera->SetLookAtRange(shakePos.x, m_player->GetPosition().y + shakePos.y , 0);
 	d_camera->SetPosition(shakePos.x, m_player->GetPosition().y + shakePos.y, -40);
 	d_camera->_Update();
 	
@@ -287,8 +289,12 @@ void GameScene::ShakeCamera()
 	// シェイク中
 	if (shakeFlag)
 	{
-		shakePos.x = SHAKE_RAND_MIN + (int)(rand() * (SHAKE_RAND_MAX - SHAKE_RAND_MIN + 1) / (1 + RAND_MAX));
-		shakePos.y = SHAKE_RAND_MIN + (int)(rand() * (SHAKE_RAND_MAX - SHAKE_RAND_MIN + 1) / (1 + RAND_MAX));
+		// 偶数の時揺れる
+		if (shakeCnt % 2 == 0)
+		{
+			shakePos.x = SHAKE_RAND_MIN + (int)(rand() * (SHAKE_RAND_MAX - SHAKE_RAND_MIN + 1) / (1 + RAND_MAX));
+			shakePos.y = SHAKE_RAND_MIN + (int)(rand() * (SHAKE_RAND_MAX - SHAKE_RAND_MIN + 1) / (1 + RAND_MAX));
+		}
 		shakeCnt++;
 	}
 }
