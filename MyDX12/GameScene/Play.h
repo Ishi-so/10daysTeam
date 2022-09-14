@@ -17,4 +17,9 @@ public:
 private:// 変数
 	Sprite* operation = nullptr; // 操作説明
 	const Math::Vector2 center{ 0.5f, 0.5f }; // 中心設定用
+	Sprite* life[3];
+	Sprite* timeTex = nullptr;
+	int timeM = 0;
+	int timeS = 0;
+	int timeF = 0;
 };

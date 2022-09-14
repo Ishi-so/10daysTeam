@@ -23,14 +23,14 @@ public:
 
 private:// 変数
 	Sprite* result = nullptr; // リザルトの画像
-	Math::Vector2 resultPos{ 1280 / 2, -100 }; // リザルトの座標
-	const float resultLastY = 100.0f; // リザルトの最終座標
+	Math::Vector2 resultPos{ 1280 / 2, -50 }; // リザルトの座標
+	const float resultLastY = 150.0f; // リザルトの最終座標
 
 	Sprite* medal[3]; // メダルの画像
 	Math::Vector2 medalPos{ 1280 / 2, 400 }; // メダルの座標
 	bool medalDrawFlag = false; // 描画フラグ
-	Math::Vector2 medalSize{ 460.0f, 460.0f }; // メダルのサイズ
-	const Math::Vector2 medalLastSize{ 230.0f, 230.0f }; // メダルの最終サイズ
+	Math::Vector2 medalSize{ 600.0f, 600.0f }; // メダルのサイズ
+	const Math::Vector2 medalLastSize{ 300.0f, 300.0f }; // メダルの最終サイズ
 
 	const Math::Vector2 center{ 0.5f, 0.5f }; // 中心設定用
 
