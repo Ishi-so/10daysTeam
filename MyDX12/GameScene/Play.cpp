@@ -76,7 +76,7 @@ void Play::DrawTexture()
 	operation->Draw();
 
 	for (int i = 0; i < _countof(life); i++) {
-		if (i + 1 >= i + 1) {
+		if (i + 1 <= p_player->GetHitPoint()) {
 			life[i]->Draw();
 		}
 	}

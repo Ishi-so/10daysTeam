@@ -35,7 +35,7 @@ void End::Initialize()
 {
 	p_player->Update();
 	ObjectManager::GetInstance()->Update();
-	Messenger::GetInstance()->AddPrintOut("エンドシーンです！");
+	//Messenger::GetInstance()->AddPrintOut("エンドシーンです！");
 	result = Sprite::Create(5, resultPos); // リザルト画像の生成
 	result->SetAnchorPoint(center);
 	result->SetSize({ 450, 150 });
