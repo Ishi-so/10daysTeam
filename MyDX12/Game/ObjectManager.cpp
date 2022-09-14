@@ -76,6 +76,10 @@ void ObjectManager::HitCheck()
 	
 	// blockƒf[ƒ^‘S‚Ä
 	for (auto& obj : mObjs) {
+
+		// ƒfƒtƒHƒJƒ‰[‚ÉÝ’è
+		obj->SetColor({ 1, 1, 1 });
+
 		// ŠK‘w‚ª“¯‚¶‚Å‚ ‚ê‚Î
 		PropValueCheck(obj, playerStratum[0]);
 
@@ -90,15 +94,16 @@ void ObjectManager::HitCheck()
 
 void ObjectManager::PropValueCheck(const std::shared_ptr<GameObj>& obj, const int stratum)
 {
+	// “¯‚¶ŠK‘w‚Æ‚Å‚µ‚©“–‚½‚è”»’è
 	if (obj->GetStratum() == stratum)
 	{
-		// “¯‚¶ŠK‘w‚Æ‚Å‚µ‚©“–‚½‚è”»’è
-		if (Math::HitCheck_AABB_Sphere(obj->GetCollisionData(), pPlayer->GetCollision())) {
+		// collision“¯Žm‚Å‚Ì“–‚½‚è”»’è(AABB Sphere)
+		if (Math::HitCheck_AABB_Sphere(obj->GetCollisionData(), pPlayer->GetCollision()))
+		{
+			// F‚ðÔF‚É•ÏX
 			obj->SetColor({ 1, 0, 0 });
+			// “–‚½‚Á‚½Žž‚ÌŒÅ—LŠÖ”
 			pPlayer->HitUpdate(obj->GetAbility());
-		}
-		else {
-			obj->SetColor({ 1, 1, 1 });
 		}
 	}
 }
