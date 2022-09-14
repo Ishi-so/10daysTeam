@@ -45,7 +45,8 @@ public: // メンバ関数
 	void Update(); // 毎フレーム処理
 	void Draw(); // 描画
 	void HitUpdate(std::string& skillName); // 当たっとき専用処理
-	
+	void InitPlayerData();
+
 	// ---- Setter Getter ---- 
 	/* Setter */
 	void SetHitFlag(bool flag) { hitFlag = flag; }// hitFlagを設定

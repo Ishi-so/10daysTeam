@@ -139,6 +139,7 @@ void Player::Update()
 	// 体力が0未満になったら
 	if (hitPoint <= 0)
 	{
+		InitPlayerData();
 		object->color = { 1,0,1 };
 		deathFlag = true;
 	}
@@ -193,6 +194,29 @@ void Player::HitUpdate(std::string& skillName)
 	// 状態によって効果を付与
 	SetGameObjAbility(skillName);
 	StateControl();
+}
+
+void Player::InitPlayerData()
+{
+	// 基本情報
+	state = State::none; // プレイヤーの状態
+	hitPoint = 3; // 体力(仮)
+	position = {}; // 座標
+	velocity = {}; // 速度
+	acc = {}; // 加速度
+	prevPos = {}; // 1f前の座標
+	direction = {}; // 移動方向
+	deathFlag = false; // 死亡フラグ
+	stratumData = {0,0}; // 階層データ
+	goalFlag = false;
+
+	// プレイヤーの状態系
+	stateAcc = 1.0f; // 状態によって決まる加減速値倍率
+	invincible = false; // 無敵フラグ
+	invincibleCnt = 0; // 無敵時間のカウント
+
+	// 当たり判定確認用
+	hitFlag = false; // 当たり判定フラグ
 }
 
 void Player::SetCollsion()
