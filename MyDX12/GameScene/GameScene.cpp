@@ -203,19 +203,11 @@ void GameScene::Update()
 	const float lookatRange = 5.0f;
 
 	// カメラの更新
-	if (m_player->GetHitFlag())
-	{
-		shakeFlag = true;
-	}
-	if (shakeCnt >= SHAKE_MAX_TIME)
-	{
-		shakeCnt = 0;
-		shakeFlag = false;
-	}
+	ShakeCamera();
 	d_camera->SetLookAtRange(0, m_player->GetPosition().y, 0);
-	d_camera->SetPosition(0, m_player->GetPosition().y, -40);
+	d_camera->SetPosition(shakePos.x, m_player->GetPosition().y + shakePos.y, -40);
 	d_camera->_Update();
-	if(shakeFlag)shakeCnt++;
+	
 	
 	// シーンの更新
 	state->Update();
@@ -273,4 +265,30 @@ void GameScene::ChangeState(SceneState* different_state)
 	state = nullptr;
 	state = different_state;
 	state->Initialize();
+}
+
+void GameScene::ShakeCamera()
+{
+	// Playerが何かと当たったら
+	if (m_player->GetHitFlag())
+	{
+		shakeFlag = true;
+	}
+
+	// カウントが指定したフレームまで来たら止める
+	if (shakeCnt >= SHAKE_MAX_TIME)
+	{
+		// 0クリア
+		shakePos = {0,0,0};
+		shakeCnt = 0; 
+		shakeFlag = false; // シェイクをやめる
+	}
+	
+	// シェイク中
+	if (shakeFlag)
+	{
+		shakePos.x = SHAKE_RAND_MIN + (int)(rand() * (SHAKE_RAND_MAX - SHAKE_RAND_MIN + 1) / (1 + RAND_MAX));
+		shakePos.y = SHAKE_RAND_MIN + (int)(rand() * (SHAKE_RAND_MAX - SHAKE_RAND_MIN + 1) / (1 + RAND_MAX));
+		shakeCnt++;
+	}
 }

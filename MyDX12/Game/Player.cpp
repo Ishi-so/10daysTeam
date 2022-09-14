@@ -179,9 +179,6 @@ void Player::Draw()
 
 void Player::HitUpdate(std::string& skillName)
 {
-	// ヒットフラグを立てる
-	hitFlag = true;
-
 	// ゴールブロックと当たったらフラグを変えてリターン
 	if (skillName == "Goal") { 
 		goalFlag = true; 
@@ -272,5 +269,7 @@ void Player::SetGameObjAbility(std::string& skillName)
 	else if (skillName == "speeddown")
 	{
 		state = State::speedDown;
+		// ヒットフラグを立てる
+		hitFlag = true;
 	}
 }

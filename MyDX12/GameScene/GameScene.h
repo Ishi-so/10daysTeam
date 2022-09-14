@@ -52,4 +52,6 @@ public:
 	void Draw();// 描画
 
 	void ChangeState(SceneState* different_state);// シーンの切り替え
+
+	void ShakeCamera(); // カメラシェイク
 };
