@@ -5,6 +5,8 @@
 #include "Select.h"
 #include "../Input/KeyInput.h"
 #include "../2D/Sprite.h"
+#include "../Game/Player.h"
+#include "../Game/ObjectManager.h"
 
 using namespace XIIlib;
 
@@ -29,6 +31,8 @@ End::~End()
 
 void End::Initialize()
 {
+	p_player->Update();
+	ObjectManager::GetInstance()->Update();
 	Messenger::GetInstance()->AddPrintOut("エンドシーンです！");
 	result = Sprite::Create(5, resultPos); // リザルト画像の生成
 	result->SetAnchorPoint(center);
@@ -97,6 +101,8 @@ void End::Update()
 
 void End::Draw()
 {
+	p_player->Draw();
+	ObjectManager::GetInstance()->Draw();
 }
 
 void End::DrawTexture()

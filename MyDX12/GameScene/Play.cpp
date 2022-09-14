@@ -5,6 +5,7 @@
 #include "End.h"
 #include "../Input/KeyInput.h"
 #include "../Game/Player.h"
+#include "../Game/ObjectManager.h"
 #include "../2D/Sprite.h"
 
 using namespace XIIlib;
@@ -26,6 +27,8 @@ void Play::Initialize()
 
 void Play::Update()
 {
+	p_player->Update();
+	ObjectManager::GetInstance()->Update();
 	if (KeyInput::GetInstance()->Trigger(DIK_R)) {
 		Messenger::GetInstance()->AddPrintOut("R");
 		p_player->InitPlayerData();
@@ -52,6 +55,8 @@ void Play::Update()
 
 void Play::Draw()
 {
+	p_player->Draw();
+	ObjectManager::GetInstance()->Draw();
 }
 
 void Play::DrawTexture()

@@ -164,11 +164,21 @@ void Player::Update()
 		// カウントを0クリア
 		invincibleCnt = 0;
 		// playerの色を戻す
-		object->color = { 1,1,1 };
+		//object->color = { 1,1,1 };
 	}
 
 	// 無敵状態なら
-	if(invincible){ invincibleCnt++; } // 無敵時間をカウント
+	if(invincible)
+	{
+		if (invincibleCnt % 5 == 0)
+		{
+			if (object->alpha >= 1.0f) { object->alpha = 0.0f; }
+			else if (object->alpha <= 0.0f) { object->alpha = 1.0f; }
+		}
+		
+		// 無敵時間をカウント
+		invincibleCnt++; 
+	} 
 }
 
 void Player::Draw()
@@ -271,7 +281,7 @@ void Player::SetGameObjAbility(std::string& skillName)
 		// プレイヤーにダメージ
 		hitPoint--;
 		// playerを青色に設定
-		object->color = { 0,0,1 };
+		//object->color = { 0,0,1 };
 		// 無敵付与
 		invincible = true;
 	}

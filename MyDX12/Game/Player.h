@@ -28,7 +28,7 @@ private: // 構造体 or 列挙型
 	struct Info info; // 情報の変数
 
 private: // メンバ定数
-	const int INVINCIBLE_TIME = 120.0f; // 無敵時間
+	const int INVINCIBLE_TIME = 100.0f; // 無敵時間
 	const float SIZE = 3.0f; // 階層判別判定のサイズ
 	const float MAX_AREA = 10.4f; // 横幅の上限
 	const float ADD_ACC = 0.05f; // 移動加算用
