@@ -1,10 +1,11 @@
-#include "Play.h"
+ï»¿#include "Play.h"
 #include "GameScene.h"
 #include "../Tool/Messenger.h"
 #include "Menu.h"
 #include "End.h"
 #include "../Input/KeyInput.h"
 #include "../Game/Player.h"
+#include "../2D/Sprite.h"
 
 using namespace XIIlib;
 
@@ -18,7 +19,9 @@ Play::~Play()
 
 void Play::Initialize()
 {
-	Messenger::GetInstance()->AddPrintOut("ƒvƒŒƒCƒV[ƒ“‚Å‚·I");
+	Messenger::GetInstance()->AddPrintOut("ãƒ—ãƒ¬ã‚¤ã‚·ãƒ¼ãƒ³ã§ã™ï¼");
+	operation = Sprite::Create(16, { 200, 720 / 2 });
+	operation->SetAnchorPoint(center);
 }
 
 void Play::Update()
@@ -27,7 +30,7 @@ void Play::Update()
 		Messenger::GetInstance()->AddPrintOut("R");
 		p_player->InitPlayerData();
 	}
-	// ‰Ÿ‚µ‚½‚çØ‚è‘Ö‚¦
+	// æŠ¼ã—ãŸã‚‰åˆ‡ã‚Šæ›¿ãˆ
 	if (KeyInput::GetInstance()->Trigger(DIK_SPACE)) {
 		p_game_scene->ChangeState(new Menu());
 	}
@@ -36,7 +39,7 @@ void Play::Update()
 		p_game_scene->ChangeState(new End());
 	}
 
-	if (KeyInput::GetInstance()->Trigger(DIK_1)) {
+	/*if (KeyInput::GetInstance()->Trigger(DIK_1)) {
 		time = 19.0f;
 	}
 	else if (KeyInput::GetInstance()->Trigger(DIK_2)) {
@@ -44,9 +47,14 @@ void Play::Update()
 	}
 	else if (KeyInput::GetInstance()->Trigger(DIK_3)) {
 		time = 59.0f;
-	}
+	}*/
 }
 
 void Play::Draw()
 {
+}
+
+void Play::DrawTexture()
+{
+	operation->Draw();
 }

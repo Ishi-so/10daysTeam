@@ -1,19 +1,26 @@
-#pragma once
+ï»¿#pragma once
 #include "SceneState.h"
+#include "../Struct/Math/Vector2.h"
 
 class Object3D;
+class Sprite;
 
 class Title : public SceneState {
 public:
-	Title();	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	~Title();	// ƒfƒXƒgƒ‰ƒNƒ^
+	Title();	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	~Title();	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
-	void Initialize()override;// ‰Šú‰»
-	void Update()override;// XV
-	void Draw()override;// •`‰æ
+	void Initialize()override;// åˆæœŸåŒ–
+	void Update()override;// æ›´æ–°
+	void Draw()override;// æç”»
+	void DrawTexture()override;
 
-private:// •Ï”
+private:// å¤‰æ•°
 	Object3D* bgArray[3] = { nullptr,nullptr,nullptr };
 	Object3D* boxArray[12] = {nullptr,nullptr,nullptr ,nullptr ,nullptr ,nullptr ,nullptr ,nullptr };
 	Object3D* clonePlayer = nullptr;
+
+	Sprite* title = nullptr; // ã‚¿ã‚¤ãƒˆãƒ«
+	Sprite* pushSpace = nullptr; // ãƒ—ãƒƒã‚·ãƒ¥ã‚¹ãƒšãƒ¼ã‚¹
+	const Math::Vector2 center{ 0.5f, 0.5f }; // ä¸­å¿ƒè¨­å®šç”¨
 };

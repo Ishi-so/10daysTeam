@@ -1,15 +1,20 @@
-#pragma once
+ï»¿#pragma once
 #include "SceneState.h"
+#include "../Struct/Math/Vector2.h"
+
+class Sprite;
 
 class Play : public SceneState {
 public:
-	Play();	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	~Play();	// ƒfƒXƒgƒ‰ƒNƒ^
+	Play();	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	~Play();	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
-	void Initialize()override;// ‰Šú‰»
-	void Update()override;// XV
-	void Draw()override;// •`‰æ
+	void Initialize()override;// åˆæœŸåŒ–
+	void Update()override;// æ›´æ–°
+	void Draw()override;// æç”»
+	void DrawTexture()override;
 
-private:// •Ï”
-
+private:// å¤‰æ•°
+	Sprite* operation = nullptr; // æ“ä½œèª¬æ˜
+	const Math::Vector2 center{ 0.5f, 0.5f }; // ä¸­å¿ƒè¨­å®šç”¨
 };
