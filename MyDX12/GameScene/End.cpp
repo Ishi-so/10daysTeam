@@ -60,42 +60,48 @@ void End::Initialize()
 
 void End::Update()
 {
-	p_camera->SetLookAtRange(shakePos.x, p_player->GetPosition().y + shakePos.y, 0);
-	p_camera->SetPosition(shakePos.x, p_player->GetPosition().y + shakePos.y, -40);
-	p_camera->_Update();
+	if (!setBackFlag) {
+		p_camera->SetLookAtRange(shakePos.x, p_player->GetPosition().y + shakePos.y, 0);
+		p_camera->SetPosition(shakePos.x, p_player->GetPosition().y + shakePos.y, -40);
+		p_camera->_Update();
 
-	if (resultPos.y < resultLastY) { // リザルトが最終座標に到達していない時
-		resultPos.y += 5.0f; // リザルトを下に移動
-		result->SetPosition(resultPos);
-		timeTex->SetPosition(resultPos + Math::Vector2(0, 130));
-	}
-	else { // リザルトが最終座標に到達した時
-		medalDrawFlag = true; // メダル描画フラグをtrueに
-		if (medalSize.x > medalLastSize.x) {
-			medalSize -= {3.0f, 3.0f}; // サイズを縮小
-			for (auto x : medal) {
-				x->SetSize(medalSize);
+		if (resultPos.y < resultLastY) { // リザルトが最終座標に到達していない時
+			resultPos.y += 5.0f; // リザルトを下に移動
+			result->SetPosition(resultPos);
+			timeTex->SetPosition(resultPos + Math::Vector2(0, 130));
+		}
+		else { // リザルトが最終座標に到達した時
+			medalDrawFlag = true; // メダル描画フラグをtrueに
+			if (medalSize.x > medalLastSize.x) {
+				medalSize -= {3.0f, 3.0f}; // サイズを縮小
+				for (auto x : medal) {
+					x->SetSize(medalSize);
+				}
 			}
 		}
-	}
 
-	XIIlib::KeyInput* input = XIIlib::KeyInput::GetInstance();
+		XIIlib::KeyInput* input = XIIlib::KeyInput::GetInstance();
 
-	if (input->Trigger(DIK_SPACE)) {
-		p_player->InitPlayerData();
-		p_game_scene->ChangeState(new Title());
-	}
+		if (input->Trigger(DIK_SPACE)) {
+			setBackFlag = true;
+		}
 
-	if (resultTime < goldTime) {
-		medalColor = MedalColor::GOLD; // 金色に
-	}
-	else if (resultTime < silverTime && resultTime >= goldTime) {
-		medalColor = MedalColor::SILVER; // 銀色に
+		if (resultTime < goldTime) {
+			medalColor = MedalColor::GOLD; // 金色に
+		}
+		else if (resultTime < silverTime && resultTime >= goldTime) {
+			medalColor = MedalColor::SILVER; // 銀色に
+		}
+		else {
+			medalColor = MedalColor::BRONZE; // 銅色に
+		}		
 	}
 	else {
-		medalColor = MedalColor::BRONZE; // 銅色に
+		if (p_game_scene->FadeInOut(true)) {
+			p_player->InitPlayerData();
+			p_game_scene->ChangeState(new Title());
+		}
 	}
-
 	DigitalNumberText::GetInstance()->Print(resultTime, resultPos.x - 20, resultPos.y + 110);
 }
 

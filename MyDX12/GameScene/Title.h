@@ -20,4 +20,5 @@ private:// 変数
 	Sprite* title = nullptr; // タイトル
 	Sprite* pushSpace = nullptr; // プッシュスペース
 	const Math::Vector2 center{ 0.5f, 0.5f }; // 中心設定用
+	bool setOffFlag = false;
 };
