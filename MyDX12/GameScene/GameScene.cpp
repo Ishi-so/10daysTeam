@@ -100,11 +100,13 @@ bool GameScene::Initialize()
 	Sprite::LoadTexture(texind, L"Resources/SilverMedal.png");                  texind++;//7
 	Sprite::LoadTexture(texind, L"Resources/bronzeMedal.png");                  texind++;//8
 	Sprite::LoadTexture(texind, L"Resources/medalBase.png");                    texind++;//9
-	Sprite::LoadTexture(texind, L"Resources/returnTitle.png");                 texind++;//10
-	Sprite::LoadTexture(texind, L"Resources/returnSelect.png");                texind++;//11
-	Sprite::LoadTexture(texind, L"Resources/titleCursor.png");                 texind++;//12
-	Sprite::LoadTexture(texind, L"Resources/selectCursor.png");                texind++;//13
-
+	Sprite::LoadTexture(texind, L"Resources/returnTitle.png");                  texind++;//10
+	Sprite::LoadTexture(texind, L"Resources/returnSelect.png");                 texind++;//11
+	Sprite::LoadTexture(texind, L"Resources/titleCursor.png");                  texind++;//12
+	Sprite::LoadTexture(texind, L"Resources/selectCursor.png");                 texind++;//13
+	Sprite::LoadTexture(texind, L"Resources/title.png");                        texind++;//14
+	Sprite::LoadTexture(texind, L"Resources/pushSpace.png");                    texind++;//15
+	Sprite::LoadTexture(texind, L"Resources/operation.png");                    texind++;//16
 
 	DebugJISText::GetInstance()->Initialize(debugJISTextTexNumber);
 

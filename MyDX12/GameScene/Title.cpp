@@ -1,4 +1,4 @@
-#include "Title.h"
+ï»¿#include "Title.h"
 #include "GameScene.h"
 #include "../Tool/Messenger.h"
 #include "Select.h"
@@ -6,6 +6,7 @@
 #include "../3D/Object3D.h"
 #include "../Game/ModelLoader.h"
 #include "../Game/Common.h"
+#include "../2D/Sprite.h"
 
 using namespace XIIlib;
 
@@ -29,7 +30,7 @@ Title::~Title()
 
 void Title::Initialize()
 {
-	// ƒIƒuƒWƒFƒNƒg‚Ì‰Šú‰»
+	// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åˆæœŸåŒ–
 
 	for (int i = 0; i < 3; i++) {
 		bgArray[i] = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_BG));
@@ -38,7 +39,7 @@ void Title::Initialize()
 	}
 	int yValue = 0;
 	for (int i = 0; i < 12; i+=2) {// (1,13)
-		// ƒ{ƒbƒNƒX‚ğw’è‚ÌŒÂŠ‚É
+		// ãƒœãƒƒã‚¯ã‚¹ã‚’æŒ‡å®šã®å€‹æ‰€ã«
 		boxArray[i] = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_LONGBOX));
 		boxArray[i + 1] = Object3D::Create(ModelLoader::GetInstance()->GetModel(MODEL_LONGBOX));
 		boxArray[i]->position = {Common::ConvertPositionX(1),Common::ConvertTitlePositionY(yValue),0.0f};
@@ -50,12 +51,17 @@ void Title::Initialize()
 	const float cLine = 27.2f;
 	bgArray[1]->position.y += cLine;
 	bgArray[2]->position.y += cLine * 2;
-	Messenger::GetInstance()->AddPrintOut("ƒ^ƒCƒgƒ‹ƒV[ƒ“‚Å‚·I");
+
+	title = Sprite::Create(14, { 1280 / 2, 720 / 2 });
+	title->SetAnchorPoint(center);
+	pushSpace = Sprite::Create(15, { 1280 / 2, 720 - 100 });
+	pushSpace->SetAnchorPoint(center);
+	Messenger::GetInstance()->AddPrintOut("ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã§ã™ï¼");
 }
 
 void Title::Update()
 {
-	// ã‰º+-37.2f‚ÅƒJƒƒ‰ŠO
+	// ä¸Šä¸‹+-37.2fã§ã‚«ãƒ¡ãƒ©å¤–
 	//bg0->position.y = -37;
 	//std::cout << bg0->position.y << std::endl;
 	for (int i = 0; i < 3; i++) {
@@ -72,7 +78,7 @@ void Title::Update()
 
 	clonePlayer->rotation.z += 1.5f;
 	clonePlayer->Update();
-	// ‰Ÿ‚µ‚½‚çØ‚è‘Ö‚¦
+	// æŠ¼ã—ãŸã‚‰åˆ‡ã‚Šæ›¿ãˆ
 	if (KeyInput::GetInstance()->Trigger(DIK_SPACE)) {
 		p_game_scene->ChangeState(new Select());
 	}
@@ -87,4 +93,10 @@ void Title::Draw()
 		boxArray[i]->Draw();
 	}
 	clonePlayer->Draw();
+}
+
+void Title::DrawTexture()
+{
+	pushSpace->Draw();
+	title->Draw();
 }
