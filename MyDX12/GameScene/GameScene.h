@@ -8,6 +8,7 @@ class Tessellation;
 class SceneState;
 class Player; // 仮
 class PlayerEffectManager;
+class Sprite;
 
 class GameScene {
 private:// 静的メンバ
@@ -35,6 +36,7 @@ private:// メンバ
 	std::vector<std::vector<int>>mapData = {};
 	PlayerEffectManager* playerEffects = nullptr;
 	int playerDistTimer;
+	std::vector<Sprite*>bgArray;
 
 public:
 	static GameScene* Create();

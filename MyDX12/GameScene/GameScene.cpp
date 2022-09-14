@@ -46,6 +46,10 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
+	for (auto& x : bgArray) {
+		delete x;
+		x = nullptr;
+	}
 	delete playerEffects;
 	playerEffects = nullptr;
 	delete m_player;
@@ -191,6 +195,15 @@ bool GameScene::Initialize()
 	DigitalNumberText::GetInstance()->Initialize(2);
 	playerEffects = PlayerEffectManager::Create();
 	playerDistTimer = 0;
+
+	// オブジェクトの初期化
+	const float distTex = 360.0f;
+	const float d_texSizeX = 160.0f, d_texSizeY = 90.0f;
+	for (int i = 0; i < 3; i++) {
+		bgArray.push_back(Sprite::Create(17, { 0,0 }));
+		bgArray[i]->SetSize({ d_texSizeX * 8.0f,d_texSizeY * 4.0f });
+		bgArray[i]->SetPosition({ 0,distTex * i });
+	}
 	return true;
 }
 
@@ -206,7 +219,14 @@ void GameScene::Update()
 	d_camera->SetLookAtRange(shakePos.x, m_player->GetPosition().y + shakePos.y , 0);
 	d_camera->SetPosition(shakePos.x, m_player->GetPosition().y + shakePos.y, -40);
 	d_camera->_Update();
-	
+	const float distTex = 360.0f;
+	for (auto& x : bgArray) {
+		Math::Vector2 mPos = x->GetPosition();
+		x->SetPosition(mPos - Math::Vector2(0, 1.0f));
+		if (x->GetPosition().y <= -distTex) {
+			x->SetPosition({ x->GetPosition().x,distTex * 2.0f });
+		}
+	}
 	
 	// シーンの更新
 	state->Update();
@@ -224,7 +244,11 @@ void GameScene::Draw()
 {
 	// 背景スプライト
 	Sprite::PreDraw();
-	state->BackTexture();
+	
+	for (auto& x : bgArray) {
+		x->Draw();
+	}
+
 	Sprite::PostDraw();
 
 	DirectX12::ClearDepthBuffer();
