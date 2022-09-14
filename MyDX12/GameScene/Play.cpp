@@ -1,6 +1,7 @@
 ﻿#include "Play.h"
 #include "GameScene.h"
 #include "../Tool/Messenger.h"
+#include "Title.h"
 #include "Menu.h"
 #include "End.h"
 #include "../Input/KeyInput.h"
@@ -26,7 +27,7 @@ Play::~Play()
 
 void Play::Initialize()
 {
-	Messenger::GetInstance()->AddPrintOut("プレイシーンです！");
+	//Messenger::GetInstance()->AddPrintOut("プレイシーンです！");
 	operation = Sprite::Create(16, { 200, 720 / 2 });
 	operation->SetAnchorPoint(center);
 
@@ -46,17 +47,13 @@ void Play::Update()
 	p_camera->SetPosition(shakePos.x, p_player->GetPosition().y + shakePos.y, -40);
 	p_camera->_Update();
 	ObjectManager::GetInstance()->Update();
-	if (KeyInput::GetInstance()->Trigger(DIK_R)) {
-		Messenger::GetInstance()->AddPrintOut("R");
-		p_player->InitPlayerData();
-	}
-	// 押したら切り替え
-	if (KeyInput::GetInstance()->Trigger(DIK_SPACE)) {
-		p_game_scene->ChangeState(new Menu());
-	}
 
 	if (p_player->GetGoalFlag()) {
 		p_game_scene->ChangeState(new End());
+	}
+
+	if (p_player->GetDeathFlag()) {
+		p_game_scene->ChangeState(new Title());
 	}
 
 	timeF++;
