@@ -4,6 +4,7 @@
 #include "../Input/KeyInput.h"
 #include "Stratum.h"
 #include "ModelLoader.h"
+#include "../Audio/Audio.h"
 
 using namespace XIIlib;
 /*Player::Player()
@@ -54,28 +55,31 @@ void Player::Update()
 	prevPos = position;
 
 	// ---- 移動 ----
-	// キーボード操作
-	if (KeyInput::GetInstance()->Push(DIK_D)) // 右移動
+	if (!goalFlag) 
 	{
-		acc.x = ADD_ACC;
-	}
-	else if (KeyInput::GetInstance()->Push(DIK_A)) // 左移動
-	{
-		acc.x = -ADD_ACC;
-	}
-	else // 移動していない
-	{
-		// 少しづつ停止
-		acc.x = 0.0f;
-		if (velocity.x > 0) {
-			velocity.x += -SUB_ACC;
-		}
-		else if (velocity.x < 0)
+		// キーボード操作
+		if (KeyInput::GetInstance()->Push(DIK_D)) // 右移動
 		{
-			velocity.x += SUB_ACC;
+			acc.x = ADD_ACC;
+		}
+		else if (KeyInput::GetInstance()->Push(DIK_A)) // 左移動
+		{
+			acc.x = -ADD_ACC;
+		}
+		else // 移動していない
+		{
+			// 少しづつ停止
+			acc.x = 0.0f;
+			if (velocity.x > 0) {
+				velocity.x += -SUB_ACC;
+			}
+			else if (velocity.x < 0)
+			{
+				velocity.x += SUB_ACC;
+			}
 		}
 	}
-
+	
 	// 落下
 	if(startFlag)acc.y = GRAVITY;
 	
@@ -238,10 +242,12 @@ void Player::StateControl()
 	// 状態によってそれぞれの効果を付与
 	if (state == State::none)
 	{
+	
 		stateAcc = 1.0f;
 	}
 	else if (state == State::speedDown)
 	{
+		p_audio->PlaySE("hitAB.wav");
 		// HPによって減速を変化
 		if (hitPoint == 2) {
 			stateAcc = 0.7f;
@@ -257,6 +263,7 @@ void Player::StateControl()
 	}
 	else if (state == State::speedUp)
 	{
+		p_audio->PlaySE("get.wav",0.02f);
 		stateAcc = 1.4f;
 	}
 	else

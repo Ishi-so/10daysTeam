@@ -48,11 +48,14 @@ void Play::Initialize()
 
 void Play::Update()
 {
+	if (p_player->GetDeathFlag()) {
+		appFlag = true;
+	}
 	p_player->Update();
-
+	
 	ShakeCamera();
 	p_camera->SetLookAtRange(shakePos.x, p_player->GetPosition().y + shakePos.y, 0);
-	p_camera->SetPosition(shakePos.x, p_player->GetPosition().y + shakePos.y, -40);
+	p_camera->SetPosition(shakePos.x, p_player->GetPosition().y + shakePos.y, zAxis);
 	p_camera->_Update();
 	ObjectManager::GetInstance()->Update();
 
@@ -60,11 +63,16 @@ void Play::Update()
 		p_game_scene->ChangeState(new End());
 	}
 
-	if (p_player->GetDeathFlag()) {
+	if (appFlag) { 
+		zAxis += 1.0f;
+		if (zAxis >= -20) {
+			shakePos = {};
+		}
+	}
+	if (zAxis >= 0) {
 		p_player->InitPlayerData();
 		p_game_scene->ChangeState(new Title());
 	}
-
 	timeF++;
 
 	if (timeF == 60) {

@@ -10,6 +10,12 @@ class Player; // 仮
 class PlayerEffectManager;
 class Sprite;
 
+namespace XIIlib 
+{
+	class Audio;
+}
+
+
 class GameScene {
 private:// 静的メンバ
 	static const int debugTextTexNumber = 0;
@@ -21,6 +27,7 @@ private:// メンバ
 	LightGroup* lightGroup = nullptr;
 	DebugCamera* d_camera = nullptr;
 	SceneState* state = nullptr;// Scene
+	XIIlib::Audio* m_audio = nullptr;
 	
 	// カメラ系
 	Math::Vector3 cameraPos;
