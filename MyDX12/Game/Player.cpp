@@ -27,7 +27,8 @@ Player* Player::Create(Math::Vector3 createPos)
 void Player::Initialize(Math::Vector3 createPos)
 {
 	// ---- 座標の設定 ----
-	position = createPos;
+	defaultPos = createPos; // 生成時の座標をデフォルトに設定
+	position = defaultPos;
 
 	// ---- オブジェクトの生成設定 ----
 	// プレイヤーオブジェクトモデル
@@ -74,19 +75,9 @@ void Player::Update()
 		}
 	}
 
-	// テスト用
-	//if (KeyInput::GetInstance()->Push(DIK_W)) // 右移動
-	//{
-	//	position.y += 0.5f;
-	//}
-	//else if (KeyInput::GetInstance()->Push(DIK_S)) // 左移動
-	//{
-	//	position.y -= 0.5f;
-	//}
-
 	// 落下
-	acc.y = GRAVITY;
-
+	if(startFlag)acc.y = GRAVITY;
+	
 	// 左右加速度制御(0.1f以内に調整)
 	if (abs(velocity.x) > 0.1f) // veloが0.1f以上になれば
 	{
@@ -106,7 +97,12 @@ void Player::Update()
 		velocity.y = MAX_GRAVITY;
 	}
 	
-	// ---- 座標の更新 ----
+	// ---- 座標と回転の更新 ----
+	const float MAX_ROT = 360.0f;
+	rotation.z += ADD_ROT_Z;
+	if (rotation.z >= MAX_ROT) {
+		rotation.z = rotation.z - MAX_ROT;
+	}
 	velocity += acc; 
 	position.y += velocity.y * stateAcc; // 加算されたveloと状態加速によって座標を更新
 	position.x += velocity.x;
@@ -134,17 +130,17 @@ void Player::Update()
 	
 	// ---- プレイヤー状態更新 ----
 	// 状態によって効果を付与
-	StateControl();
+	//StateControl();
 
 	// 体力が0未満になったら
 	if (hitPoint <= 0)
 	{
 		InitPlayerData();
-		object->color = { 1,0,1 };
 		deathFlag = true;
 	}
 
-	// ---- 最終的な座標を設定　----
+	// ---- 最終的な座標と回転を設定　----
+	object->rotation = rotation; // 回転を設定
 	object->position = position; // 改めて設定(当たった時に押し出す処理を考慮)
 
 	// 階層データの更新
@@ -163,8 +159,6 @@ void Player::Update()
 		invincible = false;
 		// カウントを0クリア
 		invincibleCnt = 0;
-		// playerの色を戻す
-		//object->color = { 1,1,1 };
 	}
 
 	// 無敵状態なら
@@ -204,16 +198,19 @@ void Player::HitUpdate(std::string& skillName)
 
 void Player::InitPlayerData()
 {
+	// 初期化
 	// 基本情報
 	state = State::none; // プレイヤーの状態
 	hitPoint = 3; // 体力(仮)
-	position = {}; // 座標
+	position = defaultPos; // 座標
 	velocity = {}; // 速度
 	acc = {}; // 加速度
-	prevPos = {}; // 1f前の座標
+	prevPos = defaultPos; // 1f前の座標
+	rotation = {}; // 回転
 	direction = {}; // 移動方向
 	deathFlag = false; // 死亡フラグ
 	stratumData = {0,0}; // 階層データ
+	startFlag = false;
 	goalFlag = false;
 
 	// プレイヤーの状態系
@@ -224,8 +221,8 @@ void Player::InitPlayerData()
 	// 当たり判定確認用
 	hitFlag = false; // 当たり判定フラグ
 
-	// playerを青色に設定
-	object->color = { 1,1,1 };
+	// object系
+	object->alpha = 1.0f;
 }
 
 void Player::SetCollsion()
@@ -244,6 +241,7 @@ void Player::StateControl()
 	}
 	else if (state == State::speedDown)
 	{
+		// HPによって減速を変化
 		if (hitPoint == 2) {
 			stateAcc = 0.7f;
 		}
@@ -258,7 +256,7 @@ void Player::StateControl()
 	}
 	else if (state == State::speedUp)
 	{
-		stateAcc = 1.5f;
+		stateAcc = 1.4f;
 	}
 	else
 	{
@@ -280,8 +278,6 @@ void Player::SetGameObjAbility(std::string& skillName)
 		hitFlag = true;
 		// プレイヤーにダメージ
 		hitPoint--;
-		// playerを青色に設定
-		//object->color = { 0,0,1 };
 		// 無敵付与
 		invincible = true;
 	}
