@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "../Tool/Messenger.h"
+#include "../Struct/Math/Vector3.h"
 
 class GameScene;
 class Player;
@@ -22,10 +23,13 @@ public: // 継承
 	virtual void DrawTexture(){}
 	virtual void BackTexture(){}
 
+protected: //　共通関数
+	void ShakeCamera(); // カメラシェイク
+
 public: // Setter関数
 	void SetGameScene(GameScene* p_game_scene) { this->p_game_scene = p_game_scene; }
 	void SetPlayer(Player* p_player) { this->p_player = p_player; }
-	void SetCamera(DebugCamera* p_camera) { this->p_camera = p_camera; }
+	void SetCamera(DebugCamera* p_camera) { this->p_camera = p_camera; };
 
 public: // Getter関数
 
@@ -35,4 +39,11 @@ protected: // 静的メンバ変数
 	static DebugCamera* p_camera;
 	static float score;
 	static float time;
+
+	const float SHAKE_RAND_MIN = -0.3f;
+	const float SHAKE_RAND_MAX = 0.3f;
+	const int SHAKE_MAX_TIME = 20.0f;
+	int shakeCnt = 0;
+	Math::Vector3 shakePos;
+	bool shakeFlag = false;
 };

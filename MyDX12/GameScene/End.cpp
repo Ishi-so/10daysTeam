@@ -7,6 +7,7 @@
 #include "../2D/Sprite.h"
 #include "../Game/Player.h"
 #include "../Game/ObjectManager.h"
+#include "../Camera/DebugCamera.h"
 #include "../Tool/DigitalNumberText.h"
 
 using namespace XIIlib;
@@ -61,6 +62,10 @@ void End::Initialize()
 
 void End::Update()
 {
+	p_camera->SetLookAtRange(shakePos.x, p_player->GetPosition().y + shakePos.y, 0);
+	p_camera->SetPosition(shakePos.x, p_player->GetPosition().y + shakePos.y, -40);
+	p_camera->_Update();
+
 	if (resultPos.y < resultLastY) { // リザルトが最終座標に到達していない時
 		resultPos.y += 5.0f; // リザルトを下に移動
 		result->SetPosition(resultPos);

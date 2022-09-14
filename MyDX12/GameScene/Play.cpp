@@ -8,6 +8,7 @@
 #include "../Game/ObjectManager.h"
 #include "../2D/Sprite.h"
 #include "../Tool/DigitalNumberText.h"
+#include "../Camera/DebugCamera.h"
 
 using namespace XIIlib;
 
@@ -39,6 +40,11 @@ void Play::Initialize()
 void Play::Update()
 {
 	p_player->Update();
+
+	ShakeCamera();
+	p_camera->SetLookAtRange(shakePos.x, p_player->GetPosition().y + shakePos.y, 0);
+	p_camera->SetPosition(shakePos.x, p_player->GetPosition().y + shakePos.y, -40);
+	p_camera->_Update();
 	ObjectManager::GetInstance()->Update();
 	if (KeyInput::GetInstance()->Trigger(DIK_R)) {
 		Messenger::GetInstance()->AddPrintOut("R");

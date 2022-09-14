@@ -136,7 +136,7 @@ void Player::Update()
 	// ‘Ì—Í‚ª0–¢–ž‚É‚È‚Á‚½‚ç
 	if (hitPoint <= 0)
 	{
-		InitPlayerData();
+		//InitPlayerData();
 		deathFlag = true;
 	}
 
