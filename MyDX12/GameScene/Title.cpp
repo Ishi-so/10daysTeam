@@ -5,7 +5,6 @@
 #include "Play.h"
 #include "../Input/KeyInput.h"
 #include "../3D/Object3D.h"
-#include "../Game/ModelLoader.h"
 #include "../Game/Common.h"
 #include "../2D/Sprite.h"
 #include "../Struct/Math/Vector2.h"

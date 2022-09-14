@@ -13,11 +13,10 @@ void ModelLoader::Initialize()
 }
 
 void ModelLoader::Load(){
-	SetModel(MODEL_BLOCK, "box_v000");
+	SetModel(MODEL_BLOCK, "block");
 	SetModel(MODEL_ITEM, "box_v000");
 	SetModel(MODEL_PLAYER, "rice_ball");
-	SetModel(MODEL_BG, "bg");
-	SetModel(MODEL_LONGBOX, "LongBox");
+	SetModel(MODEL_GOAL, "box_v000");
 }
 
 Model* ModelLoader::GetModel(const ModelNum& modelNum) const
