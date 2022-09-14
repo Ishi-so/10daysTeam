@@ -33,6 +33,9 @@ private:// メンバ
 	PlayerEffectManager* playerEffects = nullptr;
 	int playerDistTimer;
 	std::vector<Sprite*>bgArray;
+	Sprite* frontTex = nullptr;
+	float frontAlpha = 0.0f;
+	bool onOffFlagFront = false;
 
 public:
 	static GameScene* Create();
@@ -47,4 +50,7 @@ public:
 	void Draw();// 描画
 
 	void ChangeState(SceneState* different_state);// シーンの切り替え
+
+	// オンオフ
+	bool FadeInOut(bool flag);
 };

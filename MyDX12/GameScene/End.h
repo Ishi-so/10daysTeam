@@ -52,4 +52,5 @@ private:// 変数
 	const float resultTime = time;
 
 	Sprite* timeTex = nullptr;
+	bool setBackFlag = false;
 };

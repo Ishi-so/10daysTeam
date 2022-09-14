@@ -46,6 +46,8 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
+	delete frontTex;
+
 	for (auto& x : bgArray) {
 		delete x;
 		x = nullptr;
@@ -158,7 +160,7 @@ bool GameScene::Initialize()
 			}
 			else if (mapData[i][j] == 4) // –¢’è
 			{
-				
+
 			}
 			else if (mapData[i][j] == 5) // GoalBlock
 			{
@@ -205,6 +207,9 @@ bool GameScene::Initialize()
 		bgArray[i]->SetSize({ d_texSizeX * 8.0f,d_texSizeY * 4.0f });
 		bgArray[i]->SetPosition({ 0,distTex * i });
 	}
+	frontTex = Sprite::Create(4, { 0, 0 }, {0,0,0,0});
+	frontTex->SetSize({1280.0f,720.0f});
+	frontAlpha = 0.0f;
 	return true;
 }
 
@@ -231,6 +236,7 @@ void GameScene::Update()
 
 	//m_player->Update(); // SceneState”h¶‚ÌƒNƒ‰ƒX‚Å‚â‚é(¡‚Í‰¼’u‚«)
 	//playerEffects->Add(m_player->GetDirection().normalize(), m_player->GetPosition());
+	frontTex->SetColor(0,0,0,frontAlpha);
 	playerDistTimer++;
 
 	playerEffects->Update();
@@ -271,7 +277,7 @@ void GameScene::Draw()
 	XIIlib::Messenger::GetInstance()->DrawMessage();
 	DebugJISText::GetInstance()->DrawAll();
 	DigitalNumberText::GetInstance()->DrawAll();
-
+	frontTex->Draw();
 	Sprite::PostDraw();
 }
 
@@ -283,3 +289,19 @@ void GameScene::ChangeState(SceneState* different_state)
 	state->Initialize();
 }
 
+bool GameScene::FadeInOut(bool flag) {
+	if (flag) {
+		frontAlpha += 0.01f;
+		if (frontAlpha >= 1.0f) {
+			frontAlpha = 1.0f;
+			return true;
+		}
+	}
+	else {
+		frontAlpha -= 0.01f;
+		if (frontAlpha <= 0.0f) {
+			frontAlpha = 0.0f;
+			return true;
+		}
+	}
+}
