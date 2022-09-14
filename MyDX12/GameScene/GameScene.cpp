@@ -113,6 +113,8 @@ bool GameScene::Initialize()
 	Sprite::LoadTexture(texind, L"Resources/bgTex1_8.png");                     texind++;//17
 	Sprite::LoadTexture(texind, L"Resources/life.png");                         texind++;//18
 	Sprite::LoadTexture(texind, L"Resources/time.png");                         texind++;//19
+	Sprite::LoadTexture(texind, L"Resources/leftButton.png");                   texind++;//20
+	Sprite::LoadTexture(texind, L"Resources/RightButton.png");                  texind++;//21
 
 	DebugJISText::GetInstance()->Initialize(debugJISTextTexNumber);
 

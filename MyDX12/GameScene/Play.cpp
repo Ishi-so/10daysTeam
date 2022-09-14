@@ -23,13 +23,21 @@ Play::~Play()
 	for (auto& x : life) {
 		delete x;
 	}
+	delete operationR;
+	delete operationL;
 }
 
 void Play::Initialize()
 {
 	//Messenger::GetInstance()->AddPrintOut("プレイシーンです！");
-	operation = Sprite::Create(16, { 200, 720 / 2 });
-	operation->SetAnchorPoint(center);
+	const float texSizeX = 1280.0f * 0.25f;
+	operationL = Sprite::Create(20, { texSizeX, 720 * 0.8f });
+	operationL->SetAnchorPoint(center);
+	//operationL->SetSize({ 128.0f,64.0f * 5.0f });
+
+	operationR = Sprite::Create(21, { 1280.0f - texSizeX, 720 * 0.8f });
+	operationR->SetAnchorPoint(center);
+	//operationR->SetSize({ 128.0f * 5.0f ,64.0f * 5.0f });
 
 	for (int i = 0; i < _countof(life); i++) {
 		life[i] = Sprite::Create(18, { (float)0 + 130 * i, 0 });
@@ -77,7 +85,8 @@ void Play::Draw()
 
 void Play::DrawTexture()
 {
-	operation->Draw();
+	operationL->Draw();
+	operationR->Draw();
 
 	for (int i = 0; i < _countof(life); i++) {
 		if (i + 1 <= p_player->GetHitPoint()) {
