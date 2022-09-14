@@ -12,8 +12,6 @@
 
 using namespace XIIlib;
 
-const float End::resultScore = score;
-
 End::End()
 {
 }
@@ -84,13 +82,6 @@ void End::Update()
 
 		XIIlib::KeyInput* input = XIIlib::KeyInput::GetInstance();
 
-		if (input->Trigger(DIK_LEFT) || input->Trigger(DIK_A)) {
-			pushLeftFlag = true;
-		}
-		else if (input->Trigger(DIK_RIGHT) || input->Trigger(DIK_D)) {
-			pushLeftFlag = false;
-		}
-
 		if (input->Trigger(DIK_SPACE)) {
 			setBackFlag = true;
 		}
@@ -103,9 +94,7 @@ void End::Update()
 		}
 		else {
 			medalColor = MedalColor::BRONZE; // 銅色に
-		}
-
-		
+		}		
 	}
 	else {
 		if (p_game_scene->FadeInOut(true)) {
