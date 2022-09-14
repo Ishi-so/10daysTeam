@@ -45,7 +45,7 @@ private:// 変数
 
 	MedalColor medalColor = MedalColor::GOLD; // メダルの色
 	const int goldTime = 20;
-	const int silverTime = 30;
+	const int silverTime = 23;
 
 	const float resultTime = time;
 
