@@ -179,9 +179,6 @@ void Player::Draw()
 
 void Player::HitUpdate(std::string& skillName)
 {
-	// ヒットフラグを立てる
-	hitFlag = true;
-
 	// ゴールブロックと当たったらフラグを変えてリターン
 	if (skillName == "Goal") { 
 		goalFlag = true; 
@@ -190,12 +187,6 @@ void Player::HitUpdate(std::string& skillName)
 
 	// 無敵状態であれば即リターン
 	if (invincible)return;
-	// プレイヤーにダメージ
-	hitPoint--;
-	// playerを青色に設定
-	object->color = { 0,0,1 };
-	// 無敵付与
-	invincible = true;
 	// 状態によって効果を付与
 	SetGameObjAbility(skillName);
 	StateControl();
@@ -222,6 +213,9 @@ void Player::InitPlayerData()
 
 	// 当たり判定確認用
 	hitFlag = false; // 当たり判定フラグ
+
+	// playerを青色に設定
+	object->color = { 1,1,1 };
 }
 
 void Player::SetCollsion()
@@ -269,8 +263,16 @@ void Player::SetGameObjAbility(std::string& skillName)
 	{
 		state = State::speedUp;
 	}
-	else if (skillName == "speeddown")
+	else if (skillName == "speeddown") // block
 	{
 		state = State::speedDown;
+		// ヒットフラグを立てる
+		hitFlag = true;
+		// プレイヤーにダメージ
+		hitPoint--;
+		// playerを青色に設定
+		object->color = { 0,0,1 };
+		// 無敵付与
+		invincible = true;
 	}
 }
