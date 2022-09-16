@@ -6,7 +6,7 @@ namespace XIIlib {
 	class Audio {
 	private:
 		// SE‚Ì‰¹—Ê
-		float se_volume = 0.04f;
+		float se_volume = 0.1f;
 		// BGM‚Ì‰¹—Ê
 		float bgm_volume = 0.04f;
 
@@ -18,7 +18,7 @@ namespace XIIlib {
 		Audio();
 		~Audio();
 
-		void PlaySE(std::string wav);
+		void PlaySE(std::string wav,float volume = 0.1f);
 		void PlayBGM(std::string wav);
 
 		void StopBGM();

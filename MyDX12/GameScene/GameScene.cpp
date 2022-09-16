@@ -7,6 +7,7 @@
 #include "../Input/KeyInput.h"
 #include "../Tool/DebugJISText.h"
 #include "../Game/ObjectManager.h"
+#include "../Audio/Audio.h"
 
 // Game系
 #include "Title.h"
@@ -19,6 +20,8 @@
 #include "../Game/Common.h"
 #include "../Tool/DigitalNumberText.h"
 #include "../Game/PlayerEffectManager.h"
+
+
 
 GameScene* GameScene::Create()
 {
@@ -55,6 +58,9 @@ GameScene::~GameScene()
 	delete playerEffects;
 	playerEffects = nullptr;
 	delete m_player;
+
+	delete m_audio;
+	m_audio = nullptr;
 	delete state;
 	state = nullptr;
 	delete lightGroup;
@@ -72,6 +78,9 @@ bool GameScene::Initialize()
 	d_camera->_Initialize(100.0f, 0.05f, 10.0f);
 	d_camera->SetLookAtRange(0, 1, 0);
 	const float Z_AXIS = -40; // 奥行を設定
+
+	m_audio = new XIIlib::Audio();
+	//m_audio->PlaySE("hitAB.wav");
 
 	// ライト生成
 	lightGroup = LightGroup::Create();
@@ -181,6 +190,9 @@ bool GameScene::Initialize()
 		}
 	}
 
+	// Audioを設定
+	m_player->SetAudio(m_audio);
+
 	// カメラの更新(1f目おかしくなるため)
 	Math::Vector3 playerPos = m_player->GetPosition();
 	d_camera->SetPosition(playerPos.x, playerPos.y, Z_AXIS);
@@ -190,6 +202,7 @@ bool GameScene::Initialize()
 	state->SetGameScene(this);
 	state->SetPlayer(m_player);
 	state->SetCamera(d_camera);
+	state->SetAudio(m_audio);
 	state->Initialize();
 
 	// マネージャーの初期化

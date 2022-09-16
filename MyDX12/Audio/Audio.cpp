@@ -17,16 +17,16 @@ XIIlib::Audio::~Audio()
 	delete se;
 }
 
-void XIIlib::Audio::PlaySE(std::string wav)
+void XIIlib::Audio::PlaySE(std::string wav,float volume)
 {
-	std::string result = "Resources/SE/" + wav;
+	std::string result = "Resources/Audio/" + wav;
 	se->LoadWavFile(result.c_str());
-	se->PlayWave(0, se_volume);
+	se->PlayWave(0, volume);
 }
 
 void XIIlib::Audio::PlayBGM(std::string wav)
 {
-	std::string result = "Resources/BGM/" + wav;
+	std::string result = "Resources/Audio/" + wav;
 	bgm->LoadWavFile(result.c_str());
 	bgm->PlayWave(255, bgm_volume);
 }

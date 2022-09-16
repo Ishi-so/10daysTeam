@@ -11,6 +11,7 @@
 #include "../Game/ObjectManager.h"
 #include "../Game/Player.h"
 #include "../Camera/DebugCamera.h"
+#include "../Audio/Audio.h"
 
 using namespace XIIlib;
 
@@ -39,18 +40,26 @@ void Title::Initialize()
 
 void Title::Update()
 {
+	if (zAxis > -40)
+	{
+		zAxis += -0.5f;
+	}
 	p_player->Update();
 	ObjectManager::GetInstance()->Update();
 	p_camera->SetLookAtRange(shakePos.x, p_player->GetPosition().y + shakePos.y, 0);
-	p_camera->SetPosition(shakePos.x, p_player->GetPosition().y + shakePos.y, -40);
+	p_camera->SetPosition(shakePos.x, p_player->GetPosition().y + shakePos.y, zAxis);
 	p_camera->_Update();
-	if (setOffFlag) {
+	if (setOffFlag ) {
 		
-		// 押したら切り替え
-		if (KeyInput::GetInstance()->Trigger(DIK_SPACE)) {
-			p_player->SetStart();
-			p_game_scene->ChangeState(new Play());
+		if (zAxis <= -40) {
+			// 押したら切り替え
+			if (KeyInput::GetInstance()->Trigger(DIK_SPACE)) {
+				p_audio->PlaySE("switch.wav",0.2f);
+				p_player->SetStart();
+				p_game_scene->ChangeState(new Play());
+			}
 		}
+		
 	}
 	else
 	{
